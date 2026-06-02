@@ -78,7 +78,7 @@ export function RegistrarProyectoDialog({
   }, {})
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-200/60 backdrop-blur-sm">
       <div className="w-full max-w-lg rounded-lg bg-background p-6 shadow-xl max-h-[90vh] overflow-y-auto">
         <h2 className="text-lg font-semibold mb-4">Registrar proyecto especial</h2>
 
@@ -190,7 +190,7 @@ export function RegistrarProyectoDialog({
 
           {/* Aviso DNP */}
           {requiereDnp && (
-            <div className="rounded-md border border-amber-200 bg-amber-50 dark:bg-amber-950/20 dark:border-amber-800 px-3 py-2 text-xs text-amber-800 dark:text-amber-300">
+            <div className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800">
               ⚠ Este tipo requiere inscripción previa en el DNP antes de registrar el proyecto.
             </div>
           )}

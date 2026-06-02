@@ -13,10 +13,10 @@ export const ESTADO_CIERRE_LABEL: Record<string, string> = {
 }
 
 export const ESTADO_CIERRE_COLOR: Record<string, string> = {
-  BORRADOR: 'bg-gray-100 text-gray-700',
-  EN_REVISION: 'bg-yellow-100 text-yellow-700',
-  APROBADO: 'bg-blue-100 text-blue-700',
-  CERRADO: 'bg-green-100 text-green-700',
+  BORRADOR: 'bg-slate-100 text-slate-800',
+  EN_REVISION: 'bg-amber-100 text-amber-800',
+  APROBADO: 'bg-blue-100 text-blue-800',
+  CERRADO: 'bg-emerald-100 text-emerald-800',
 }
 
 export const ESTADO_RECURSO_LABEL: Record<string, string> = {
@@ -27,16 +27,16 @@ export const ESTADO_RECURSO_LABEL: Record<string, string> = {
 }
 
 export const ESTADO_RECURSO_COLOR: Record<string, string> = {
-  IDENTIFICADO: 'bg-gray-100 text-gray-700',
-  VALIDADO: 'bg-blue-100 text-blue-700',
-  INCORPORADO: 'bg-green-100 text-green-700',
-  EJECUTADO: 'bg-purple-100 text-purple-700',
+  IDENTIFICADO: 'bg-slate-100 text-slate-800',
+  VALIDADO: 'bg-blue-100 text-blue-800',
+  INCORPORADO: 'bg-emerald-100 text-emerald-800',
+  EJECUTADO: 'bg-violet-100 text-violet-800',
 }
 
 export const ESTADO_CONCILIACION_COLOR: Record<string, string> = {
-  PENDIENTE: 'bg-yellow-100 text-yellow-700',
-  CONCILIADO: 'bg-green-100 text-green-700',
-  CON_DIFERENCIA: 'bg-red-100 text-red-700',
+  PENDIENTE: 'bg-amber-100 text-amber-800',
+  CONCILIADO: 'bg-emerald-100 text-emerald-800',
+  CON_DIFERENCIA: 'bg-red-100 text-red-800',
 }
 
 export const TIPOS_ENTIDAD = ['NACION', 'DEPARTAMENTO', 'MUNICIPIO', 'PRIVADO', 'OTRO'] as const

@@ -21,7 +21,7 @@ export function RecursosBalancePage() {
     <div className="space-y-4">
       <PageHeader title="Recursos de Balance" description="Gestion de excedentes financieros del cierre anterior"
         actions={<div className="flex items-center gap-2">
-          <label className="text-sm text-gray-600">Vigencia</label>
+          <label className="text-sm font-medium text-[#42556c]">Vigencia</label>
           <input
             type="number"
             value={vigencia}
@@ -35,14 +35,14 @@ export function RecursosBalancePage() {
         </div>}
       />
 
-      {isLoading && <p className="text-sm text-gray-500">Cargando recursos...</p>}
+      {isLoading && <p className="text-sm text-muted-foreground">Cargando recursos...</p>}
 
-      <div className="overflow-x-auto rounded-lg border border-gray-200">
+      <div className="overflow-x-auto rounded-[18px] border border-[#dbe3ed] bg-white shadow-sm">
         <table className="min-w-full divide-y divide-gray-200 text-sm">
-          <thead className="bg-gray-50">
+          <thead className="bg-[#f8fbfe]">
             <tr>
               {['Tipo', 'Rubro origen', 'Valor identificado', 'Disponible', 'Incorporado', 'Estado', 'Acciones'].map(h => (
-                <th key={h} className="px-4 py-3 text-left font-medium text-gray-600">{h}</th>
+                <th key={h} className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.08em] text-[#4b5c70]">{h}</th>
               ))}
             </tr>
           </thead>
@@ -52,7 +52,7 @@ export function RecursosBalancePage() {
             ))}
             {!isLoading && recursos.length === 0 && (
               <tr>
-                <td colSpan={7} className="px-4 py-8 text-center text-gray-400">
+                <td colSpan={7} className="px-4 py-8 text-center text-[#66768a]">
                   No hay recursos de balance para la vigencia {vigencia}.
                 </td>
               </tr>
@@ -83,9 +83,9 @@ function RecursoRow({ recurso: r, onIncorporar }: { recurso: RecursoBalance; onI
   const { mutate: validar, isPending: validando } = useValidarRecurso(r.id)
 
   return (
-    <tr className="hover:bg-gray-50">
+    <tr className="hover:bg-[#f8fbfe]">
       <td className="px-4 py-3">{r.tipo.replace(/_/g, ' ')}</td>
-      <td className="px-4 py-3 text-xs text-gray-500 max-w-[180px] truncate" title={r.rubroOrigenDescripcion ?? ''}>
+      <td className="max-w-[180px] truncate px-4 py-3 text-xs text-[#66768a]" title={r.rubroOrigenDescripcion ?? ''}>
         {r.rubroOrigenDescripcion ?? '—'}
       </td>
       <td className="px-4 py-3 font-mono">{formatCOP(r.valorIdentificado)}</td>

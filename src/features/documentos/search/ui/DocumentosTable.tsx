@@ -29,7 +29,7 @@ function AccionBtn({
         "rounded p-1.5 transition-colors",
         danger
           ? "text-neutral-400 hover:text-destructive hover:bg-destructive/10"
-          : "text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800",
+          : "text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100",
       ].join(" ")}
     >
       {icon}

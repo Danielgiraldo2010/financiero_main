@@ -19,11 +19,13 @@ import {
   ShieldCheck,
   ClipboardList,
 } from 'lucide-react'
+import { useNavigate } from '@tanstack/react-router'
 import { NavigationMenu } from '@/shared/ui/navigation/NavigationMenuImpl'
 import type { NavItem } from '@/shared/ui/navigation/NavigationMenuImpl'
 import { ROLES } from '@/shared/lib/constants'
 import { useUIStore } from '@/shared/state/ui.store'
 import { useAuthStore } from '@/shared/state/auth.store'
+import { BrandMark } from '@/shared/ui/branding/BrandMark'
 import { cn } from '@/shared/lib/cn'
 
 const SIDEBAR_ITEMS: NavItem[] = [
@@ -54,31 +56,41 @@ const ADMIN_ITEMS: NavItem[] = [
 export function Sidebar() {
   const sidebarOpen = useUIStore((s) => s.sidebarOpen)
   const roles = useAuthStore((s) => s.roles)
+  const navigate = useNavigate()
 
   const isAdmin = roles.includes(ROLES.SUPERADMIN) || roles.includes(ROLES.ADMIN_CENTRAL)
 
   return (
     <aside
       className={cn(
-        'flex flex-col border-r bg-background transition-all duration-200',
+        'flex flex-col border-r border-[#d1d5db] bg-white text-[#1f2937] shadow-[10px_0_40px_rgba(0,75,130,0.08)] transition-all duration-300',
         sidebarOpen ? 'w-60' : 'w-0 overflow-hidden',
       )}
     >
       {/* Logo */}
-      <div className="flex h-14 items-center border-b px-4">
-        <span className="truncate text-sm font-semibold tracking-tight">
-          SistemaFinanciero
-        </span>
+      <div className="flex h-16 items-center justify-between border-b border-[#d5bb87]/35 bg-[linear-gradient(90deg,rgba(213,187,135,0.12),rgba(255,255,255,1))] px-3">
+        <button
+          type="button"
+          onClick={() => navigate({ to: '/dashboard' })}
+          className="w-full rounded-[14px] px-2 py-1 text-left transition-colors hover:bg-[#edf4fb]"
+          aria-label="Sistema Financiero"
+        >
+          <BrandMark
+            size="sm"
+            showText={sidebarOpen}
+            className={cn(!sidebarOpen && 'justify-center')}
+          />
+        </button>
       </div>
 
       {/* Nav principal */}
-      <div className="flex-1 overflow-y-auto p-2">
+      <div className="flex-1 overflow-y-auto px-2 py-3">
         <NavigationMenu items={SIDEBAR_ITEMS} />
 
         {/* Sección Administración — solo visible para SUPERADMIN y ADMIN_CENTRAL */}
         {isAdmin && (
-          <div className="mt-4">
-            <p className="mb-1 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground/60">
+          <div className="mt-4 rounded-[16px] border border-[#d5bb87]/45 bg-[#fff8e6]/55 px-2 py-3 shadow-[0_10px_24px_rgba(0,75,130,0.05)]">
+            <p className="mb-2 px-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#6f4d12]">
               Administración
             </p>
             <NavigationMenu items={ADMIN_ITEMS} />

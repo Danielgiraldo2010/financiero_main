@@ -77,18 +77,18 @@ export function LineasGastoTable({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="h-4 w-1 rounded-full bg-rose-500" />
-          <h3 className="text-sm font-semibold text-rose-700 dark:text-rose-400">
+          <h3 className="text-sm font-semibold text-rose-700">
             Líneas de Gasto
           </h3>
           {lineas.length > 0 && (
-            <span className="rounded-full bg-rose-100 dark:bg-rose-900/50 px-2 py-0.5 text-xs text-rose-700 dark:text-rose-300">
+            <span className="rounded-full bg-rose-100 px-2 py-0.5 text-xs text-rose-700">
               {lineas.length}
             </span>
           )}
         </div>
         {editable && (
           <Button size="sm" variant="outline"
-            className="border-rose-200 text-rose-700 hover:bg-rose-50 dark:border-rose-800 dark:text-rose-400 dark:hover:bg-rose-950/30"
+            className="border-rose-200 text-rose-700 hover:bg-rose-50"
             onClick={() => setFormOpen((v) => !v)}>
             <PlusCircle className="mr-1.5 h-3.5 w-3.5" />
             Agregar línea
@@ -100,8 +100,8 @@ export function LineasGastoTable({
       {editable && (
         <Collapsible open={formOpen} onOpenChange={setFormOpen}>
           <CollapsibleContent>
-            <div className="rounded-lg border border-rose-200 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-950/10 p-4 space-y-3">
-              <p className="text-xs font-medium text-rose-700 dark:text-rose-400">Nueva línea de gasto</p>
+            <div className="rounded-lg border border-rose-200 bg-rose-50/50 p-4 space-y-3">
+              <p className="text-xs font-medium text-rose-700">Nueva línea de gasto</p>
               {agregar.error && <p className="text-sm text-destructive">{agregar.error.message}</p>}
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 <div className="space-y-1">
@@ -168,15 +168,15 @@ export function LineasGastoTable({
       )}
 
       {/* Tabla */}
-      <div className="rounded-lg border border-rose-100 dark:border-rose-900/50 overflow-hidden">
+      <div className="rounded-lg border border-rose-100 overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow className="bg-rose-50/80 dark:bg-rose-950/20 hover:bg-rose-50/80">
-              <TableHead className="text-xs text-rose-800 dark:text-rose-300 font-semibold">Rubro</TableHead>
-              <TableHead className="text-xs text-rose-800 dark:text-rose-300 font-semibold">Fuente</TableHead>
-              <TableHead className="text-xs text-rose-800 dark:text-rose-300 font-semibold">Tipo</TableHead>
-              <TableHead className="text-xs text-rose-800 dark:text-rose-300 font-semibold text-right">Valor proyectado</TableHead>
-              <TableHead className="text-xs text-rose-800 dark:text-rose-300 font-semibold text-right">Ejecutado</TableHead>
+            <TableRow className="bg-rose-50/80 hover:bg-rose-50/80">
+              <TableHead className="text-xs text-rose-800 font-semibold">Rubro</TableHead>
+              <TableHead className="text-xs text-rose-800 font-semibold">Fuente</TableHead>
+              <TableHead className="text-xs text-rose-800 font-semibold">Tipo</TableHead>
+              <TableHead className="text-xs text-rose-800 font-semibold text-right">Valor proyectado</TableHead>
+              <TableHead className="text-xs text-rose-800 font-semibold text-right">Ejecutado</TableHead>
               {editable && <TableHead className="w-16" />}
             </TableRow>
           </TableHeader>
@@ -190,13 +190,13 @@ export function LineasGastoTable({
             ) : lineas.map((l, idx) => (
               <TableRow key={l.id}
                 className={idx % 2 === 0
-                  ? "bg-white dark:bg-transparent"
-                  : "bg-rose-50/30 dark:bg-rose-950/10"
+                  ? "bg-white"
+                  : "bg-rose-50/30"
                 }>
                 <TableCell className="text-xs font-medium">{l.rubroGasto}</TableCell>
                 <TableCell className="text-xs text-muted-foreground">{l.fuenteRecurso}</TableCell>
                 <TableCell className="text-xs text-muted-foreground">{l.tipoGasto}</TableCell>
-                <TableCell className="text-xs text-right tabular-nums font-medium text-rose-700 dark:text-rose-400">
+                <TableCell className="text-xs text-right tabular-nums font-medium text-rose-700">
                   {formatCOP(l.valorProyectado)}
                 </TableCell>
                 <TableCell className="text-xs text-right tabular-nums text-muted-foreground">
@@ -206,7 +206,7 @@ export function LineasGastoTable({
                   <TableCell>
                     <div className="flex items-center justify-end gap-1">
                       <button type="button" onClick={() => setEditingId(l.id)}
-                        className="rounded p-1 text-muted-foreground hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors"
+                        className="rounded p-1 text-muted-foreground hover:text-rose-700 hover:bg-rose-50 transition-colors"
                         title="Editar">
                         <Pencil className="h-3.5 w-3.5" />
                       </button>
@@ -221,9 +221,9 @@ export function LineasGastoTable({
               </TableRow>
             ))}
             {lineas.length > 0 && (
-              <TableRow className="bg-rose-50 dark:bg-rose-950/30 font-semibold border-t-2 border-rose-200 dark:border-rose-800">
+              <TableRow className="bg-rose-50 font-semibold border-t-2 border-rose-200">
                 <TableCell colSpan={3} className="text-xs">Total gastos</TableCell>
-                <TableCell className="text-xs text-right tabular-nums text-rose-700 dark:text-rose-400">
+                <TableCell className="text-xs text-right tabular-nums text-rose-700">
                   {formatCOP(total)}
                 </TableCell>
                 <TableCell />

@@ -13,17 +13,17 @@ function BalanceLayout() {
 
   return (
     <div className="flex flex-col min-h-0">
-      <div className="border-b bg-background px-6 overflow-x-auto">
-        <nav className="flex gap-1 -mb-px min-w-max">
+      <div className="sf-tabs-shell px-6">
+        <nav className="sf-tabs-nav">
           {TABS.map((tab) => (
             <Link
               key={tab.to}
               to={tab.to}
               className={[
-                'px-4 py-3 text-sm font-medium border-b-2 transition-colors whitespace-nowrap',
+                'sf-tab',
                 pathname.startsWith(tab.to)
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-muted-foreground hover:border-muted-foreground hover:text-foreground',
+                  ? 'sf-tab-active'
+                  : '',
               ].join(' ')}
             >
               {tab.label}

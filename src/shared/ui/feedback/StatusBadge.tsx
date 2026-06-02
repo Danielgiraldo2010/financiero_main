@@ -10,15 +10,15 @@ interface StatusBadgeProps {
 
 const variantStyles: Record<BadgeVariant, string> = {
   success:
-    "bg-emerald-50 text-emerald-700 ring-emerald-600/20 dark:bg-emerald-500/10 dark:text-emerald-400",
+    "bg-emerald-50 text-emerald-800 ring-emerald-700/20",
   warning:
-    "bg-amber-50 text-amber-700 ring-amber-600/20 dark:bg-amber-500/10 dark:text-amber-400",
+    "bg-amber-50 text-amber-800 ring-amber-700/20",
   error:
-    "bg-red-50 text-red-700 ring-red-600/20 dark:bg-red-500/10 dark:text-red-400",
+    "bg-red-50 text-red-800 ring-red-700/20",
   info:
-    "bg-blue-50 text-blue-700 ring-blue-600/20 dark:bg-blue-500/10 dark:text-blue-400",
+    "bg-blue-50 text-blue-800 ring-blue-700/20",
   default:
-    "bg-gray-50 text-gray-700 ring-gray-600/20 dark:bg-gray-500/10 dark:text-gray-400",
+    "bg-slate-50 text-slate-800 ring-slate-700/15",
 }
 
 export function StatusBadge({
@@ -29,7 +29,7 @@ export function StatusBadge({
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ring-1 ring-inset",
+        "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ring-1 ring-inset",
         variantStyles[variant],
         className
       )}

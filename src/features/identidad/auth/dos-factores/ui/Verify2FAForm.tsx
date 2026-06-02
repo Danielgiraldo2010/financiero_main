@@ -3,6 +3,8 @@
 import React from 'react'
 import { useLogin } from '../../login/hook'
 import { LoadingSpinner } from '@/shared/ui/feedback/LoadingSpinner'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import type { LoginCredentials } from '../../../model/types'
 
 interface Props { pendingCredentials: LoginCredentials }
@@ -20,12 +22,12 @@ export function Verify2FAForm({ pendingCredentials }: Props) {
 
   return (
     <div className="space-y-4">
-      {error && <p className="text-sm text-destructive">{error.message}</p>}
+      {error && <p className="text-sm text-[#d92d20]">{error.message}</p>}
       <div className="space-y-2">
-        <label htmlFor="totp" className="block text-sm font-medium">
-          Codigo de verificacion
-        </label>
-        <input
+        <Label htmlFor="totp" className="block text-sm font-semibold text-[#304155]">
+          Código de verificación
+        </Label>
+        <Input
           id="totp"
           type="text"
           inputMode="numeric"
@@ -34,13 +36,11 @@ export function Verify2FAForm({ pendingCredentials }: Props) {
           autoComplete="one-time-code"
           disabled={isPending}
           onChange={handleChange}
-          className="w-full rounded-md border border-input bg-background px-3 py-2
-            text-center font-mono text-2xl tracking-[0.5em] focus:outline-none
-            focus:ring-2 focus:ring-ring disabled:opacity-50"
+          className="h-14 text-center font-mono text-2xl tracking-[0.5em] placeholder:tracking-[0.2em]"
           placeholder="______"
         />
-        <p className="text-center text-xs text-muted-foreground">
-          Ingresa el codigo de 6 digitos de tu app
+        <p className="text-center text-xs text-[#607085]">
+          Ingresa el código de 6 dígitos de tu app
         </p>
       </div>
       {isPending && <div className="flex justify-center"><LoadingSpinner /></div>}

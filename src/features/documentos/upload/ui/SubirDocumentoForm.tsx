@@ -72,7 +72,7 @@ export default function SubirDocumentoForm({
         onDrop={handleDrop}
         onDragOver={(e) => e.preventDefault()}
         onClick={() => inputRef.current?.click()}
-        className="border-2 border-dashed border-neutral-300 dark:border-neutral-600 rounded-lg p-6 text-center cursor-pointer hover:border-primary transition-colors"
+        className="border-2 border-dashed border-neutral-300 rounded-lg p-6 text-center cursor-pointer hover:border-primary transition-colors"
       >
         <input
           ref={inputRef}
@@ -85,7 +85,7 @@ export default function SubirDocumentoForm({
           <div className="flex items-center justify-center gap-3 text-sm">
             <FileText className="size-5 text-primary" />
             <span className="font-medium">{preview.name}</span>
-            <span className="text-neutral-500">{formatBytes(preview.size)}</span>
+            <span className="text-[#5a6c82]">{formatBytes(preview.size)}</span>
             <button
               type="button"
               onClick={(e) => {
@@ -98,7 +98,7 @@ export default function SubirDocumentoForm({
             </button>
           </div>
         ) : (
-          <div className="flex flex-col items-center gap-2 text-neutral-500">
+          <div className="flex flex-col items-center gap-2 text-[#5a6c82]">
             <Upload className="size-8" />
             <p className="text-sm">
               Arrastra un archivo o{" "}

@@ -8,15 +8,15 @@ export function DiferenciasConciliacionTable() {
   const { data: diferencias = [], isLoading } = useDiferenciasConciliacion()
   const { mutate: conciliar, isPending } = useConciliarBalance()
 
-  if (isLoading) return <p className="text-sm text-gray-500">Cargando diferencias...</p>
+  if (isLoading) return <p className="text-sm text-muted-foreground">Cargando diferencias...</p>
 
   return (
-    <div className="overflow-x-auto rounded-lg border border-gray-200">
+    <div className="overflow-x-auto rounded-[18px] border border-[#dbe3ed] bg-white shadow-sm">
       <table className="min-w-full divide-y divide-gray-200 text-sm">
-        <thead className="bg-gray-50">
+        <thead className="bg-[#f8fbfe]">
           <tr>
             {['Recurso Balance', 'Fecha corte', 'Diferencia', 'Estado', 'Accion'].map(h => (
-              <th key={h} className="px-4 py-3 text-left font-medium text-gray-600">{h}</th>
+              <th key={h} className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.08em] text-[#4b5c70]">{h}</th>
             ))}
           </tr>
         </thead>
@@ -24,12 +24,12 @@ export function DiferenciasConciliacionTable() {
           {diferencias.map(d => {
             const excede = Math.abs(d.diferencia) > UMBRAL_DIFERENCIA_CONCILIACION
             return (
-              <tr key={d.id} className={excede ? 'bg-red-50' : 'hover:bg-gray-50'}>
+              <tr key={d.id} className={excede ? 'bg-red-50' : 'hover:bg-[#f8fbfe]'}>
                 <td className="px-4 py-3">{d.recursoBalanceId}</td>
                 <td className="px-4 py-3">{new Date(d.fechaCorte).toLocaleDateString('es-CO')}</td>
                 <td className={`px-4 py-3 font-mono font-medium ${excede ? 'text-red-700' : ''}`}>
                   {formatCOP(d.diferencia)}
-                  {excede && <span className="ml-1 text-xs text-red-500">sup. umbral</span>}
+                  {excede && <span className="ml-1 text-xs text-red-700">sup. umbral</span>}
                 </td>
                 <td className="px-4 py-3">
                   <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${ESTADO_CONCILIACION_COLOR[d.estado]}`}>
@@ -52,7 +52,7 @@ export function DiferenciasConciliacionTable() {
           })}
           {diferencias.length === 0 && (
             <tr>
-              <td colSpan={5} className="px-4 py-8 text-center text-gray-400">
+              <td colSpan={5} className="px-4 py-8 text-center text-[#66768a]">
                 No hay diferencias pendientes de conciliacion.
               </td>
             </tr>

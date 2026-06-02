@@ -64,19 +64,20 @@ export function PresupuestoProyectoTab({ proyecto, rubrosIngreso, rubrosGasto, f
       {/* ── Izquierda: subtabs + tablas ── */}
       <div className="space-y-0 min-w-0">
         {/* Subtabs con identidad de color */}
-        <div className="flex gap-0 border-b">
+        <div className="sf-tabs-shell">
+          <div className="sf-tabs-nav">
           {/* Ingresos — verde */}
           <button type="button" onClick={() => setSubTab("ingresos")}
             className={[
-              "flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium border-b-2 -mb-px transition-all",
+              "sf-tab flex items-center gap-1.5",
               subTab === "ingresos"
-                ? "border-emerald-500 text-emerald-700 dark:text-emerald-400 bg-emerald-50/70 dark:bg-emerald-950/20"
-                : "border-transparent text-muted-foreground hover:text-emerald-700 dark:hover:text-emerald-400",
+                ? "border-emerald-600 bg-emerald-50 text-emerald-800"
+                : "hover:text-emerald-800",
             ].join(" ")}>
             <TrendingUp className="h-3.5 w-3.5" />
             Ingresos
             {presupuesto.totalIngresosProy > 0 && (
-              <span className="rounded bg-emerald-100 dark:bg-emerald-900/50 px-1.5 py-0.5 text-xs tabular-nums text-emerald-700 dark:text-emerald-300">
+              <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-xs tabular-nums text-emerald-700">
                 {formatCOP(presupuesto.totalIngresosProy)}
               </span>
             )}
@@ -85,15 +86,15 @@ export function PresupuestoProyectoTab({ proyecto, rubrosIngreso, rubrosGasto, f
           {/* Gastos — rosa */}
           <button type="button" onClick={() => setSubTab("gastos")}
             className={[
-              "flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium border-b-2 -mb-px transition-all",
+              "sf-tab flex items-center gap-1.5",
               subTab === "gastos"
-                ? "border-rose-500 text-rose-700 dark:text-rose-400 bg-rose-50/70 dark:bg-rose-950/20"
-                : "border-transparent text-muted-foreground hover:text-rose-700 dark:hover:text-rose-400",
+                ? "border-rose-600 bg-rose-50 text-rose-800"
+                : "hover:text-rose-800",
             ].join(" ")}>
             <TrendingDown className="h-3.5 w-3.5" />
             Gastos
             {presupuesto.totalGastosProy > 0 && (
-              <span className="rounded bg-rose-100 dark:bg-rose-900/50 px-1.5 py-0.5 text-xs tabular-nums text-rose-700 dark:text-rose-300">
+              <span className="rounded bg-rose-100 px-1.5 py-0.5 text-xs tabular-nums text-rose-700">
                 {formatCOP(presupuesto.totalGastosProy)}
               </span>
             )}
@@ -102,14 +103,15 @@ export function PresupuestoProyectoTab({ proyecto, rubrosIngreso, rubrosGasto, f
           {/* Resumen */}
           <button type="button" onClick={() => setSubTab("resumen")}
             className={[
-              "flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium border-b-2 -mb-px transition-all",
+              "sf-tab flex items-center gap-1.5",
               subTab === "resumen"
-                ? "border-primary text-primary bg-primary/5"
-                : "border-transparent text-muted-foreground hover:text-foreground",
+                ? "sf-tab-active"
+                : "",
             ].join(" ")}>
             <ArrowRightLeft className="h-3.5 w-3.5" />
             Resumen
           </button>
+          </div>
         </div>
 
         {/* Contenido */}
@@ -133,33 +135,33 @@ export function PresupuestoProyectoTab({ proyecto, rubrosIngreso, rubrosGasto, f
           {subTab === "resumen" && (
             <div className="space-y-4">
               <div className="grid gap-3 sm:grid-cols-3">
-                <Card className="border-emerald-200 dark:border-emerald-900">
+                <Card className="border-emerald-200">
                   <CardContent className="pt-4">
                     <div className="flex items-center gap-2 mb-1">
                       <TrendingUp className="h-4 w-4 text-emerald-600" />
                       <p className="text-xs text-muted-foreground">Total ingresos</p>
                     </div>
-                    <p className="text-lg font-bold text-emerald-700 dark:text-emerald-400 tabular-nums">{formatCOP(presupuesto.totalIngresosProy)}</p>
+                    <p className="text-lg font-bold text-emerald-700 tabular-nums">{formatCOP(presupuesto.totalIngresosProy)}</p>
                     <p className="text-xs text-muted-foreground mt-0.5">{presupuesto.ingresos.length} línea{presupuesto.ingresos.length !== 1 ? "s" : ""}</p>
                   </CardContent>
                 </Card>
-                <Card className="border-rose-200 dark:border-rose-900">
+                <Card className="border-rose-200">
                   <CardContent className="pt-4">
                     <div className="flex items-center gap-2 mb-1">
                       <TrendingDown className="h-4 w-4 text-rose-600" />
                       <p className="text-xs text-muted-foreground">Total gastos</p>
                     </div>
-                    <p className="text-lg font-bold text-rose-700 dark:text-rose-400 tabular-nums">{formatCOP(presupuesto.totalGastosProy)}</p>
+                    <p className="text-lg font-bold text-rose-700 tabular-nums">{formatCOP(presupuesto.totalGastosProy)}</p>
                     <p className="text-xs text-muted-foreground mt-0.5">{presupuesto.gastos.length} línea{presupuesto.gastos.length !== 1 ? "s" : ""}</p>
                   </CardContent>
                 </Card>
-                <Card className={diferencia < 0 ? "border-amber-300 dark:border-amber-700" : "border-emerald-200 dark:border-emerald-900"}>
+                <Card className={diferencia < 0 ? "border-amber-300" : "border-emerald-200"}>
                   <CardContent className="pt-4">
                     <div className="flex items-center gap-2 mb-1">
                       <ArrowRightLeft className="h-4 w-4 text-muted-foreground" />
                       <p className="text-xs text-muted-foreground">Diferencia</p>
                     </div>
-                    <p className={`text-lg font-bold tabular-nums ${diferencia < 0 ? "text-amber-600 dark:text-amber-400" : "text-emerald-700 dark:text-emerald-400"}`}>
+                    <p className={`text-lg font-bold tabular-nums ${diferencia < 0 ? "text-amber-600" : "text-emerald-700"}`}>
                       {formatCOP(diferencia)}
                     </p>
                     <p className="text-xs text-muted-foreground mt-0.5">
@@ -169,7 +171,7 @@ export function PresupuestoProyectoTab({ proyecto, rubrosIngreso, rubrosGasto, f
                 </Card>
               </div>
               {diferencia !== 0 && (
-                <div className="flex items-start gap-2 rounded-lg border border-amber-300/50 bg-amber-50 dark:bg-amber-950/20 px-4 py-3 text-sm text-amber-800 dark:text-amber-300">
+                <div className="flex items-start gap-2 rounded-lg border border-amber-300/50 bg-amber-50 px-4 py-3 text-sm text-amber-800">
                   <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
                   <span>
                     Presupuesto con {diferencia > 0 ? "superávit" : "déficit"} de {formatCOP(Math.abs(diferencia))}.

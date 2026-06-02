@@ -15,12 +15,11 @@ export function PasswordInput({ hasError, className, ...props }: PasswordInputPr
       <input
         type={show ? "text" : "password"}
         className={cn(
-          "h-11 w-full rounded-lg border bg-white/10 px-3 pr-10 text-sm text-white",
-          "placeholder:text-white/40 outline-none transition-colors",
-          "focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30",
+          "h-11 w-full rounded-[12px] border border-[#d9dee7] bg-white px-3.5 pr-10 text-sm text-[#2f3947] shadow-sm outline-none transition-all",
+          "placeholder:text-[#8b96a8] focus:border-[#0a4f82] focus:ring-4 focus:ring-[#0a4f82]/12",
           hasError
-            ? "border-red-400/70"
-            : "border-white/20 hover:border-white/40",
+            ? "border-[#d92d20] focus:border-[#d92d20] focus:ring-[#d92d20]/12"
+            : "",
           className
         )}
         {...props}
@@ -28,9 +27,9 @@ export function PasswordInput({ hasError, className, ...props }: PasswordInputPr
       <button
         type="button"
         onClick={() => setShow((s) => !s)}
-        className="absolute right-3 top-1/2 -translate-y-1/2 text-white/50 hover:text-white/80 transition-colors"
+        className="absolute right-3 top-1/2 -translate-y-1/2 text-[#7a8595] transition-colors hover:text-[#004b82]"
         tabIndex={-1}
-        aria-label={show ? "Ocultar contrasena" : "Mostrar contrasena"}
+        aria-label={show ? "Ocultar contraseña" : "Mostrar contraseña"}
       >
         {show ? (
           <EyeOff className="h-4 w-4" aria-hidden="true" />

@@ -134,7 +134,7 @@ export function ProyectosPage() {
 
       {/* Dialog de anulación */}
       {anularTarget && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-200/60 backdrop-blur-sm">
           <div className="w-full max-w-md rounded-lg bg-background p-6 shadow-xl space-y-4">
             <h2 className="text-lg font-semibold">Anular proyecto</h2>
             <p className="text-sm text-muted-foreground">

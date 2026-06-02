@@ -83,13 +83,14 @@ export function ResumenMatriculasPage() {
 
           {/* INVARIANTE I4: Tab-pivot por tipo */}
           <div>
-            <div className="flex gap-1 border-b overflow-x-auto">
+            <div className="sf-tabs-shell">
+              <div className="sf-tabs-nav">
               <button
                 onClick={() => setTabActivo("TODOS")}
-                className={`px-3 py-2 text-sm whitespace-nowrap border-b-2 transition-colors ${
+                className={`sf-tab px-3 py-2 ${
                   tabActivo === "TODOS"
-                    ? "border-primary text-primary font-medium"
-                    : "border-transparent text-muted-foreground hover:text-foreground"
+                    ? "sf-tab-active"
+                    : ""
                 }`}
               >
                 Todos
@@ -98,15 +99,16 @@ export function ResumenMatriculasPage() {
                 <button
                   key={tipo.value}
                   onClick={() => setTabActivo(tipo.value)}
-                  className={`px-3 py-2 text-sm whitespace-nowrap border-b-2 transition-colors ${
+                  className={`sf-tab px-3 py-2 ${
                     tabActivo === tipo.value
-                      ? "border-primary text-primary font-medium"
-                      : "border-transparent text-muted-foreground hover:text-foreground"
+                      ? "sf-tab-active"
+                      : ""
                   }`}
                 >
                   {tipo.label}
                 </button>
               ))}
+              </div>
             </div>
 
             <div className="mt-4">

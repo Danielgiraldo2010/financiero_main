@@ -13,8 +13,8 @@ interface Props {
 }
 
 const COLORS = {
-  ejecutado: "#22c55e",
-  pendiente: "#e5e7eb",
+  ejecutado: "#004b82",
+  pendiente: "#d5bb87",
 }
 
 export function EjecucionChart({ resumen }: Props) {
@@ -29,8 +29,8 @@ export function EjecucionChart({ resumen }: Props) {
 
   return (
     <div className="grid gap-4 sm:grid-cols-2">
-      <div className="rounded-lg border bg-background p-4 shadow-sm">
-        <p className="mb-2 text-sm font-medium">Ejecucion de Ingresos</p>
+      <div className="rounded-[18px] border border-[#d1d5db] bg-white p-4 shadow-[0_12px_30px_rgba(0,75,130,0.06)]">
+        <p className="mb-2 text-sm font-semibold text-[#004b82]">Ejecucion de Ingresos</p>
         <ResponsiveContainer width="100%" height={180}>
           <PieChart>
             <Pie data={dataIngresos} cx="50%" cy="50%" innerRadius={50} outerRadius={70} dataKey="value">
@@ -38,13 +38,17 @@ export function EjecucionChart({ resumen }: Props) {
                 <Cell key={i} fill={i === 0 ? COLORS.ejecutado : COLORS.pendiente} />
               ))}
             </Pie>
-            <Tooltip formatter={(v: number) => new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", minimumFractionDigits: 0 }).format(v)} />
-            <Legend />
+            <Tooltip
+              contentStyle={{ background: "#ffffff", border: "1px solid #d1d5db", borderRadius: 12, color: "#1f2937" }}
+              labelStyle={{ color: "#004b82", fontWeight: 700 }}
+              formatter={(v: number) => new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", minimumFractionDigits: 0 }).format(v)}
+            />
+            <Legend wrapperStyle={{ color: "#374151" }} />
           </PieChart>
         </ResponsiveContainer>
       </div>
-      <div className="rounded-lg border bg-background p-4 shadow-sm">
-        <p className="mb-2 text-sm font-medium">Ejecucion de Gastos</p>
+      <div className="rounded-[18px] border border-[#d1d5db] bg-white p-4 shadow-[0_12px_30px_rgba(0,75,130,0.06)]">
+        <p className="mb-2 text-sm font-semibold text-[#004b82]">Ejecucion de Gastos</p>
         <ResponsiveContainer width="100%" height={180}>
           <PieChart>
             <Pie data={dataGastos} cx="50%" cy="50%" innerRadius={50} outerRadius={70} dataKey="value">
@@ -52,8 +56,12 @@ export function EjecucionChart({ resumen }: Props) {
                 <Cell key={i} fill={i === 0 ? COLORS.ejecutado : COLORS.pendiente} />
               ))}
             </Pie>
-            <Tooltip formatter={(v: number) => new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", minimumFractionDigits: 0 }).format(v)} />
-            <Legend />
+            <Tooltip
+              contentStyle={{ background: "#ffffff", border: "1px solid #d1d5db", borderRadius: 12, color: "#1f2937" }}
+              labelStyle={{ color: "#004b82", fontWeight: 700 }}
+              formatter={(v: number) => new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", minimumFractionDigits: 0 }).format(v)}
+            />
+            <Legend wrapperStyle={{ color: "#374151" }} />
           </PieChart>
         </ResponsiveContainer>
       </div>

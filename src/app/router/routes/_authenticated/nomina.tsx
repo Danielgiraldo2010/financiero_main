@@ -21,22 +21,22 @@ function NominaLayout() {
   return (
     <div className="flex flex-col gap-0">
       {/* Header del módulo */}
-      <div className="flex items-center justify-between border-b px-6 py-3">
-        <h1 className="text-lg font-semibold">Nómina</h1>
+      <div className="flex items-center justify-between border-b border-[#dbe3ed] bg-white px-6 py-3">
+        <h1 className="text-lg font-semibold text-[#19324d]">Nómina</h1>
       </div>
 
       {/* Tabs de navegación interna */}
-      <div className="border-b">
-        <nav className="-mb-px flex gap-6 px-6 overflow-x-auto" aria-label="Tabs de nómina">
+      <div className="sf-tabs-shell px-6">
+        <nav className="sf-tabs-nav" aria-label="Tabs de nómina">
           {TABS.map((tab) => (
             <Link
               key={tab.to}
               to={tab.to}
               className={cn(
-                'whitespace-nowrap border-b-2 pb-3 pt-3 text-sm font-medium transition-colors',
+                'sf-tab',
                 isActive(tab.to)
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-muted-foreground hover:border-muted-foreground hover:text-foreground',
+                  ? 'sf-tab-active'
+                  : '',
               )}
             >
               {tab.label}

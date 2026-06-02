@@ -97,7 +97,7 @@ function PreviewDocumento({
       <iframe
         src={blobUrl}
         title={nombre}
-        className="w-full rounded-lg border border-neutral-200 dark:border-neutral-700"
+        className="w-full rounded-lg border border-neutral-200"
         style={{ height: "70vh" }}
       />
     );
@@ -110,7 +110,7 @@ function PreviewDocumento({
         <img
           src={blobUrl}
           alt={nombre}
-          className="max-w-full max-h-[70vh] rounded-lg border border-neutral-200 dark:border-neutral-700 object-contain"
+          className="max-w-full max-h-[70vh] rounded-lg border border-neutral-200 object-contain"
         />
       </div>
     );
@@ -173,12 +173,12 @@ export function DocumentoDetailPage({ documentoId }: Props) {
   return (
     <div className="space-y-6">
       {/* Breadcrumb */}
-      <nav className="text-sm text-neutral-500 flex items-center gap-1.5">
+      <nav className="flex items-center gap-1.5 text-sm text-[#5a6c82]">
         <Link to="/" className="hover:underline">Inicio</Link>
         <span>/</span>
         <Link to="/documentos" className="hover:underline">Documentos</Link>
         <span>/</span>
-        <span className="text-neutral-800 dark:text-neutral-200 font-medium truncate max-w-xs">
+        <span className="text-neutral-800 font-medium truncate max-w-xs">
           {doc.nombre}
         </span>
       </nav>
@@ -216,17 +216,17 @@ export function DocumentoDetailPage({ documentoId }: Props) {
       />
 
       {/* Tabs */}
-      <div className="border-b border-neutral-200 dark:border-neutral-700">
-        <nav className="flex gap-0 overflow-x-auto">
+      <div className="sf-tabs-shell">
+        <nav className="sf-tabs-nav">
           {tabs.map((t) => (
             <button
               key={t.id}
               onClick={() => setTab(t.id)}
               className={[
-                "px-4 py-2.5 text-sm font-medium border-b-2 transition-colors whitespace-nowrap",
+                "sf-tab",
                 tab === t.id
-                  ? "border-primary text-primary"
-                  : "border-transparent text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-200",
+                  ? "sf-tab-active"
+                  : "",
               ].join(" ")}
             >
               {t.id === "preview" && <Eye className="inline mr-1.5 size-3.5" />}
@@ -277,10 +277,10 @@ export function DocumentoDetailPage({ documentoId }: Props) {
             />
             {doc.hashSha256 && (
               <div>
-                <p className="text-xs font-medium text-neutral-500 mb-1 flex items-center gap-1">
+                <p className="mb-1 flex items-center gap-1 text-xs font-medium text-[#5a6c82]">
                   <Hash className="size-3" /> Integridad SHA-256
                 </p>
-                <p className="text-xs font-mono bg-neutral-100 dark:bg-neutral-800 rounded px-2 py-1 break-all">
+                <p className="text-xs font-mono bg-neutral-100 rounded px-2 py-1 break-all">
                   {doc.hashSha256}
                 </p>
               </div>
@@ -298,13 +298,13 @@ export function DocumentoDetailPage({ documentoId }: Props) {
             versiones.map((v) => (
               <div
                 key={v.id}
-                className="flex items-center justify-between p-3 rounded-lg border border-neutral-200 dark:border-neutral-700"
+                className="flex items-center justify-between p-3 rounded-lg border border-neutral-200"
               >
                 <div className="space-y-0.5">
                   <p className="text-sm font-medium">
                     Versión {v.version} — {v.nombre}
                   </p>
-                  <p className="text-xs text-neutral-500">
+                  <p className="text-xs text-[#5a6c82]">
                     {v.subidoPor} ·{" "}
                     {new Date(v.fechaSubida).toLocaleString("es-CO")}
                     {v.tamanioBytes ? ` · ${formatBytes(v.tamanioBytes)}` : ""}
@@ -330,7 +330,7 @@ export function DocumentoDetailPage({ documentoId }: Props) {
             descargas.map((d) => (
               <div
                 key={d.id}
-                className="flex items-center justify-between p-3 rounded-lg border border-neutral-200 dark:border-neutral-700"
+                className="flex items-center justify-between p-3 rounded-lg border border-neutral-200"
               >
                 <p className="text-sm">
                   {d.usuarioId ?? "Anónimo"} —{" "}
@@ -398,7 +398,7 @@ function MetaItem({
 }) {
   return (
     <div>
-      <p className="text-xs font-medium text-neutral-500 mb-0.5">{label}</p>
+      <p className="mb-0.5 text-xs font-medium text-[#5a6c82]">{label}</p>
       {children ?? <p className="text-sm">{value ?? "—"}</p>}
     </div>
   );

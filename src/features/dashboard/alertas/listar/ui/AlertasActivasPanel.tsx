@@ -125,7 +125,7 @@ export function AlertasActivasPanel({ maxItems = 5 }: Props) {
               type="button"
               disabled={desactivando}
               onClick={() => desactivar(a.id)}
-              className="mt-0.5 shrink-0 rounded px-1.5 py-0.5 text-xs hover:bg-black/5 disabled:opacity-40"
+              className="mt-0.5 shrink-0 rounded px-1.5 py-0.5 text-xs hover:bg-slate-100 disabled:opacity-40"
             >
               Cerrar
             </button>

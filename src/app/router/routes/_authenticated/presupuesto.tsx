@@ -37,14 +37,14 @@ function PresupuestoLayout() {
   return (
     <div className="flex flex-col gap-0">
       {/* Header del módulo: título + selector de vigencia */}
-      <div className="flex items-center justify-between border-b px-6 py-3">
-        <h1 className="text-lg font-semibold">Presupuesto UE</h1>
+      <div className="flex items-center justify-between border-b border-[#dbe3ed] bg-white px-6 py-3">
+        <h1 className="text-lg font-semibold text-[#19324d]">Presupuesto UE</h1>
         <div className="flex items-center gap-2">
-          <span className="text-sm text-muted-foreground">Vigencia</span>
+          <span className="text-sm font-medium text-[#4b5c70]">Vigencia</span>
           <select
             value={vigenciaActiva}
             onChange={(e) => setVigencia(Number(e.target.value))}
-            className="h-8 rounded-md border bg-background px-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary"
+            className="h-8 rounded-md border border-[#d6e0ea] bg-white px-2 text-sm font-medium text-[#223246] focus:outline-none focus:ring-2 focus:ring-primary"
           >
             {VIGENCIAS.map((v) => (
               <option key={v} value={v}>{v}</option>
@@ -54,17 +54,17 @@ function PresupuestoLayout() {
       </div>
 
       {/* Tabs de navegación interna */}
-      <div className="border-b">
-        <nav className="-mb-px flex gap-6 px-6" aria-label="Tabs de presupuesto">
+      <div className="sf-tabs-shell px-6">
+        <nav className="sf-tabs-nav" aria-label="Tabs de presupuesto">
           {TABS.map((tab) => (
             <Link
               key={tab.to}
               to={tab.to}
               className={cn(
-                'whitespace-nowrap border-b-2 pb-3 pt-3 text-sm font-medium transition-colors',
+                'sf-tab',
                 isActive(tab.to)
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-muted-foreground hover:border-muted-foreground hover:text-foreground',
+                  ? 'sf-tab-active'
+                  : '',
               )}
             >
               {tab.label}

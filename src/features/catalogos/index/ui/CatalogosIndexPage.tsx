@@ -50,7 +50,7 @@ export function CatalogosIndexPage() {
 
   return (
     <div className="flex flex-col gap-0">
-      <div className="border-b bg-background px-6 pt-6">
+      <div className="border-b border-[#dbe3ed] bg-white px-6 pt-6">
         <PageHeader
           title="Catalogos"
           description="Administra los catalogos maestros del sistema financiero"
@@ -65,10 +65,10 @@ export function CatalogosIndexPage() {
                 key={g.id}
                 to={primeraRuta}
                 className={cn(
-                  "rounded-t-md px-4 py-2 text-sm font-medium transition-colors",
+                  "rounded-t-md px-4 py-2 text-sm font-semibold transition-colors",
                   grupoActivo === g.id
-                    ? "bg-muted text-foreground"
-                    : "text-muted-foreground hover:text-foreground",
+                    ? "bg-[#edf4fb] text-[#004b82]"
+                    : "text-[#4b5c70] hover:bg-[#f8fbfe] hover:text-[#19324d]",
                 )}
               >
                 {g.label}
@@ -79,7 +79,7 @@ export function CatalogosIndexPage() {
 
         {/* Nivel 2 — tabs de entidad dentro del grupo activo */}
         <nav
-          className="flex gap-1 overflow-x-auto border-t pt-1 scrollbar-none"
+          className="sf-tabs-nav overflow-x-auto border-t border-[#dbe3ed] pt-1 scrollbar-none"
           aria-label="Entidades"
         >
           {tabsActivos.map((tab) => {
@@ -89,10 +89,10 @@ export function CatalogosIndexPage() {
                 key={tab.to}
                 to={tab.to}
                 className={cn(
-                  "shrink-0 whitespace-nowrap border-b-2 px-3 pb-3 text-sm font-medium transition-colors",
+                  "sf-tab shrink-0 px-3 pb-3",
                   active
-                    ? "border-primary text-primary"
-                    : "border-transparent text-muted-foreground hover:text-foreground",
+                    ? "sf-tab-active"
+                    : "",
                 )}
               >
                 {tab.label}

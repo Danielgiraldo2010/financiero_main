@@ -19,38 +19,40 @@ export function ConciliacionBalancePage() {
         </button>}
       />
 
-      <div className="flex gap-1 border-b border-gray-200">
+      <div className="sf-tabs-shell">
+        <div className="sf-tabs-nav">
         {(['listado', 'diferencias'] as const).map(t => (
           <button
             key={t}
             onClick={() => setTab(t)}
             className={[
-              'px-4 py-2 text-sm font-medium transition-colors capitalize',
+              'sf-tab capitalize',
               tab === t
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-500 hover:text-gray-700',
+                ? 'sf-tab-active'
+                : '',
             ].join(' ')}
           >
             {t === 'listado' ? 'Conciliaciones' : 'Diferencias pendientes'}
           </button>
         ))}
+        </div>
       </div>
 
       {tab === 'listado' && (
         <>
-          {isLoading && <p className="text-sm text-gray-500">Cargando...</p>}
-          <div className="overflow-x-auto rounded-lg border border-gray-200">
+          {isLoading && <p className="text-sm text-muted-foreground">Cargando...</p>}
+          <div className="overflow-x-auto rounded-[18px] border border-[#dbe3ed] bg-white shadow-sm">
             <table className="min-w-full divide-y divide-gray-200 text-sm">
-              <thead className="bg-gray-50">
+              <thead className="bg-[#f8fbfe]">
                 <tr>
                   {['Recurso', 'Fecha corte', 'Sistema', 'Tesoreria', 'Diferencia', 'Estado'].map(h => (
-                    <th key={h} className="px-4 py-3 text-left font-medium text-gray-600">{h}</th>
+                    <th key={h} className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.08em] text-[#4b5c70]">{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100 bg-white">
                 {conciliaciones.map(c => (
-                  <tr key={c.id} className="hover:bg-gray-50">
+                  <tr key={c.id} className="hover:bg-[#f8fbfe]">
                     <td className="px-4 py-3">{c.recursoBalanceId}</td>
                     <td className="px-4 py-3">{new Date(c.fechaCorte).toLocaleDateString('es-CO')}</td>
                     <td className="px-4 py-3 font-mono">{formatCOP(c.valorSistema)}</td>
@@ -67,7 +69,7 @@ export function ConciliacionBalancePage() {
                 ))}
                 {!isLoading && conciliaciones.length === 0 && (
                   <tr>
-                    <td colSpan={6} className="px-4 py-8 text-center text-gray-400">
+                    <td colSpan={6} className="px-4 py-8 text-center text-[#66768a]">
                       No hay conciliaciones registradas.
                     </td>
                   </tr>

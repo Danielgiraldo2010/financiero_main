@@ -18,17 +18,17 @@ function ReportesPage() {
 
   return (
     <div className="space-y-0">
-      <div className="border-b mb-6 overflow-x-auto">
-        <nav className="flex gap-1 -mb-px min-w-max">
+      <div className="sf-tabs-shell mb-6">
+        <nav className="sf-tabs-nav">
           {SUB_TABS.map((st) => (
             <button
               key={st.key}
               onClick={() => setTab(st.key)}
               className={[
-                'px-4 py-2.5 text-sm font-medium border-b-2 transition-colors whitespace-nowrap',
+                'sf-tab',
                 tab === st.key
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-muted-foreground hover:border-muted-foreground hover:text-foreground',
+                  ? 'sf-tab-active'
+                  : '',
               ].join(' ')}
             >
               {st.label}

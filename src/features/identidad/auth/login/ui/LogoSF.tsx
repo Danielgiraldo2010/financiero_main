@@ -1,42 +1,48 @@
-export function LogoSF() {
+import { BrandMark } from '@/shared/ui/branding/BrandMark'
+import { cn } from '@/lib/utils'
+
+interface LogoSFProps {
+  className?: string
+  variant?: 'default' | 'hero'
+  showProductMark?: boolean
+}
+
+export function LogoSF({
+  className,
+  variant = 'default',
+  showProductMark = true,
+}: LogoSFProps) {
+  const isHero = variant === 'hero'
+
   return (
-    <div className="mb-8 flex flex-col items-center gap-3">
-      {/* Icono institucional */}
-      <div
-        className="flex h-16 w-16 items-center justify-center rounded-2xl shadow-lg"
-        style={{ background: "linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)" }}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="white"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="h-8 w-8"
-          aria-hidden="true"
-        >
-          <path d="M12 2L2 7l10 5 10-5-10-5z" />
-          <path d="M2 17l10 5 10-5" />
-          <path d="M2 12l10 5 10-5" />
-        </svg>
+    <div className={cn('flex flex-col items-center gap-5 text-center', className)}>
+      <div className="flex items-center justify-center gap-6">
+        <img
+          src="/image/logo1ucaldas.png"
+          alt="Universidad de Caldas"
+          className={cn(
+            "h-auto max-w-[58vw] object-contain drop-shadow-[0_8px_20px_rgba(31,41,55,0.12)]",
+            isHero ? "w-[360px] xl:w-[440px]" : "w-[210px] sm:w-[240px]",
+          )}
+        />
+        <img
+          src="/image/logo-cidt.png"
+          alt="CIDT"
+          className={cn(
+            "hidden h-auto object-contain drop-shadow-[0_8px_20px_rgba(31,41,55,0.12)] sm:block",
+            isHero ? "w-[136px] xl:w-[168px]" : "w-[96px]",
+          )}
+        />
       </div>
-      {/* Nombre */}
-      <div className="text-center">
-        <h1
-          className="text-2xl font-bold tracking-tight"
-          style={{ color: "#f0f7ff" }}
-        >
-          Sistema Financiero
-        </h1>
-        <p
-          className="mt-0.5 text-sm"
-          style={{ color: "rgba(214,232,247,0.7)" }}
-        >
-          Universidad de Caldas
-        </p>
-      </div>
+
+      {showProductMark && (
+        <BrandMark
+          inverse
+          size="sm"
+          stacked
+          className="hidden lg:flex"
+        />
+      )}
     </div>
   )
 }

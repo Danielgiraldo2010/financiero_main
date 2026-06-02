@@ -2,8 +2,8 @@
 //
 // INVARIANTE 09c-I2:
 //   - BarChart HORIZONTAL (layout="vertical").
-//   - Barra azul  (#3b82f6): presupuestoMensual
-//   - Barra verde (#22c55e): ejecutadoMensual
+//   - Barra azul institucional: presupuestoMensual
+//   - Barra dorada institucional: ejecutadoMensual
 //   - Eje Y: rubroGasto (nombre del rubro)
 //   - Tooltip: formatCOP()
 //   - No calcular nada — solo visualizar los datos del backend.
@@ -37,8 +37,8 @@ interface ChartDatum {
 function CustomTooltip({ active, payload, label }: TooltipProps<number, string>) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="rounded-lg border bg-background p-3 shadow-md text-xs space-y-1">
-      <p className="font-semibold text-foreground mb-2 max-w-60">{label}</p>
+    <div className="space-y-1 rounded-[14px] border border-[#d1d5db] bg-white p-3 text-xs text-[#1f2937] shadow-[0_14px_32px_rgba(0,75,130,0.12)]">
+      <p className="mb-2 max-w-60 font-semibold text-[#004b82]">{label}</p>
       {payload.map((entry) => (
         <p key={entry.name} style={{ color: entry.color }}>
           {entry.name === 'Presupuesto' ? '◼ ' : '◼ '}
@@ -46,7 +46,7 @@ function CustomTooltip({ active, payload, label }: TooltipProps<number, string>)
         </p>
       ))}
       {payload[0] && payload[1] && (
-        <p className="text-muted-foreground pt-1 border-t">
+        <p className="border-t pt-1 text-[#6b7280]">
           Ejecución:{' '}
           <strong>
             {payload[1].value && payload[0].value && payload[0].value > 0
@@ -115,7 +115,7 @@ export function EjecucionBarChart({ data, agruparPorRubro = true }: Props) {
         barCategoryGap="20%"
         barGap={4}
       >
-        <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+        <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e5e7eb" />
 
         {/* Eje X: valores numéricos (presupuesto / ejecutado) */}
         <XAxis
@@ -127,7 +127,8 @@ export function EjecucionBarChart({ data, agruparPorRubro = true }: Props) {
               ? `$${(v / 1_000).toFixed(0)}K`
               : `$${v}`
           }
-          tick={{ fontSize: 11 }}
+          tick={{ fontSize: 11, fill: '#4b5563' }}
+          tickLine={{ stroke: '#d1d5db' }}
         />
 
         {/* Eje Y: nombre del rubro — INVARIANTE 09c-I2 */}
@@ -135,30 +136,30 @@ export function EjecucionBarChart({ data, agruparPorRubro = true }: Props) {
           dataKey="name"
           type="category"
           width={180}
-          tick={{ fontSize: 11 }}
+          tick={{ fontSize: 11, fill: '#4b5563' }}
           tickLine={false}
         />
 
         <Tooltip content={<CustomTooltip />} />
 
         <Legend
-          wrapperStyle={{ fontSize: 12, paddingTop: 8 }}
+          wrapperStyle={{ fontSize: 12, paddingTop: 8, color: '#374151' }}
           formatter={(value) => (value === 'presupuesto' ? 'Presupuesto' : 'Ejecutado')}
         />
 
-        {/* Barra azul — presupuestoMensual — INVARIANTE 09c-I2 */}
+        {/* Barra azul institucional — presupuestoMensual — INVARIANTE 09c-I2 */}
         <Bar
           dataKey="presupuesto"
           name="presupuesto"
-          fill="#3b82f6"
+          fill="#004b82"
           radius={[0, 3, 3, 0]}
         />
 
-        {/* Barra verde — ejecutadoMensual — INVARIANTE 09c-I2 */}
+        {/* Barra dorada institucional — ejecutadoMensual — INVARIANTE 09c-I2 */}
         <Bar
           dataKey="ejecutado"
           name="ejecutado"
-          fill="#22c55e"
+          fill="#d5bb87"
           radius={[0, 3, 3, 0]}
         />
       </BarChart>

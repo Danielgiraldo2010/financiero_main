@@ -2,6 +2,9 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { LogIn } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { PasswordInput } from "./PasswordInput"
 import { useLogin } from "../hook"
 import { LoginSchema, type LoginFormValues } from "../schema"
@@ -28,16 +31,11 @@ export function LoginForm({ onRequires2FA: _ }: Props) {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       {/* Error global */}
       {error && (
         <div
-          className="rounded-lg border px-4 py-3 text-sm"
-          style={{
-            backgroundColor: "rgba(239,68,68,0.12)",
-            borderColor: "rgba(239,68,68,0.4)",
-            color: "#fca5a5",
-          }}
+          className="rounded-[14px] border border-[#f3b4b4] bg-[#fff7f7] px-4 py-3 text-sm text-[#b42318]"
           role="alert"
         >
           {error.message || "Credenciales incorrectas. Revise su usuario y contrasena."}
@@ -46,33 +44,30 @@ export function LoginForm({ onRequires2FA: _ }: Props) {
 
       {/* Campo email */}
       <div className="space-y-1.5">
-        <label
+        <Label
           htmlFor="sf-email"
-          className="flex items-center gap-1.5 text-sm font-medium"
-          style={{ color: "rgba(214,232,247,0.85)" }}
+          className="flex items-center gap-1.5 text-sm font-semibold text-[#304155]"
         >
-          Correo electronico
-          <span style={{ color: "#f87171" }} aria-hidden="true">*</span>
-        </label>
-        <input
+          Correo electrónico
+          <span className="text-[#d92d20]" aria-hidden="true">*</span>
+        </Label>
+        <Input
           id="sf-email"
           type="email"
           autoComplete="email"
           placeholder="usuario@ucaldas.edu.co"
           className={cn(
-            "h-11 w-full rounded-lg border bg-white/10 px-3 text-sm text-white",
-            "placeholder:text-white/40 outline-none transition-colors",
-            "focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30",
+            "placeholder:text-[#8b96a8]",
             errors.email
-              ? "border-red-400/70"
-              : "border-white/20 hover:border-white/40"
+              ? "border-[#d92d20] focus-visible:border-[#d92d20] focus-visible:ring-[#d92d20]/12"
+              : ""
           )}
           aria-invalid={!!errors.email}
           aria-describedby={errors.email ? "sf-email-error" : undefined}
           {...register("email")}
         />
         {errors.email && (
-          <p id="sf-email-error" className="text-xs" style={{ color: "#f87171" }} role="alert">
+          <p id="sf-email-error" className="text-xs text-[#d92d20]" role="alert">
             {errors.email.message}
           </p>
         )}
@@ -80,25 +75,24 @@ export function LoginForm({ onRequires2FA: _ }: Props) {
 
       {/* Campo contrasena */}
       <div className="space-y-1.5">
-        <label
+        <Label
           htmlFor="sf-password"
-          className="flex items-center gap-1.5 text-sm font-medium"
-          style={{ color: "rgba(214,232,247,0.85)" }}
+          className="flex items-center gap-1.5 text-sm font-semibold text-[#304155]"
         >
-          Contrasena
-          <span style={{ color: "#f87171" }} aria-hidden="true">*</span>
-        </label>
+          Contraseña
+          <span className="text-[#d92d20]" aria-hidden="true">*</span>
+        </Label>
         <PasswordInput
           id="sf-password"
           autoComplete="current-password"
-          placeholder="Minimo 8 caracteres"
+          placeholder="Mínimo 8 caracteres"
           hasError={!!errors.password}
           aria-invalid={!!errors.password}
           aria-describedby={errors.password ? "sf-password-error" : undefined}
           {...register("password")}
         />
         {errors.password && (
-          <p id="sf-password-error" className="text-xs" style={{ color: "#f87171" }} role="alert">
+          <p id="sf-password-error" className="text-xs text-[#d92d20]" role="alert">
             {errors.password.message}
           </p>
         )}
@@ -106,23 +100,18 @@ export function LoginForm({ onRequires2FA: _ }: Props) {
 
       {/* Boton submit */}
       <div className="pt-2">
-        <button
+        <Button
           type="button"
           disabled={isPending}
           onClick={handleSubmit(onSubmit)}
           className={cn(
-            "flex h-11 w-full items-center justify-center gap-2 rounded-lg",
-            "text-sm font-semibold text-white transition-all",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/50",
-            "disabled:opacity-60 disabled:cursor-not-allowed",
-            isPending ? "cursor-wait" : "hover:brightness-110 active:scale-[0.98]"
+            "flex h-11 w-full items-center justify-center gap-2 rounded-[12px]",
+            "border border-[#004b82] bg-[#004b82] text-sm font-semibold text-white shadow-[0_14px_32px_rgba(0,75,130,0.24)] transition-all",
+            "hover:border-[#0a5f9b] hover:bg-[#0a5f9b] hover:shadow-[0_16px_36px_rgba(0,75,130,0.28)]",
+            "focus-visible:border-[#d5bb87] focus-visible:ring-4 focus-visible:ring-[#d5bb87]/35",
+            "disabled:cursor-not-allowed disabled:border-[#93a9bd] disabled:bg-[#93a9bd] disabled:text-white disabled:opacity-100",
+            isPending ? "cursor-wait" : "active:scale-[0.98]"
           )}
-          style={{
-            background: isPending
-              ? "linear-gradient(135deg, #1d4ed8, #1e40af)"
-              : "linear-gradient(135deg, #2563eb, #1d4ed8)",
-            boxShadow: "0 4px 14px rgba(37,99,235,0.45)",
-          }}
           aria-busy={isPending}
         >
           {isPending ? (
@@ -145,18 +134,17 @@ export function LoginForm({ onRequires2FA: _ }: Props) {
               Entrar al sistema
             </>
           )}
-        </button>
+        </Button>
       </div>
 
       {/* Link recuperar contrasena */}
-      <p className="text-center text-sm" style={{ color: "rgba(214,232,247,0.6)" }}>
+      <p className="text-center text-sm text-[#627081]">
         <button
           type="button"
-          className="hover:underline transition-colors"
-          style={{ color: "rgba(147,197,253,0.85)" }}
+          className="font-medium text-[#004b82] transition-colors hover:underline"
           onClick={() => {/* TODO: ruta recuperar contrasena */}}
         >
-          ¿Olvido su contrasena?
+          ¿Olvidó su contraseña?
         </button>
       </p>
     </div>

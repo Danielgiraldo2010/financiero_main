@@ -78,18 +78,18 @@ export function ProyectoDetailPage() {
         onAnular={() => setAnularOpen(true)}
       />
 
-      <div className="border-b">
-        <div className="flex overflow-x-auto gap-1 -mb-px">
+      <div className="sf-tabs-shell">
+        <div className="sf-tabs-nav">
           {PROYECTO_TABS.map((t) => (
             <button
               key={t.value}
               type="button"
               onClick={() => setTab(t.value)}
               className={[
-                'shrink-0 border-b-2 px-4 py-2 text-sm font-medium transition-colors',
+                'sf-tab',
                 tab === t.value
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border',
+                  ? 'sf-tab-active'
+                  : '',
               ].join(' ')}
             >
               {t.label}
@@ -186,7 +186,7 @@ export function ProyectoDetailPage() {
 
       {/* Dialog de anulación con campo de motivo requerido */}
       {anularOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-200/60 backdrop-blur-sm">
           <div className="w-full max-w-md rounded-lg bg-background p-6 shadow-xl space-y-4">
             <h2 className="text-lg font-semibold">Anular proyecto</h2>
             <p className="text-sm text-muted-foreground">

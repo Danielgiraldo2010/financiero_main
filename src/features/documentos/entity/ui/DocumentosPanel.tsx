@@ -46,7 +46,7 @@ export function DocumentosPanel({
     <div className="space-y-3">
       {/* Cabecera */}
       <div className="flex items-center justify-between">
-        <p className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+        <p className="text-sm font-medium text-neutral-700">
           Documentos adjuntos ({docs.length})
         </p>
         {canUpload && (
@@ -68,7 +68,7 @@ export function DocumentosPanel({
             <li
               key={doc.id}
               className={[
-                "flex items-center justify-between rounded-lg border border-neutral-200 dark:border-neutral-700 px-3 py-2.5",
+                "flex items-center justify-between rounded-lg border border-neutral-200 px-3 py-2.5",
                 compact ? "text-xs" : "text-sm",
               ].join(" ")}
             >
@@ -88,7 +88,7 @@ export function DocumentosPanel({
                   </button>
                   {!compact && (
                     <div className="flex items-center gap-1.5 mt-0.5">
-                      <span className="text-xs text-neutral-500">
+                      <span className="text-xs text-[#5a6c82]">
                         {doc.tipoDocumento}
                       </span>
                       {doc.esPrincipal && (
@@ -103,7 +103,7 @@ export function DocumentosPanel({
                 <button
                   title="Descargar"
                   onClick={() => descargar(doc.documentoId, doc.nombreDocumento)}
-                  className="p-1 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 hover:text-neutral-800"
+                  className="rounded p-1 text-[#5a6c82] hover:bg-neutral-100 hover:text-[#19324d]"
                 >
                   <Download className="size-3.5" />
                 </button>
@@ -111,7 +111,7 @@ export function DocumentosPanel({
                   <button
                     title="Desvincular"
                     onClick={() => setDesvincularVinculoId(doc.id)}
-                    className="p-1 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 hover:text-destructive"
+                    className="rounded p-1 text-[#5a6c82] hover:bg-neutral-100 hover:text-destructive"
                   >
                     <Link2Off className="size-3.5" />
                   </button>

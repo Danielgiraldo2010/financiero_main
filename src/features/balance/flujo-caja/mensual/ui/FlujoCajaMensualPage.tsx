@@ -30,13 +30,13 @@ export function FlujoCajaMensualPage() {
     <div className="space-y-4">
       <PageHeader title="Flujo de Caja Mensual" description="Detalle de ingresos, gastos y saldos por periodo"
         actions={<div className="flex items-center gap-2">
-          <label className="text-sm text-gray-600">Vigencia</label>
+          <label className="text-sm font-medium text-[#42556c]">Vigencia</label>
           <input
             type="number" value={vigencia}
             onChange={e => setVigencia(Number(e.target.value))}
             className="input w-24"
           />
-          <label className="text-sm text-gray-600">Mes</label>
+          <label className="text-sm font-medium text-[#42556c]">Mes</label>
           <select
             value={mes}
             onChange={e => setMes(Number(e.target.value))}
@@ -49,15 +49,15 @@ export function FlujoCajaMensualPage() {
         </div>}
       />
 
-      {isLoading && <p className="text-sm text-gray-500">Cargando flujo de caja...</p>}
+      {isLoading && <p className="text-sm text-muted-foreground">Cargando flujo de caja...</p>}
 
       {data && (
-        <div className="rounded-lg border border-gray-200 bg-white overflow-hidden">
+        <div className="overflow-hidden rounded-[18px] border border-[#dbe3ed] bg-white shadow-sm">
           <table className="min-w-full text-sm">
             <tbody className="divide-y divide-gray-100">
               {rows.map(row => (
-                <tr key={row.label} className={row.highlight ? 'bg-red-50' : 'hover:bg-gray-50'}>
-                  <td className="px-4 py-3 font-medium text-gray-700">{row.label}</td>
+                <tr key={row.label} className={row.highlight ? 'bg-red-50' : 'hover:bg-[#f8fbfe]'}>
+                  <td className="px-4 py-3 font-medium text-[#223246]">{row.label}</td>
                   <td className={`px-4 py-3 font-mono text-right ${row.highlight ? 'text-red-700 font-semibold' : ''}`}>
                     {formatCOP(row.value)}
                   </td>

@@ -35,8 +35,8 @@ const actionClass: Record<ConfirmDialogVariant, string> = {
   default:     "",
   destructive: "bg-destructive hover:bg-destructive/90 text-destructive-foreground",
   error:       "bg-destructive hover:bg-destructive/90 text-destructive-foreground",
-  warning:     "bg-amber-500 hover:bg-amber-500/90 text-white dark:text-white",
-  info:        "bg-blue-600 hover:bg-blue-600/90 text-white dark:text-white",
+  warning:     "bg-amber-500 hover:bg-amber-500/90 text-white",
+  info:        "bg-blue-600 hover:bg-blue-600/90 text-white",
 }
 
 export function ConfirmDialog({

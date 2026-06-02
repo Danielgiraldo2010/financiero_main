@@ -60,10 +60,10 @@ export function DocumentosPage() {
   return (
     <div className="space-y-6">
       {/* Breadcrumb */}
-      <nav className="text-sm text-neutral-500 flex items-center gap-1.5">
+      <nav className="flex items-center gap-1.5 text-sm text-[#5a6c82]">
         <Link to="/" className="hover:underline">Inicio</Link>
         <span>/</span>
-        <span className="text-neutral-800 dark:text-neutral-200 font-medium">Documentos</span>
+        <span className="text-neutral-800 font-medium">Documentos</span>
       </nav>
 
       <PageHeader

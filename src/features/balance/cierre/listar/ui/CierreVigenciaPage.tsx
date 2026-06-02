@@ -27,20 +27,20 @@ export function CierreVigenciaPage() {
         </button>}
       />
 
-      {isLoading && <p className="text-sm text-gray-500">Cargando cierres...</p>}
+      {isLoading && <p className="text-sm text-muted-foreground">Cargando cierres...</p>}
 
-      <div className="overflow-x-auto rounded-lg border border-gray-200">
+      <div className="overflow-x-auto rounded-[18px] border border-[#dbe3ed] bg-white shadow-sm">
         <table className="min-w-full divide-y divide-gray-200 text-sm">
-          <thead className="bg-gray-50">
+          <thead className="bg-[#f8fbfe]">
             <tr>
               {['Vigencia', 'Unidad Ejecutora', 'Fecha cierre', 'Excedente neto', 'Estado', 'Acciones'].map(h => (
-                <th key={h} className="px-4 py-3 text-left font-medium text-gray-600">{h}</th>
+                <th key={h} className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.08em] text-[#4b5c70]">{h}</th>
               ))}
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100 bg-white">
             {cierres.map(c => (
-              <tr key={c.id} className="hover:bg-gray-50">
+              <tr key={c.id} className="hover:bg-[#f8fbfe]">
                 <td className="px-4 py-3 font-medium">{c.vigencia}</td>
                 <td className="px-4 py-3">{c.unidadEjecutoraName}</td>
                 <td className="px-4 py-3">{new Date(c.fechaCierre).toLocaleDateString('es-CO')}</td>
@@ -72,7 +72,7 @@ export function CierreVigenciaPage() {
             ))}
             {!isLoading && cierres.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-gray-400">
+                <td colSpan={6} className="px-4 py-8 text-center text-[#66768a]">
                   No hay cierres de vigencia registrados.
                 </td>
               </tr>

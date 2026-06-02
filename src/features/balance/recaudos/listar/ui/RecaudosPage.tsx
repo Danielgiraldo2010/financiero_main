@@ -23,7 +23,7 @@ export function RecaudosPage() {
     <div className="space-y-4">
       <PageHeader title="Recaudos Reales" description="Registro y conciliacion de recursos efectivamente recibidos"
         actions={<div className="flex items-center gap-2">
-          <label className="text-sm text-gray-600">Vigencia</label>
+          <label className="text-sm font-medium text-[#42556c]">Vigencia</label>
           <input
             type="number"
             value={vigencia}
@@ -36,14 +36,14 @@ export function RecaudosPage() {
         </div>}
       />
 
-      {isLoading && <p className="text-sm text-gray-500">Cargando recaudos...</p>}
+      {isLoading && <p className="text-sm text-muted-foreground">Cargando recaudos...</p>}
 
-      <div className="overflow-x-auto rounded-lg border border-gray-200">
+      <div className="overflow-x-auto rounded-[18px] border border-[#dbe3ed] bg-white shadow-sm">
         <table className="min-w-full divide-y divide-gray-200 text-sm">
-          <thead className="bg-gray-50">
+          <thead className="bg-[#f8fbfe]">
             <tr>
               {['Giro', 'Entidad', 'Concepto', 'Fecha', 'Valor', 'Estado', 'Accion'].map(h => (
-                <th key={h} className="px-4 py-3 text-left font-medium text-gray-600">{h}</th>
+                <th key={h} className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.08em] text-[#4b5c70]">{h}</th>
               ))}
             </tr>
           </thead>
@@ -51,7 +51,7 @@ export function RecaudosPage() {
             {recaudos.map(r => <RecaudoRow key={r.id} recaudo={r} />)}
             {!isLoading && recaudos.length === 0 && (
               <tr>
-                <td colSpan={7} className="px-4 py-8 text-center text-gray-400">
+                <td colSpan={7} className="px-4 py-8 text-center text-[#66768a]">
                   No hay recaudos para la vigencia {vigencia}.
                 </td>
               </tr>
@@ -68,7 +68,7 @@ export function RecaudosPage() {
 function RecaudoRow({ recaudo: r }: { recaudo: RecaudoReal }) {
   const { mutate: conciliar, isPending } = useConciliarRecaudo(r.id)
   return (
-    <tr className="hover:bg-gray-50">
+    <tr className="hover:bg-[#f8fbfe]">
       <td className="px-4 py-3 font-mono text-xs">{r.numeroGiro}</td>
       <td className="px-4 py-3 max-w-[140px] truncate" title={r.entidadPagadora}>{r.entidadPagadora}</td>
       <td className="px-4 py-3 max-w-[180px] truncate" title={r.concepto}>{r.concepto}</td>

@@ -20,14 +20,14 @@ function MatriculasPage() {
   return (
     <div className="flex flex-col h-full">
       {/* Cabecera */}
-      <div className="border-b px-6 pt-5 pb-0 space-y-1">
-        <h1 className="text-xl font-semibold">Matrículas e Ingresos</h1>
+      <div className="border-b border-[#dbe3ed] bg-white px-6 pt-5 pb-0 space-y-1">
+        <h1 className="text-xl font-semibold text-[#19324d]">Matrículas e Ingresos</h1>
         <p className="text-sm text-muted-foreground">
           Gestión de cohortes, transferencias, cobertura PIC y becas Minciencias
         </p>
 
         {/* Tabs de navegación */}
-        <nav className="flex gap-1 pt-3 -mb-px">
+        <nav className="sf-tabs-nav pt-3">
           {TABS.map((tab) => {
             const active = !!matchRoute({ to: tab.to, fuzzy: false })
             return (
@@ -35,10 +35,10 @@ function MatriculasPage() {
                 key={tab.to}
                 to={tab.to}
                 className={cn(
-                  'px-4 py-2 text-sm font-medium border-b-2 transition-colors whitespace-nowrap',
+                  'sf-tab',
                   active
-                    ? 'border-primary text-primary'
-                    : 'border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground/40',
+                    ? 'sf-tab-active'
+                    : '',
                 )}
               >
                 {tab.label}

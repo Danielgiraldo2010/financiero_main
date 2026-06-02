@@ -22,10 +22,10 @@ export function FlujoCajaAnualPage() {
   }))
 
   const KpiCard = ({ label, value, sub }: { label: string; value: number; sub?: string }) => (
-    <div className="rounded-lg border border-gray-200 bg-white p-4">
-      <p className="text-xs text-gray-500">{label}</p>
+    <div className="rounded-[16px] border border-[#dbe3ed] bg-white p-4 shadow-sm">
+      <p className="text-xs font-medium uppercase tracking-[0.08em] text-[#5c6d83]">{label}</p>
       <p className="mt-1 text-lg font-semibold font-mono">{formatCOP(value)}</p>
-      {sub && <p className="text-xs text-gray-400 mt-0.5">{sub}</p>}
+      {sub && <p className="mt-0.5 text-xs text-[#66768a]">{sub}</p>}
     </div>
   )
 
@@ -33,7 +33,7 @@ export function FlujoCajaAnualPage() {
     <div className="space-y-6">
       <PageHeader title="Resumen Anual de Flujo de Caja" description={`Ejecucion presupuestal vigencia ${vigencia}`}
         actions={<div className="flex items-center gap-2">
-          <label className="text-sm text-gray-600">Vigencia</label>
+          <label className="text-sm font-medium text-[#42556c]">Vigencia</label>
           <input
             type="number" value={vigencia}
             onChange={e => setVigencia(Number(e.target.value))}
@@ -42,7 +42,7 @@ export function FlujoCajaAnualPage() {
         </div>}
       />
 
-      {isLoading && <p className="text-sm text-gray-500">Cargando resumen anual...</p>}
+      {isLoading && <p className="text-sm text-muted-foreground">Cargando resumen anual...</p>}
 
       {data && (
         <>
@@ -62,33 +62,36 @@ export function FlujoCajaAnualPage() {
           </div>
 
           {chartData.length > 0 ? (
-            <div className="rounded-lg border border-gray-200 bg-white p-4">
-              <h3 className="mb-4 text-sm font-medium text-gray-700">
+            <div className="rounded-[18px] border border-[#dbe3ed] bg-white p-4 shadow-sm">
+              <h3 className="mb-4 text-sm font-semibold text-[#223246]">
                 Ingresos vs Egresos &mdash; {vigencia}
               </h3>
               <ResponsiveContainer width="100%" height={320}>
                 <LineChart data={chartData} margin={{ top: 5, right: 20, left: 20, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                   <XAxis
                     dataKey="mes"
-                    tick={{ fontSize: 11 }}
+                    tick={{ fontSize: 11, fill: '#4b5563' }}
+                    tickLine={{ stroke: '#d1d5db' }}
                     tickFormatter={v => v.slice(0, 3)}
                   />
                   <YAxis
-                    tick={{ fontSize: 11 }}
+                    tick={{ fontSize: 11, fill: '#4b5563' }}
+                    tickLine={{ stroke: '#d1d5db' }}
                     tickFormatter={v => `$${(v / 1_000_000).toFixed(0)}M`}
                     width={60}
                   />
                   <Tooltip
                     formatter={(value: number) => [formatCOP(value), '']}
-                    labelStyle={{ fontWeight: 600 }}
+                    contentStyle={{ background: '#ffffff', border: '1px solid #d1d5db', borderRadius: 12, color: '#1f2937' }}
+                    labelStyle={{ color: '#004b82', fontWeight: 700 }}
                   />
-                  <Legend />
+                  <Legend wrapperStyle={{ color: '#374151' }} />
                   <Line
                     type="monotone"
                     dataKey="ingresos"
                     name="Ingresos recaudados"
-                    stroke="#2563eb"
+                    stroke="#004b82"
                     strokeWidth={2}
                     dot={{ r: 3 }}
                     activeDot={{ r: 5 }}
@@ -97,7 +100,7 @@ export function FlujoCajaAnualPage() {
                     type="monotone"
                     dataKey="egresos"
                     name="Gastos pagados"
-                    stroke="#dc2626"
+                    stroke="#b91c1c"
                     strokeWidth={2}
                     dot={{ r: 3 }}
                     activeDot={{ r: 5 }}
@@ -106,7 +109,7 @@ export function FlujoCajaAnualPage() {
                     type="monotone"
                     dataKey="saldoCaja"
                     name="Saldo caja real"
-                    stroke="#16a34a"
+                    stroke="#d5bb87"
                     strokeWidth={1.5}
                     strokeDasharray="4 2"
                     dot={false}
@@ -115,7 +118,7 @@ export function FlujoCajaAnualPage() {
               </ResponsiveContainer>
             </div>
           ) : (
-            <div className="rounded-lg border border-dashed border-gray-200 p-8 text-center text-sm text-gray-400">
+            <div className="rounded-[18px] border border-dashed border-[#dbe3ed] bg-[#fbfdff] p-8 text-center text-sm text-[#66768a]">
               No hay datos mensuales disponibles para graficar.
               <br />
               El backend retorna <code>meses[]</code> solo si estan conciliados.

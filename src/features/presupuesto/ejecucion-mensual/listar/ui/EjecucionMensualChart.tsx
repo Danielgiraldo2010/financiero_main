@@ -29,18 +29,25 @@ export function EjecucionMensualChart({ data }: Props) {
   return (
     <ResponsiveContainer width="100%" height={320}>
       <BarChart data={chartData} margin={{ top: 8, right: 16, left: 16, bottom: 0 }}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="mes" tick={{ fontSize: 12 }} />
-        <YAxis tickFormatter={(v: number) => formatCOP(v)} tick={{ fontSize: 11 }} />
+        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+        <XAxis dataKey="mes" tick={{ fontSize: 12, fill: '#4b5563' }} tickLine={{ stroke: '#d1d5db' }} />
+        <YAxis tickFormatter={(v: number) => formatCOP(v)} tick={{ fontSize: 11, fill: '#4b5563' }} tickLine={{ stroke: '#d1d5db' }} />
         <Tooltip
+          contentStyle={{
+            background: '#ffffff',
+            border: '1px solid #d1d5db',
+            borderRadius: 12,
+            color: '#1f2937',
+          }}
+          labelStyle={{ color: '#004b82', fontWeight: 700 }}
           formatter={(value: number, name: string) => [
             formatCOP(value),
             name === 'presupuestado' ? 'Presupuestado' : 'Ejecutado',
           ]}
         />
-        <Legend formatter={(v) => v === 'presupuestado' ? 'Presupuestado' : 'Ejecutado'} />
-        <Bar dataKey="presupuestado" fill="hsl(var(--primary))" radius={[2,2,0,0]} />
-        <Bar dataKey="ejecutado"     fill="hsl(var(--accent))"  radius={[2,2,0,0]} />
+        <Legend formatter={(v) => v === 'presupuestado' ? 'Presupuestado' : 'Ejecutado'} wrapperStyle={{ color: '#374151' }} />
+        <Bar dataKey="presupuestado" fill="#004b82" radius={[4,4,0,0]} />
+        <Bar dataKey="ejecutado"     fill="#d5bb87" radius={[4,4,0,0]} />
       </BarChart>
     </ResponsiveContainer>
   )
