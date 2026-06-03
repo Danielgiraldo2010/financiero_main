@@ -30,7 +30,7 @@ export function NavigationMenu({ items }: NavigationMenuProps) {
 
   return (
     <nav>
-      <ul className="flex flex-col gap-0.5">
+      <ul className="flex flex-col gap-1">
         {visibleItems.map((item) => {
           // exact=true → igualdad estricta
           // exact=false (default) → startsWith, pero solo si ningún otro
@@ -54,13 +54,13 @@ export function NavigationMenu({ items }: NavigationMenuProps) {
               <Link
                 to={item.to}
                 className={cn(
-                  'group flex items-center gap-3 rounded-[14px] border-l-4 border-transparent px-3 py-2.5 text-sm font-medium transition-all duration-200',
+                  'group flex items-center gap-3 rounded-[12px] border-l-4 border-transparent px-3 py-2.5 text-sm font-medium transition-all duration-200 ease-out',
                   isActive
-                    ? 'border-[#004b82] bg-[linear-gradient(90deg,rgba(0,75,130,0.13)_0%,rgba(237,244,251,0.98)_100%)] text-[#004b82] shadow-[0_10px_24px_rgba(0,75,130,0.11)]'
-                    : 'text-[#374151] hover:border-[#004b82]/45 hover:bg-[#edf4fb] hover:text-[#004b82]',
+                    ? 'border-[#d5bb87] bg-[linear-gradient(90deg,rgba(0,75,130,0.16)_0%,rgba(237,244,251,0.96)_100%)] text-[#004b82] shadow-[0_4px_12px_rgba(15,23,42,0.08)]'
+                    : 'text-[#374151] hover:border-[#d5bb87]/60 hover:bg-[#edf4fb] hover:text-[#004b82]',
                 )}
               >
-                <Icon className={cn('h-4 w-4 shrink-0 transition-transform duration-200', isActive ? 'scale-105 text-[#004b82]' : 'text-[#607086] group-hover:text-[#004b82]')} />
+                <Icon className={cn('h-4 w-4 shrink-0 transition-all duration-200 ease-out', isActive ? 'text-[#004b82]' : 'text-[#607086] group-hover:text-[#004b82]')} />
                 {item.label}
               </Link>
             </li>

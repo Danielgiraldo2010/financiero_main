@@ -43,7 +43,6 @@ const SIDEBAR_ITEMS: NavItem[] = [
   { label: 'Documentos',     icon: FileText,         to: '/documentos' },
   { label: 'Agenda',         icon: CalendarDays,     to: '/agenda' },
   { label: 'Normatividad',   icon: Library,          to: '/normatividad' },
-  { label: 'Integración',    icon: Plug,             to: '/integracion',    roles: [ROLES.SUPERADMIN] },
 ]
 
 const ADMIN_ITEMS: NavItem[] = [
@@ -51,6 +50,43 @@ const ADMIN_ITEMS: NavItem[] = [
   { label: 'Roles',      icon: ShieldCheck,   to: '/admin/roles',            roles: [ROLES.SUPERADMIN] },
   { label: 'Vigencias',  icon: CalendarRange, to: '/admin/vigencias',    roles: [ROLES.SUPERADMIN, ROLES.ADMIN_CENTRAL] },
   { label: 'Auditoría',  icon: ClipboardList, to: '/admin/auditoria',        roles: [ROLES.SUPERADMIN, ROLES.ADMIN_CENTRAL] },
+  { label: 'Integración', icon: Plug,          to: '/integracion',            roles: [ROLES.SUPERADMIN] },
+]
+
+const NAV_GROUPS: Array<{ title: string; items: NavItem[] }> = [
+  {
+    title: 'Gestión',
+    items: [
+      SIDEBAR_ITEMS.find((item) => item.label === 'Dashboard')!,
+      SIDEBAR_ITEMS.find((item) => item.label === 'Proyectos')!,
+      SIDEBAR_ITEMS.find((item) => item.label === 'Catálogos')!,
+      SIDEBAR_ITEMS.find((item) => item.label === 'Documentos')!,
+      SIDEBAR_ITEMS.find((item) => item.label === 'Agenda')!,
+      SIDEBAR_ITEMS.find((item) => item.label === 'Normatividad')!,
+    ],
+  },
+  {
+    title: 'Financiero',
+    items: [
+      SIDEBAR_ITEMS.find((item) => item.label === 'Presupuesto')!,
+      SIDEBAR_ITEMS.find((item) => item.label === 'Ejecución')!,
+      SIDEBAR_ITEMS.find((item) => item.label === 'Balance')!,
+      SIDEBAR_ITEMS.find((item) => item.label === 'Estadísticas')!,
+      SIDEBAR_ITEMS.find((item) => item.label === 'Modificaciones')!,
+      SIDEBAR_ITEMS.find((item) => item.label === 'SAR / Viáticos')!,
+    ],
+  },
+  {
+    title: 'Académico',
+    items: [
+      SIDEBAR_ITEMS.find((item) => item.label === 'Matrículas')!,
+      SIDEBAR_ITEMS.find((item) => item.label === 'Nómina')!,
+    ],
+  },
+  {
+    title: 'Administración',
+    items: ADMIN_ITEMS,
+  },
 ]
 
 export function Sidebar() {
@@ -58,7 +94,8 @@ export function Sidebar() {
   const roles = useAuthStore((s) => s.roles)
   const navigate = useNavigate()
 
-  const isAdmin = roles.includes(ROLES.SUPERADMIN) || roles.includes(ROLES.ADMIN_CENTRAL)
+  const canSeeItem = (item: NavItem) =>
+    !item.roles || item.roles.some((role) => roles.includes(role))
 
   return (
     <aside
@@ -84,20 +121,17 @@ export function Sidebar() {
       </div>
 
       {/* Nav principal */}
-      <div className="flex-1 overflow-y-auto px-2 py-3">
-        <div className="rounded-[16px] border border-[#004b82]/24 bg-[linear-gradient(180deg,rgba(0,75,130,0.12),rgba(237,244,251,0.78))] px-2 py-3 shadow-[0_10px_24px_rgba(0,75,130,0.07)]">
-          <NavigationMenu items={SIDEBAR_ITEMS} />
+      <div className="flex-1 overflow-y-auto px-3 py-4">
+        <div className="space-y-5">
+          {NAV_GROUPS.filter((group) => group.items.some(canSeeItem)).map((group) => (
+            <div key={group.title} className="border-t border-[#004b82]/10 pt-4 first:border-t-0 first:pt-0">
+              <p className="mb-2 px-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#6b7280]">
+                {group.title}
+              </p>
+              <NavigationMenu items={group.items} />
+            </div>
+          ))}
         </div>
-
-        {/* Sección Administración — solo visible para SUPERADMIN y ADMIN_CENTRAL */}
-        {isAdmin && (
-          <div className="mt-4 rounded-[16px] border border-[#004b82]/24 bg-[linear-gradient(180deg,rgba(0,75,130,0.12),rgba(237,244,251,0.78))] px-2 py-3 shadow-[0_10px_24px_rgba(0,75,130,0.07)]">
-            <p className="mb-2 px-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#004b82]">
-              Administración
-            </p>
-            <NavigationMenu items={ADMIN_ITEMS} />
-          </div>
-        )}
       </div>
     </aside>
   )

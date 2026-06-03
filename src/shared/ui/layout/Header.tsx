@@ -84,13 +84,13 @@ export function Header() {
   }
 
   return (
-    <header className="flex h-16 items-center gap-4 bg-[linear-gradient(90deg,rgba(255,248,230,0.72),rgba(255,255,255,1)_36%,rgba(237,244,251,0.82))] px-3 text-[#1f2937] shadow-[0_10px_26px_rgba(0,75,130,0.075)] sm:px-4">
+    <header className="flex h-16 items-center gap-4 bg-[linear-gradient(90deg,rgba(255,248,230,0.58),rgba(255,255,255,1)_36%,rgba(237,244,251,0.78))] px-3 text-[#1f2937] shadow-[0_4px_12px_rgba(15,23,42,0.08)] sm:px-4">
       <Button
         variant="ghost"
         size="icon"
         onClick={toggleSidebar}
         aria-label="Abrir menú"
-        className="rounded-full text-[#004b82] hover:bg-[#edf4fb] hover:text-[#004b82]"
+        className="rounded-[12px] text-[#004b82] hover:bg-[#edf4fb] hover:text-[#004b82]"
       >
         <Menu className="h-5 w-5" />
       </Button>
@@ -112,7 +112,7 @@ export function Header() {
           value={String(vigenciaActiva)}
           onValueChange={(v) => setVigencia(Number(v))}
         >
-          <SelectTrigger className="h-9 w-28 border-[#d1d5db] bg-white text-[#1f2937] shadow-sm hover:border-[#004b82] hover:bg-[#edf4fb] focus-visible:border-[#d5bb87] focus-visible:ring-[#d5bb87]/30 data-placeholder:text-[#6b7280]">
+          <SelectTrigger className="h-10 w-28 rounded-[12px] border-[rgba(15,23,42,0.08)] bg-white text-[#1f2937] shadow-[0_4px_12px_rgba(15,23,42,0.08)] hover:border-[#004b82] hover:bg-[#edf4fb] focus-visible:border-[#d5bb87] focus-visible:ring-[#d5bb87]/30 data-placeholder:text-[#6b7280]">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -132,7 +132,7 @@ export function Header() {
             Unidad ejecutora
           </span>
           <Select value={selectorUEValue} onValueChange={handleCambiarUE}>
-            <SelectTrigger className="h-9 w-52 border-[#d1d5db] bg-white text-[#1f2937] shadow-sm hover:border-[#004b82] hover:bg-[#edf4fb] focus-visible:border-[#d5bb87] focus-visible:ring-[#d5bb87]/30 data-placeholder:text-[#6b7280]">
+            <SelectTrigger className="h-10 w-52 rounded-[12px] border-[rgba(15,23,42,0.08)] bg-white text-[#1f2937] shadow-[0_4px_12px_rgba(15,23,42,0.08)] hover:border-[#004b82] hover:bg-[#edf4fb] focus-visible:border-[#d5bb87] focus-visible:ring-[#d5bb87]/30 data-placeholder:text-[#6b7280]">
               <span className="truncate text-sm text-[#1f2937]">
                 {verTodos
                   ? '🌐 Todas las unidades'
@@ -159,13 +159,13 @@ export function Header() {
 
       {/* Menú de usuario */}
       <DropdownMenu>
-        <DropdownMenuTrigger className="inline-flex h-10 items-center gap-2 rounded-full border border-[#d5bb87]/45 bg-white px-2.5 text-sm font-medium text-[#1f2937] transition-colors hover:bg-[#fff8e6] outline-none focus-visible:ring-2 focus-visible:ring-[#d5bb87]/35">
+        <DropdownMenuTrigger className="inline-flex h-10 items-center gap-2 rounded-[12px] border border-[rgba(15,23,42,0.08)] bg-white px-3 text-sm font-medium text-[#1f2937] shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-200 ease-out hover:bg-[#fff8e6] outline-none focus-visible:ring-2 focus-visible:ring-[#d5bb87]/35">
           <User className="h-4 w-4 shrink-0 text-[#004b82]" />
           <span className="max-w-[140px] truncate">{displayName}</span>
           <ChevronDown className="h-3.5 w-3.5 shrink-0 text-[#6b7280]" />
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent align="end" className="w-52 border-[#d1d5db] shadow-[0_18px_40px_rgba(31,41,55,0.12)]">
+        <DropdownMenuContent align="end" className="w-52 border-[rgba(15,23,42,0.08)] shadow-[0_4px_12px_rgba(15,23,42,0.08)]">
           <DropdownMenuGroup>
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col gap-0.5">

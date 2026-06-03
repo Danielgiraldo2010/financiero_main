@@ -4,18 +4,18 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-[12px] border border-transparent bg-clip-padding text-sm font-semibold whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-4 focus-visible:ring-ring/20 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-100 disabled:shadow-none aria-invalid:border-destructive aria-invalid:ring-4 aria-invalid:ring-destructive/15 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button inline-flex shrink-0 items-center justify-center rounded-[12px] border border-transparent bg-clip-padding text-sm font-semibold whitespace-nowrap transition-all duration-200 ease-out outline-none select-none focus-visible:border-ring focus-visible:ring-4 focus-visible:ring-ring/20 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-100 disabled:shadow-none aria-invalid:border-destructive aria-invalid:ring-4 aria-invalid:ring-destructive/15 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
         default:
-          "bg-[#004b82] text-white shadow-[0_12px_28px_rgba(0,75,130,0.20)] hover:bg-[#0a5f9b] hover:shadow-[0_14px_32px_rgba(0,75,130,0.24)] focus-visible:border-[#d5bb87] focus-visible:ring-[#d5bb87]/35 disabled:bg-[#93a9bd] disabled:text-white",
+          "border-[#004b82] bg-[#004b82] text-white shadow-[0_4px_12px_rgba(15,23,42,0.08)] hover:border-[#0a5f9b] hover:bg-[#0a5f9b] hover:shadow-[0_8px_18px_rgba(15,23,42,0.10)] active:shadow-[0_4px_12px_rgba(15,23,42,0.08)] focus-visible:border-[#d5bb87] focus-visible:ring-[#d5bb87]/35 disabled:bg-[#93a9bd] disabled:text-white",
         outline:
-          "border-[#d1d5db] bg-white text-[#1f2937] shadow-sm hover:border-[#004b82] hover:bg-[#edf4fb] hover:text-[#004b82] focus-visible:border-[#d5bb87] focus-visible:ring-[#d5bb87]/30 aria-expanded:border-[#004b82] aria-expanded:bg-[#edf4fb] aria-expanded:text-[#004b82] disabled:border-[#d1d5db] disabled:bg-[#f8fafc] disabled:text-[#6b7280]",
+          "border-[#004b82] bg-white text-[#004b82] shadow-[0_4px_12px_rgba(15,23,42,0.08)] hover:bg-[#edf4fb] hover:shadow-[0_8px_18px_rgba(15,23,42,0.10)] focus-visible:border-[#d5bb87] focus-visible:ring-[#d5bb87]/30 aria-expanded:border-[#004b82] aria-expanded:bg-[#edf4fb] aria-expanded:text-[#004b82] disabled:border-[#d1d5db] disabled:bg-[#f8fafc] disabled:text-[#6b7280]",
         secondary:
-          "border border-[#d5bb87]/45 bg-[#fff8e6] text-[#6f4d12] hover:border-[#d5bb87] hover:bg-[#fff2cf] hover:text-[#004b82] focus-visible:border-[#d5bb87] focus-visible:ring-[#d5bb87]/30 aria-expanded:border-[#d5bb87] aria-expanded:bg-[#fff2cf] aria-expanded:text-[#004b82] disabled:bg-[#f8fafc] disabled:text-[#6b7280]",
+          "border border-[#004b82] bg-white text-[#004b82] shadow-[0_4px_12px_rgba(15,23,42,0.08)] hover:bg-[#edf4fb] hover:shadow-[0_8px_18px_rgba(15,23,42,0.10)] focus-visible:border-[#d5bb87] focus-visible:ring-[#d5bb87]/30 aria-expanded:border-[#004b82] aria-expanded:bg-[#edf4fb] aria-expanded:text-[#004b82] disabled:bg-[#f8fafc] disabled:text-[#6b7280]",
         ghost:
-          "text-[#374151] hover:bg-[#edf4fb] hover:text-[#004b82] focus-visible:border-[#d5bb87] focus-visible:ring-[#d5bb87]/25 aria-expanded:bg-[#edf4fb] aria-expanded:text-[#004b82] disabled:text-[#6b7280]",
+          "border-transparent bg-transparent text-[#004b82] shadow-none hover:bg-[#edf4fb] hover:text-[#004b82] focus-visible:border-[#d5bb87] focus-visible:ring-[#d5bb87]/25 aria-expanded:bg-[#edf4fb] aria-expanded:text-[#004b82] disabled:text-[#6b7280]",
         destructive:
           "border border-destructive/15 bg-destructive/10 text-destructive hover:bg-destructive/16 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 disabled:border-destructive/10 disabled:bg-destructive/6 disabled:text-[#b97373]",
         link: "text-[#004b82] underline-offset-4 hover:underline",

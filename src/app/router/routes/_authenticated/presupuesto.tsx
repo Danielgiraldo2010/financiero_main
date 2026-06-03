@@ -6,6 +6,7 @@
 import { createFileRoute, Outlet, Link, useRouterState } from '@tanstack/react-router'
 import { useUIStore } from '@/shared/state/ui.store'
 import { cn } from '@/shared/lib/cn'
+import { PageHeader } from '@/shared/ui/layout/PageHeader'
 
 // Rango de vigencias disponibles — ajustar según necesidad institucional
 const VIGENCIAS = Array.from(
@@ -35,43 +36,56 @@ function PresupuestoLayout() {
   }
 
   return (
-    <div className="flex flex-col gap-0">
+    <div className="flex flex-col gap-5">
       {/* Header del módulo: título + selector de vigencia */}
-      <div className="flex items-center justify-between border-b border-[#dbe3ed] bg-white px-6 py-3">
-        <h1 className="text-lg font-semibold text-[#19324d]">Presupuesto UE</h1>
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-[#4b5c70]">Vigencia</span>
-          <select
-            value={vigenciaActiva}
-            onChange={(e) => setVigencia(Number(e.target.value))}
-            className="h-8 rounded-md border border-[#d6e0ea] bg-white px-2 text-sm font-medium text-[#223246] focus:outline-none focus:ring-2 focus:ring-primary"
-          >
-            {VIGENCIAS.map((v) => (
-              <option key={v} value={v}>{v}</option>
-            ))}
-          </select>
+      <section className="corporate-card overflow-hidden">
+        <div className="relative overflow-hidden bg-[linear-gradient(135deg,#ffffff_0%,#ffffff_64%,#edf4fb_100%)] px-5 py-5 sm:px-7">
+          <div
+            className="pointer-events-none absolute -right-12 -top-16 h-36 w-36 rounded-full bg-[#d5bb87]/18 blur-2xl"
+            aria-hidden="true"
+          />
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <PageHeader
+              title="Presupuesto UE"
+              description={`Gestión presupuestal de la vigencia ${vigenciaActiva}`}
+            />
+            <label className="flex w-fit items-center gap-3 rounded-[16px] border border-[#dbe3ed] bg-white px-3.5 py-2 shadow-[0_4px_12px_rgba(15,23,42,0.08)]">
+              <span className="text-xs font-semibold uppercase tracking-[0.12em] text-[#6b7280]">
+                Vigencia
+              </span>
+              <select
+                value={vigenciaActiva}
+                onChange={(e) => setVigencia(Number(e.target.value))}
+                className="h-9 min-w-[92px] rounded-[12px] border border-[#d6e0ea] bg-[#f8fbfe] px-3 text-sm font-bold text-[#1f2937] shadow-[0_1px_0_rgba(255,255,255,0.7)_inset] outline-none transition-all duration-200 ease-out focus:border-[#004b82] focus:ring-4 focus:ring-[#004b82]/12"
+              >
+                {VIGENCIAS.map((v) => (
+                  <option key={v} value={v}>{v}</option>
+                ))}
+              </select>
+            </label>
+          </div>
         </div>
-      </div>
 
-      {/* Tabs de navegación interna */}
-      <div className="sf-tabs-shell px-6">
-        <nav className="sf-tabs-nav" aria-label="Tabs de presupuesto">
-          {TABS.map((tab) => (
-            <Link
-              key={tab.to}
-              to={tab.to}
-              className={cn(
-                'sf-tab',
-                isActive(tab.to)
-                  ? 'sf-tab-active'
-                  : '',
-              )}
-            >
-              {tab.label}
-            </Link>
-          ))}
-        </nav>
-      </div>
+        {/* Tabs de navegación interna */}
+        <div className="border-t border-[#dbe3ed] bg-white px-5 py-3 sm:px-7">
+          <nav className="flex gap-2 overflow-x-auto scrollbar-none" aria-label="Tabs de presupuesto">
+            {TABS.map((tab) => (
+              <Link
+                key={tab.to}
+                to={tab.to}
+                className={cn(
+                  'shrink-0 rounded-[12px] border px-3.5 py-2 text-sm font-semibold transition-all duration-200 ease-out',
+                  isActive(tab.to)
+                    ? 'border-[#004b82]/25 bg-[#edf4fb] text-[#004b82] shadow-[0_4px_12px_rgba(15,23,42,0.08)]'
+                    : 'border-transparent text-[#526173] hover:border-[#d5bb87]/55 hover:bg-[#fff8e6] hover:text-[#004b82]',
+                )}
+              >
+                {tab.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+      </section>
 
       {/* Contenido de la ruta hija activa */}
       <div className="px-6 py-6">

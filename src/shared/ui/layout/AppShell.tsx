@@ -12,7 +12,7 @@ export function AppShell({ children }: AppShellProps) {
       <Sidebar />
       <div className="flex flex-1 flex-col overflow-hidden">
         <Header />
-        <main className="app-content-surface flex-1 overflow-y-auto px-4 py-4 md:px-6 md:py-6 lg:px-8">
+        <main className="app-content-surface flex-1 overflow-y-auto px-4 py-5 md:px-7 md:py-7 lg:px-9 lg:py-8">
           <div className="mx-auto w-full max-w-[1600px]">{children}</div>
         </main>
       </div>

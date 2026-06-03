@@ -5,6 +5,13 @@ import { ErrorMessage } from '@/shared/ui/feedback/ErrorMessage'
 import { StatusBadge } from '@/shared/ui/feedback/StatusBadge'
 import { formatCOP } from '@/shared/lib/currency'
 import { cn } from '@/shared/lib/cn'
+import {
+  BadgeDollarSign,
+  Building2,
+  Landmark,
+  WalletCards,
+  type LucideIcon,
+} from 'lucide-react'
 
 function estadoBadge(estado: string): { label: string; variant: 'success' | 'warning' | 'error' | 'info' | 'default' } {
   const map: Record<string, { label: string; variant: 'success' | 'warning' | 'error' | 'info' | 'default' }> = {
@@ -17,16 +24,44 @@ function estadoBadge(estado: string): { label: string; variant: 'success' | 'war
 }
 
 interface MetricCardProps {
-  label: string; value: string; sub?: string; highlight?: boolean
+  label: string
+  value: string
+  sub?: string
+  highlight?: boolean
+  icon: LucideIcon
+  progress?: number
+  accent?: 'blue' | 'gold'
 }
 
-function MetricCard({ label, value, sub, highlight }: MetricCardProps) {
+function MetricCard({ label, value, sub, highlight, icon: Icon, progress, accent = 'blue' }: MetricCardProps) {
+  const progressValue = progress === undefined ? undefined : Math.max(4, Math.min(progress, 100))
+
   return (
-    <div className={cn('rounded-lg border p-4 space-y-1',
-      highlight && 'border-destructive bg-destructive/5')}>
-      <p className="text-xs text-muted-foreground uppercase tracking-wide">{label}</p>
-      <p className="text-2xl font-semibold tabular-nums">{value}</p>
-      {sub && <p className="text-xs text-muted-foreground">{sub}</p>}
+    <div
+      className={cn(
+        'group relative overflow-hidden rounded-[16px] border border-[rgba(15,23,42,0.08)] bg-white p-5 shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-200 ease-out hover:border-[#004b82]/25 hover:shadow-[0_8px_18px_rgba(15,23,42,0.10)] before:absolute before:inset-x-0 before:top-0 before:h-1.5',
+        accent === 'gold' ? 'before:bg-[#d5bb87]' : 'before:bg-[#004b82]',
+        highlight && 'border-destructive/35 bg-destructive/5'
+      )}
+    >
+      <div className="relative flex items-start justify-between gap-4">
+        <div className="min-w-0">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#607086]">{label}</p>
+          <p className="mt-3 text-3xl font-bold tracking-[-0.045em] text-[#0f2f4f] tabular-nums">{value}</p>
+        </div>
+        <div className={accent === 'gold' ? 'rounded-[16px] border border-[#d5bb87]/45 bg-[#fff8e6] p-3 text-[#9a6a1f] shadow-[0_10px_24px_rgba(154,106,31,0.12)]' : 'rounded-[16px] border border-[#004b82]/18 bg-[#edf4fb] p-3 text-[#004b82] shadow-[0_10px_24px_rgba(0,75,130,0.12)]'}>
+          <Icon className="h-5 w-5" aria-hidden="true" />
+        </div>
+      </div>
+      {sub && <p className="relative mt-3 text-sm font-medium leading-5 text-[#5b6b7f]">{sub}</p>}
+      {progressValue !== undefined && (
+        <div className="relative mt-4 h-2.5 overflow-hidden rounded-full bg-[#dbe8f4] shadow-[inset_0_1px_2px_rgba(0,75,130,0.10)]">
+          <div
+            className={accent === 'gold' ? 'h-full rounded-full bg-[#d5bb87]' : 'h-full rounded-full bg-[#004b82]'}
+            style={{ width: `${progressValue}%` }}
+          />
+        </div>
+      )}
     </div>
   )
 }
@@ -44,24 +79,34 @@ export function ResumenPresupuestoPanel() {
   const pctG = Number(data.porcentajeEjecucionGastos).toFixed(1)
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold">Resumen Ejecución — Vigencia {data.vigencia}</h2>
+    <div className="space-y-5">
+      <div className="flex items-center justify-between border-l-4 border-[#d5bb87] px-4 py-2.5">
+        <h2 className="text-2xl font-bold tracking-[-0.025em] text-[#004b82]">Resumen Ejecución — Vigencia {data.vigencia}</h2>
         <StatusBadge label={badge.label} variant={badge.variant} />
       </div>
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+      <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
         <MetricCard label="Presupuesto Ingresos"
           value={formatCOP(data.totalPresupuestoIngresos)}
-          sub={`Ejecutado: ${formatCOP(data.totalEjecutadoIngresos)} (${pctI}%)`} />
+          sub={`Ejecutado: ${formatCOP(data.totalEjecutadoIngresos)} (${pctI}%)`}
+          progress={Number(data.porcentajeEjecucionIngresos)}
+          icon={Landmark} />
         <MetricCard label="Presupuesto Gastos"
           value={formatCOP(data.totalPresupuestoGastos)}
-          sub={`Ejecutado: ${formatCOP(data.totalEjecutadoGastos)} (${pctG}%)`} />
+          sub={`Ejecutado: ${formatCOP(data.totalEjecutadoGastos)} (${pctG}%)`}
+          progress={Number(data.porcentajeEjecucionGastos)}
+          icon={WalletCards}
+          accent="gold" />
         <MetricCard label="Saldo Disponible Gastos"
           value={formatCOP(data.saldoDisponibleGastos)}
-          highlight={data.saldoDisponibleGastos < 0} />
+          highlight={data.saldoDisponibleGastos < 0}
+          progress={data.totalPresupuestoGastos > 0 ? (data.saldoDisponibleGastos / data.totalPresupuestoGastos) * 100 : 0}
+          icon={BadgeDollarSign} />
         <MetricCard label="Unidad Ejecutora"
           value={data.unidadEjecutora}
-          sub={`ID: ${data.unidadEjecutoraId}`} />
+          sub={`ID: ${data.unidadEjecutoraId}`}
+          progress={100}
+          icon={Building2}
+          accent="gold" />
       </div>
     </div>
   )

@@ -45,6 +45,9 @@
   --text-main: #1f2937;
   --text-secondary: #6b7280;
   --border-main: #d1d5db;
+  --shadow-soft: 0 4px 12px rgba(15, 23, 42, 0.08);
+  --shadow-premium: 0 4px 12px rgba(15, 23, 42, 0.08);
+  --shadow-lift: 0 8px 18px rgba(15, 23, 42, 0.10);
 
   --radius:             0.875rem;
   --radius-md:          calc(var(--radius) - 2px);
@@ -135,6 +138,14 @@
     background-color: transparent;
     background-image: none;
   }
+
+  :where(h1, h2, h3, h4, h5, h6) {
+    font-weight: 700;
+  }
+
+  :where(p, label, li, td) {
+    font-weight: 400;
+  }
 }
 
 ::selection {
@@ -177,12 +188,20 @@ textarea::selection,
 }
 
 .corporate-card {
-  border: 1px solid var(--border-main);
-  border-radius: 18px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 16px;
   background: #ffffff;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
   box-shadow:
-    0 1px 0 rgba(213, 187, 135, 0.28) inset,
-    0 18px 48px rgba(0, 40, 77, 0.08);
+    var(--shadow-premium);
+}
+
+.corporate-card:hover {
+  border-color: color-mix(in oklab, var(--institutional-blue) 28%, rgba(15, 23, 42, 0.08));
+  box-shadow: var(--shadow-lift);
 }
 
 .sf-tabs-shell {
@@ -212,19 +231,22 @@ textarea::selection,
   transition:
     background-color 160ms ease,
     border-color 160ms ease,
-    color 160ms ease;
+    color 160ms ease,
+    box-shadow 160ms ease;
 }
 
 .sf-tab:hover {
   background: rgba(237, 244, 251, 0.72);
   border-bottom-color: var(--institutional-gold);
   color: var(--institutional-blue);
+  box-shadow: inset 0 -1px 0 rgba(0, 75, 130, 0.08);
 }
 
 .sf-tab-active {
   background: linear-gradient(180deg, rgba(213, 187, 135, 0.12), rgba(237, 244, 251, 0.42));
   border-bottom-color: var(--institutional-blue);
   color: var(--institutional-blue);
+  box-shadow: inset 0 -1px 0 rgba(0, 75, 130, 0.12);
 }
 
 .sf-tab-active:hover {

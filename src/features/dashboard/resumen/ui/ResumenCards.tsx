@@ -1,4 +1,11 @@
 import type { ResumenEjecutivo } from "../../model/types"
+import {
+  BarChart3,
+  Clock3,
+  FileCheck2,
+  TrendingUp,
+  type LucideIcon,
+} from "lucide-react"
 
 interface Props {
   resumen: ResumenEjecutivo
@@ -13,13 +20,13 @@ function formatCOP(n: number): string {
   }).format(n)
 }
 
-function PctBar({ pct }: { pct: number }) {
-  const color = pct >= 80 ? "bg-green-500" : pct >= 50 ? "bg-yellow-400" : "bg-red-500"
+function PctBar({ pct, accent = "blue" }: { pct: number; accent?: "blue" | "gold" }) {
+  const width = Math.max(4, Math.min(pct, 100))
   return (
-    <div className="mt-2 h-1.5 w-full rounded-full bg-muted">
+    <div className="mt-4 h-2.5 w-full overflow-hidden rounded-full bg-[#dbe8f4] shadow-[inset_0_1px_2px_rgba(0,75,130,0.10)]">
       <div
-        className={`h-1.5 rounded-full transition-all ${color}`}
-        style={{ width: `${Math.min(pct, 100)}%` }}
+        className={accent === "gold" ? "h-full rounded-full bg-[#d5bb87] shadow-[0_0_18px_rgba(213,187,135,0.42)]" : "h-full rounded-full bg-[#004b82] shadow-[0_0_18px_rgba(0,75,130,0.34)]"}
+        style={{ width: `${width}%` }}
       />
     </div>
   )
@@ -30,48 +37,79 @@ function KPICard({
   value,
   sub,
   pct,
-  colorPct,
+  icon: Icon,
+  accent = "blue",
 }: {
   label: string
   value: string
   sub?: string
   pct?: number
-  colorPct?: string
+  icon: LucideIcon
+  accent?: "blue" | "gold"
 }) {
   return (
-    <div className="rounded-lg border bg-background p-4 shadow-sm">
-      <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{label}</p>
-      <p className="mt-1 text-2xl font-bold tabular-nums">{value}</p>
-      {sub && <p className="mt-0.5 text-sm text-muted-foreground">{sub}</p>}
-      {pct !== undefined && <PctBar pct={pct} />}
+    <div
+      className={[
+        "group relative overflow-hidden rounded-[16px] border border-[rgba(15,23,42,0.08)] bg-white p-5 shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-200 ease-out hover:border-[#004b82]/25 hover:shadow-[0_8px_18px_rgba(15,23,42,0.10)]",
+        accent === "gold" ? "before:bg-[#d5bb87]" : "before:bg-[#004b82]",
+        "before:absolute before:inset-x-0 before:top-0 before:h-1.5",
+      ].join(" ")}
+    >
+      <div className="relative flex items-start justify-between gap-4">
+        <div className="min-w-0">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#607086]">{label}</p>
+          <p className="mt-3 text-4xl font-bold tracking-[-0.05em] text-[#0f2f4f] tabular-nums">{value}</p>
+        </div>
+        <div className={accent === "gold" ? "rounded-[16px] border border-[#d5bb87]/45 bg-[#fff8e6] p-3 text-[#9a6a1f] shadow-[0_10px_24px_rgba(154,106,31,0.12)]" : "rounded-[16px] border border-[#004b82]/18 bg-[#edf4fb] p-3 text-[#004b82] shadow-[0_10px_24px_rgba(0,75,130,0.12)]"}>
+          <Icon className="h-5 w-5" aria-hidden="true" />
+        </div>
+      </div>
+      {sub && <p className="relative mt-3 line-clamp-2 text-sm font-medium leading-5 text-[#5b6b7f]">{sub}</p>}
+      {pct !== undefined && (
+        <div className="relative">
+          <PctBar pct={pct} accent={accent} />
+          <div className="mt-2 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.12em] text-[#607086]">
+            <span>Avance</span>
+            <span>{Math.min(Math.max(pct, 0), 100).toFixed(1)}%</span>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
 
 export function ResumenCards({ resumen }: Props) {
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
       <KPICard
         label="Ejecucion Ingresos"
         value={`${resumen.porcentajeEjecucionIngresos.toFixed(1)}%`}
         sub={`${formatCOP(resumen.totalEjecutadoIngresos)} / ${formatCOP(resumen.totalPresupuestoIngresos)}`}
         pct={resumen.porcentajeEjecucionIngresos}
+        icon={TrendingUp}
       />
       <KPICard
         label="Ejecucion Gastos"
         value={`${resumen.porcentajeEjecucionGastos.toFixed(1)}%`}
         sub={`${formatCOP(resumen.totalEjecutadoGastos)} / ${formatCOP(resumen.totalPresupuestoGastos)}`}
         pct={resumen.porcentajeEjecucionGastos}
+        icon={BarChart3}
+        accent="gold"
       />
       <KPICard
         label="SAR Pendientes"
         value={String(resumen.sarPendientes)}
         sub="Solicitudes sin procesar"
+        pct={Math.min(resumen.sarPendientes * 10, 100)}
+        icon={Clock3}
       />
       <KPICard
         label="CDP Pendientes"
         value={String(resumen.cdpPendientes)}
         sub={`${resumen.proyectosActivos} proyectos activos`}
+        pct={Math.min(resumen.cdpPendientes * 10, 100)}
+        icon={FileCheck2}
+        accent="gold"
       />
     </div>
   )
