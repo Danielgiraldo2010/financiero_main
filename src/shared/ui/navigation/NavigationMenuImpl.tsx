@@ -56,8 +56,8 @@ export function NavigationMenu({ items }: NavigationMenuProps) {
                 className={cn(
                   'group flex items-center gap-3 rounded-[14px] border-l-4 border-transparent px-3 py-2.5 text-sm font-medium transition-all duration-200',
                   isActive
-                    ? 'border-[#d5bb87] bg-[linear-gradient(90deg,rgba(213,187,135,0.28)_0%,rgba(237,244,251,0.98)_100%)] text-[#004b82] shadow-[0_10px_24px_rgba(0,75,130,0.11)]'
-                    : 'text-[#374151] hover:border-[#d5bb87]/55 hover:bg-[#edf4fb] hover:text-[#004b82]',
+                    ? 'border-[#004b82] bg-[linear-gradient(90deg,rgba(0,75,130,0.13)_0%,rgba(237,244,251,0.98)_100%)] text-[#004b82] shadow-[0_10px_24px_rgba(0,75,130,0.11)]'
+                    : 'text-[#374151] hover:border-[#004b82]/45 hover:bg-[#edf4fb] hover:text-[#004b82]',
                 )}
               >
                 <Icon className={cn('h-4 w-4 shrink-0 transition-transform duration-200', isActive ? 'scale-105 text-[#004b82]' : 'text-[#607086] group-hover:text-[#004b82]')} />

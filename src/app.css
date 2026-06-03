@@ -41,7 +41,7 @@
   --institutional-gold: #d5bb87;
   --institutional-gold-strong: #9a6a1f;
   --institutional-gold-soft: #fff8e6;
-  --surface-soft: #f8fafc;
+  --surface-soft: #eef6fd;
   --text-main: #1f2937;
   --text-secondary: #6b7280;
   --border-main: #d1d5db;
@@ -151,16 +151,18 @@ textarea::selection,
 
 .app-surface {
   background:
-    radial-gradient(circle at 4% 0%, rgba(213, 187, 135, 0.12), transparent 30%),
-    radial-gradient(circle at 100% 4%, rgba(0, 75, 130, 0.06), transparent 34%),
-    #ffffff;
+    radial-gradient(circle at 4% 0%, rgba(0, 75, 130, 0.10), transparent 30%),
+    radial-gradient(circle at 100% 4%, rgba(0, 75, 130, 0.08), transparent 34%),
+    #f3f8fd;
   color: var(--text-main);
 }
 
 .app-content-surface {
   background:
-    linear-gradient(180deg, rgba(248, 250, 252, 0.86) 0%, rgba(255, 255, 255, 0.96) 180px),
-    #ffffff;
+    radial-gradient(circle at 8% 0%, rgba(0, 75, 130, 0.10), transparent 28%),
+    radial-gradient(circle at 96% 12%, rgba(0, 75, 130, 0.08), transparent 30%),
+    linear-gradient(180deg, rgba(237, 244, 251, 0.96) 0%, rgba(244, 248, 252, 0.98) 220px),
+    #f3f8fd;
   color: var(--text-main);
 }
 

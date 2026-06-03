@@ -84,7 +84,7 @@ export function Header() {
   }
 
   return (
-    <header className="flex h-16 items-center gap-4 border-b border-[#d1d5db] bg-[linear-gradient(90deg,rgba(255,248,230,0.72),rgba(255,255,255,1)_36%,rgba(237,244,251,0.82))] px-3 text-[#1f2937] shadow-[0_8px_24px_rgba(0,75,130,0.08)] sm:px-4">
+    <header className="flex h-16 items-center gap-4 bg-[linear-gradient(90deg,rgba(255,248,230,0.72),rgba(255,255,255,1)_36%,rgba(237,244,251,0.82))] px-3 text-[#1f2937] shadow-[0_10px_26px_rgba(0,75,130,0.075)] sm:px-4">
       <Button
         variant="ghost"
         size="icon"

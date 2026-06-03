@@ -63,12 +63,12 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        'flex flex-col border-r border-[#d1d5db] bg-white text-[#1f2937] shadow-[10px_0_40px_rgba(0,75,130,0.08)] transition-all duration-300',
+        'flex flex-col bg-white text-[#1f2937] shadow-[10px_0_40px_rgba(0,75,130,0.08)] transition-all duration-300',
         sidebarOpen ? 'w-60' : 'w-0 overflow-hidden',
       )}
     >
       {/* Logo */}
-      <div className="flex h-16 items-center justify-between border-b border-[#d5bb87]/35 bg-[linear-gradient(90deg,rgba(213,187,135,0.12),rgba(255,255,255,1))] px-3">
+      <div className="flex h-16 items-center justify-between bg-[linear-gradient(90deg,rgba(0,75,130,0.16),rgba(237,244,251,0.88)_58%,rgba(255,255,255,1))] px-3">
         <button
           type="button"
           onClick={() => navigate({ to: '/dashboard' })}
@@ -85,12 +85,14 @@ export function Sidebar() {
 
       {/* Nav principal */}
       <div className="flex-1 overflow-y-auto px-2 py-3">
-        <NavigationMenu items={SIDEBAR_ITEMS} />
+        <div className="rounded-[16px] border border-[#004b82]/24 bg-[linear-gradient(180deg,rgba(0,75,130,0.12),rgba(237,244,251,0.78))] px-2 py-3 shadow-[0_10px_24px_rgba(0,75,130,0.07)]">
+          <NavigationMenu items={SIDEBAR_ITEMS} />
+        </div>
 
         {/* Sección Administración — solo visible para SUPERADMIN y ADMIN_CENTRAL */}
         {isAdmin && (
-          <div className="mt-4 rounded-[16px] border border-[#d5bb87]/45 bg-[#fff8e6]/55 px-2 py-3 shadow-[0_10px_24px_rgba(0,75,130,0.05)]">
-            <p className="mb-2 px-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#6f4d12]">
+          <div className="mt-4 rounded-[16px] border border-[#004b82]/24 bg-[linear-gradient(180deg,rgba(0,75,130,0.12),rgba(237,244,251,0.78))] px-2 py-3 shadow-[0_10px_24px_rgba(0,75,130,0.07)]">
+            <p className="mb-2 px-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#004b82]">
               Administración
             </p>
             <NavigationMenu items={ADMIN_ITEMS} />

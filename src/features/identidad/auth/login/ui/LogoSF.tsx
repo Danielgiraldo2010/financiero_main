@@ -21,7 +21,7 @@ export function LogoSF({
           src="/image/logo1ucaldas.png"
           alt="Universidad de Caldas"
           className={cn(
-            "h-auto max-w-[58vw] object-contain drop-shadow-[0_8px_20px_rgba(31,41,55,0.12)]",
+            "h-auto max-w-[58vw] object-contain brightness-0 invert drop-shadow-[0_10px_24px_rgba(0,40,77,0.28)]",
             isHero ? "w-[360px] xl:w-[440px]" : "w-[210px] sm:w-[240px]",
           )}
         />
@@ -29,7 +29,7 @@ export function LogoSF({
           src="/image/logo-cidt.png"
           alt="CIDT"
           className={cn(
-            "hidden h-auto object-contain drop-shadow-[0_8px_20px_rgba(31,41,55,0.12)] sm:block",
+            "hidden h-auto object-contain brightness-0 invert drop-shadow-[0_10px_24px_rgba(0,40,77,0.28)] sm:block",
             isHero ? "w-[136px] xl:w-[168px]" : "w-[96px]",
           )}
         />

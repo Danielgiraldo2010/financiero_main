@@ -68,8 +68,8 @@ export default function LoginPage() {
 function AuthShell({ children }: { children: React.ReactNode }) {
   return (
     <main className="relative z-10 flex min-h-screen w-full flex-col items-center justify-center gap-8 px-5 py-8 sm:px-6 md:px-10 lg:flex-row lg:justify-center lg:gap-20 lg:px-[8vw] xl:gap-28">
-      <div className="login-bg-zoom absolute inset-0 bg-[url('/image/bg-universidad.png')] bg-cover bg-center opacity-10" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(213,187,135,0.18),transparent_30%),radial-gradient(circle_at_82%_20%,rgba(0,75,130,0.10),transparent_34%),linear-gradient(160deg,rgba(255,255,255,0.95)_0%,rgba(248,250,252,0.97)_55%,rgba(255,255,255,0.99)_100%)]" />
+      <div className="login-bg-zoom absolute inset-0 bg-[url('/image/bg-universidad.png')] bg-cover bg-center opacity-80" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_22%,rgba(213,187,135,0.22),transparent_31%),radial-gradient(circle_at_76%_18%,rgba(255,255,255,0.16),transparent_28%),linear-gradient(135deg,rgba(0,54,94,0.88)_0%,rgba(0,75,130,0.74)_45%,rgba(0,75,130,0.58)_100%)]" />
       <section className="relative z-10 hidden min-w-[380px] max-w-[650px] flex-1 items-center justify-center lg:flex">
         <LogoSF variant="hero" showProductMark={false} />
       </section>
