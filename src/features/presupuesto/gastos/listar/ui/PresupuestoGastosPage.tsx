@@ -51,7 +51,7 @@ export function PresupuestoGastosPage() {
           </Button>
         }
       />
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {[
           { label: 'Total Definitivo',  value: totalDefinitivo },
           { label: 'Total Ejecutado',   value: totalEjecutado  },

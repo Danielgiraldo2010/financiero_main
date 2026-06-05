@@ -91,6 +91,7 @@ const NAV_GROUPS: Array<{ title: string; items: NavItem[] }> = [
 
 export function Sidebar() {
   const sidebarOpen = useUIStore((s) => s.sidebarOpen)
+  const setSidebarOpen = useUIStore((s) => s.setSidebarOpen)
   const roles = useAuthStore((s) => s.roles)
   const navigate = useNavigate()
 
@@ -98,41 +99,53 @@ export function Sidebar() {
     !item.roles || item.roles.some((role) => roles.includes(role))
 
   return (
-    <aside
-      className={cn(
-        'flex flex-col bg-white text-[#1f2937] shadow-[10px_0_40px_rgba(0,75,130,0.08)] transition-all duration-300',
-        sidebarOpen ? 'w-60' : 'w-0 overflow-hidden',
-      )}
-    >
-      {/* Logo */}
-      <div className="flex h-16 items-center justify-between bg-[linear-gradient(90deg,rgba(0,75,130,0.16),rgba(237,244,251,0.88)_58%,rgba(255,255,255,1))] px-3">
+    <>
+      {sidebarOpen && (
         <button
           type="button"
-          onClick={() => navigate({ to: '/dashboard' })}
-          className="w-full rounded-[14px] px-2 py-1 text-left transition-colors hover:bg-[#edf4fb]"
-          aria-label="Sistema Financiero"
-        >
-          <BrandMark
-            size="sm"
-            showText={sidebarOpen}
-            className={cn(!sidebarOpen && 'justify-center')}
-          />
-        </button>
-      </div>
-
-      {/* Nav principal */}
-      <div className="flex-1 overflow-y-auto px-3 py-4">
-        <div className="space-y-5">
-          {NAV_GROUPS.filter((group) => group.items.some(canSeeItem)).map((group) => (
-            <div key={group.title} className="border-t border-[#004b82]/10 pt-4 first:border-t-0 first:pt-0">
-              <p className="mb-2 px-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#6b7280]">
-                {group.title}
-              </p>
-              <NavigationMenu items={group.items} />
-            </div>
-          ))}
+          className="fixed inset-0 z-30 bg-[#0f172a]/20 backdrop-blur-[1px] md:hidden"
+          onClick={() => setSidebarOpen(false)}
+          aria-label="Cerrar menú lateral"
+        />
+      )}
+      <aside
+        className={cn(
+          'fixed inset-y-0 left-0 z-40 flex w-[280px] max-w-[84vw] flex-col bg-white text-[#1f2937] shadow-[10px_0_40px_rgba(0,75,130,0.08)] transition-all duration-300 md:relative md:z-auto md:max-w-none',
+          sidebarOpen
+            ? 'translate-x-0 md:w-60'
+            : '-translate-x-full md:w-0 md:translate-x-0 md:overflow-hidden',
+        )}
+      >
+        {/* Logo */}
+        <div className="flex h-[72px] items-center justify-between bg-[linear-gradient(90deg,rgba(0,75,130,0.16),rgba(237,244,251,0.88)_58%,rgba(255,255,255,1))] px-3">
+          <button
+            type="button"
+            onClick={() => navigate({ to: '/dashboard' })}
+            className="w-full rounded-[14px] px-2 py-1 text-left transition-colors hover:bg-[#edf4fb]"
+            aria-label="Sistema Financiero"
+          >
+            <BrandMark
+              size="sm"
+              showText={sidebarOpen}
+              className={cn(!sidebarOpen && 'justify-center')}
+            />
+          </button>
         </div>
-      </div>
-    </aside>
+
+        {/* Nav principal */}
+        <div className="flex-1 overflow-y-auto px-3 py-4">
+          <div className="space-y-5">
+            {NAV_GROUPS.filter((group) => group.items.some(canSeeItem)).map((group) => (
+              <div key={group.title} className="border-t border-[#004b82]/10 pt-4 first:border-t-0 first:pt-0">
+                <p className="mb-2 px-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#6b7280]">
+                  {group.title}
+                </p>
+                <NavigationMenu items={group.items} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </aside>
+    </>
   )
 }

@@ -18,16 +18,16 @@ function MatriculasPage() {
   const matchRoute = useMatchRoute()
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex h-full min-w-0 flex-col">
       {/* Cabecera */}
-      <div className="border-b border-[#dbe3ed] bg-white px-6 pt-5 pb-0 space-y-1">
+      <div className="space-y-1 border-b border-[#dbe3ed] bg-white px-3 pb-0 pt-4 md:px-6 md:pt-5">
         <h1 className="text-xl font-semibold text-[#19324d]">Matrículas e Ingresos</h1>
         <p className="text-sm text-muted-foreground">
           Gestión de cohortes, transferencias, cobertura PIC y becas Minciencias
         </p>
 
         {/* Tabs de navegación */}
-        <nav className="sf-tabs-nav pt-3">
+        <nav className="sf-tabs-nav overflow-x-auto pt-3 scrollbar-none">
           {TABS.map((tab) => {
             const active = !!matchRoute({ to: tab.to, fuzzy: false })
             return (
@@ -49,7 +49,7 @@ function MatriculasPage() {
       </div>
 
       {/* Contenido del tab activo */}
-      <div className="flex-1 overflow-y-auto p-6">
+      <div className="min-w-0 flex-1 overflow-y-auto px-0 py-4 md:p-6">
         <Outlet />
       </div>
     </div>

@@ -126,7 +126,7 @@ export function ModificarVigenciaDialog({ open, onClose, vigencia }: Props) {
           </div>
 
           {/* Fechas */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid gap-3 sm:grid-cols-2">
             <div className="flex flex-col gap-1">
               <Label>Fecha inicio <span className="text-destructive">*</span></Label>
               <Input type="date" {...register("fechaInicio")} disabled={esCerrada} />

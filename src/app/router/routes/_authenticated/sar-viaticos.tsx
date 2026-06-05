@@ -18,11 +18,11 @@ function SarViaticosLayout() {
   }
 
   return (
-    <div className="flex flex-col gap-0">
-      <div className="flex items-center justify-between border-b border-[#dbe3ed] bg-white px-6 py-3">
+    <div className="flex min-w-0 flex-col gap-0">
+      <div className="flex items-center justify-between border-b border-[#dbe3ed] bg-white px-3 py-3 md:px-6">
         <h1 className="text-lg font-semibold text-[#19324d]">SAR / Viáticos</h1>
       </div>
-      <div className="sf-tabs-shell px-6">
+      <div className="sf-tabs-shell px-3 md:px-6">
         <nav className="sf-tabs-nav" aria-label="Tabs SAR/Viáticos">
           {TABS.map((tab) => (
             <Link
@@ -40,7 +40,7 @@ function SarViaticosLayout() {
           ))}
         </nav>
       </div>
-      <div className="px-6 py-6">
+      <div className="px-0 py-4 md:px-6 md:py-6">
         <Outlet />
       </div>
     </div>

@@ -94,7 +94,7 @@ export function SolicitarInformeDialog({ open, onClose, onSolicitado }: Props) {
             <Input type="number" {...register("vigencia")} />
             {errors.vigencia && <p className="text-xs text-destructive">{errors.vigencia.message}</p>}
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid gap-3 sm:grid-cols-2">
             <div className="flex flex-col gap-1">
               <Label>Fecha desde (opcional)</Label>
               <Input type="date" {...register("fechaDesde")} />

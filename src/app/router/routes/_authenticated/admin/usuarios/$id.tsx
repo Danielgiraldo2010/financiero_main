@@ -33,7 +33,7 @@ function PageSkeleton() {
   return (
     <div className="p-6 space-y-4 animate-pulse">
       <div className="h-8 w-64 rounded bg-muted" />
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         <div className="h-24 rounded bg-muted" />
         <div className="h-24 rounded bg-muted" />
         <div className="h-24 rounded bg-muted" />

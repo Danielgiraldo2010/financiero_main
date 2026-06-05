@@ -49,14 +49,14 @@ function PresupuestoLayout() {
               title="Presupuesto UE"
               description={`Gestión presupuestal de la vigencia ${vigenciaActiva}`}
             />
-            <label className="flex w-fit items-center gap-3 rounded-[16px] border border-[#dbe3ed] bg-white px-3.5 py-2 shadow-[0_4px_12px_rgba(15,23,42,0.08)]">
+            <label className="flex w-full flex-col items-start gap-2 rounded-[16px] border border-[#dbe3ed] bg-white px-3.5 py-2 shadow-[0_4px_12px_rgba(15,23,42,0.08)] sm:w-fit sm:flex-row sm:items-center sm:gap-3">
               <span className="text-xs font-semibold uppercase tracking-[0.12em] text-[#6b7280]">
                 Vigencia
               </span>
               <select
                 value={vigenciaActiva}
                 onChange={(e) => setVigencia(Number(e.target.value))}
-                className="h-9 min-w-[92px] rounded-[12px] border border-[#d6e0ea] bg-[#f8fbfe] px-3 text-sm font-bold text-[#1f2937] shadow-[0_1px_0_rgba(255,255,255,0.7)_inset] outline-none transition-all duration-200 ease-out focus:border-[#004b82] focus:ring-4 focus:ring-[#004b82]/12"
+                className="h-9 w-full min-w-[92px] rounded-[12px] border border-[#d6e0ea] bg-[#f8fbfe] px-3 text-sm font-bold text-[#1f2937] shadow-[0_1px_0_rgba(255,255,255,0.7)_inset] outline-none transition-all duration-200 ease-out focus:border-[#004b82] focus:ring-4 focus:ring-[#004b82]/12 sm:w-auto"
               >
                 {VIGENCIAS.map((v) => (
                   <option key={v} value={v}>{v}</option>
@@ -88,7 +88,7 @@ function PresupuestoLayout() {
       </section>
 
       {/* Contenido de la ruta hija activa */}
-      <div className="px-6 py-6">
+      <div className="px-0 py-4 md:px-6 md:py-6">
         <Outlet />
       </div>
     </div>

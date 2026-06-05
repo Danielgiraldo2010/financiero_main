@@ -34,7 +34,7 @@ export function EventoDetailDialog({ evento, onClose }: Props) {
           {evento.descripcion && (
             <p className="text-sm text-muted-foreground">{evento.descripcion}</p>
           )}
-          <dl className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+          <dl className="grid gap-x-4 gap-y-1 text-sm sm:grid-cols-2">
             <dt className="text-muted-foreground">Fecha limite</dt>
             <dd>{evento.fechaLimite}</dd>
             {evento.fechaCompletado && (

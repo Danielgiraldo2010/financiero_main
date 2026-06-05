@@ -8,7 +8,7 @@ function NormatividadLayout() {
   const pathname = useRouterState({ select: (s) => s.location.pathname })
   return (
     <div className="flex flex-col min-h-0">
-      <div className="sf-tabs-shell px-6">
+      <div className="sf-tabs-shell px-3 md:px-6">
         <nav className="sf-tabs-nav">
           {TABS.map((tab) => (
             <Link
@@ -26,7 +26,7 @@ function NormatividadLayout() {
           ))}
         </nav>
       </div>
-      <div className="px-6 py-6">
+      <div className="px-0 py-4 md:px-6 md:py-6">
         <Outlet />
       </div>
     </div>

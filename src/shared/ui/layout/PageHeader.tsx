@@ -12,15 +12,15 @@ interface PageHeaderProps {
 export function PageHeader({ title, description, actions, action }: PageHeaderProps) {
   const slot = actions ?? action
   return (
-    <div className="flex items-center justify-between gap-4 border-l-4 border-[#d5bb87] px-4 py-2.5">
+    <div className="flex flex-col gap-3 border-l-4 border-[#d5bb87] px-3 py-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-4">
       <div className="min-w-0">
-        <h1 className="text-2xl font-bold tracking-[-0.025em] text-[#004b82]">{title}</h1>
+        <h1 className="text-xl font-bold tracking-[-0.025em] text-[#004b82] sm:text-2xl">{title}</h1>
         {description && (
           <p className="mt-1 text-sm font-medium leading-5 text-muted-foreground">{description}</p>
         )}
       </div>
       {slot && (
-        <div className="flex shrink-0 items-center gap-2 self-start">{slot}</div>
+        <div className="flex w-full shrink-0 items-center gap-2 self-start sm:w-auto">{slot}</div>
       )}
     </div>
   )

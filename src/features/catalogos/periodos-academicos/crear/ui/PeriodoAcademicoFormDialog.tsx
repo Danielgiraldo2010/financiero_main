@@ -27,7 +27,7 @@ export function PeriodoAcademicoFormDialog({ open, onClose }: Props) {
       <DialogContent className="sm:max-w-md">
         <DialogHeader><DialogTitle>Nuevo Periodo Academico</DialogTitle></DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid gap-3 sm:grid-cols-2">
             <div className="flex flex-col gap-1">
               <Label>Vigencia</Label>
               <Input type="number" {...register("vigencia")} />
@@ -44,7 +44,7 @@ export function PeriodoAcademicoFormDialog({ open, onClose }: Props) {
             <Input {...register("nombre")} placeholder="Ej: Semestre 2026-1" />
             {errors.nombre && <p className="text-xs text-destructive">{errors.nombre.message}</p>}
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid gap-3 sm:grid-cols-2">
             <div className="flex flex-col gap-1">
               <Label>Fecha Inicio</Label>
               <Input type="date" {...register("fechaInicio")} />

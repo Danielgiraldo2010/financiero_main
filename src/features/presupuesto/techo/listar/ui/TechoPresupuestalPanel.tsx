@@ -33,7 +33,7 @@ export function TechoPresupuestalPanel() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="text-lg font-semibold">Techo Presupuestal</h2>
         {puedeRegistrar && (
           <Button size="sm" onClick={() => setDialogOpen(true)}>
@@ -45,7 +45,7 @@ export function TechoPresupuestalPanel() {
         <EmptyState title="Sin techo registrado"
           description="El ADMIN_CENTRAL debe comunicar el techo presupuestal para la vigencia." />
       ) : (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {[
             { label: 'Techo Asignado',       value: techo.valorTecho         },
             { label: 'Apropiado Inicial',     value: techo.valorApropiado     },

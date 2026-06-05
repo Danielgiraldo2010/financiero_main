@@ -19,14 +19,14 @@ function NominaLayout() {
   }
 
   return (
-    <div className="flex flex-col gap-0">
+    <div className="flex min-w-0 flex-col gap-0">
       {/* Header del módulo */}
-      <div className="flex items-center justify-between border-b border-[#dbe3ed] bg-white px-6 py-3">
+      <div className="flex items-center justify-between border-b border-[#dbe3ed] bg-white px-3 py-3 md:px-6">
         <h1 className="text-lg font-semibold text-[#19324d]">Nómina</h1>
       </div>
 
       {/* Tabs de navegación interna */}
-      <div className="sf-tabs-shell px-6">
+      <div className="sf-tabs-shell px-3 md:px-6">
         <nav className="sf-tabs-nav" aria-label="Tabs de nómina">
           {TABS.map((tab) => (
             <Link
@@ -46,7 +46,7 @@ function NominaLayout() {
       </div>
 
       {/* Contenido */}
-      <div className="px-6 py-6">
+      <div className="px-0 py-4 md:px-6 md:py-6">
         <Outlet />
       </div>
     </div>
