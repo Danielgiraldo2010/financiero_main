@@ -54,10 +54,10 @@ export function NavigationMenu({ items }: NavigationMenuProps) {
               <Link
                 to={item.to}
                 className={cn(
-                  'group flex items-center gap-3 rounded-[12px] border-l-4 border-transparent px-3 py-2.5 text-sm font-medium transition-all duration-200 ease-out',
+                  'group flex items-center gap-3 rounded-[14px] border-l-4 border-transparent px-3 py-2.5 text-sm font-medium transition-all duration-200 ease-out',
                   isActive
-                    ? 'border-[#d5bb87] bg-[linear-gradient(90deg,rgba(0,75,130,0.16)_0%,rgba(237,244,251,0.96)_100%)] text-[#004b82] shadow-[0_4px_12px_rgba(15,23,42,0.08)]'
-                    : 'text-[#374151] hover:border-[#d5bb87]/60 hover:bg-[#edf4fb] hover:text-[#004b82]',
+                    ? 'border-[#d5bb87] bg-[linear-gradient(90deg,rgba(0,75,130,0.28)_0%,rgba(205,226,243,0.98)_46%,rgba(237,244,251,0.97)_100%)] text-[#004b82] shadow-[0_8px_18px_rgba(0,75,130,0.12)] ring-1 ring-[#004b82]/8'
+                    : 'text-[#374151] hover:border-[#d5bb87]/60 hover:bg-[linear-gradient(90deg,rgba(0,75,130,0.12)_0%,rgba(232,240,248,0.92)_100%)] hover:text-[#004b82] hover:shadow-[0_6px_14px_rgba(0,75,130,0.08)]',
                 )}
               >
                 <Icon className={cn('h-4 w-4 shrink-0 transition-all duration-200 ease-out', isActive ? 'text-[#004b82]' : 'text-[#607086] group-hover:text-[#004b82]')} />

@@ -110,18 +110,18 @@ export function Sidebar() {
       )}
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-40 flex w-[280px] max-w-[84vw] flex-col bg-white text-[#1f2937] shadow-[10px_0_40px_rgba(0,75,130,0.08)] transition-all duration-300 md:relative md:z-auto md:max-w-none',
+          'fixed inset-y-0 left-0 z-40 flex w-[280px] max-w-[84vw] flex-col border-r border-[#004b82]/10 bg-[radial-gradient(circle_at_top,rgba(0,75,130,0.10),transparent_44%),linear-gradient(180deg,rgba(224,236,248,0.96)_0%,rgba(247,250,253,0.98)_22%,rgba(237,244,251,0.96)_100%)] text-[#1f2937] shadow-[12px_0_42px_rgba(0,75,130,0.08)] transition-all duration-300 md:relative md:z-auto md:max-w-none',
           sidebarOpen
             ? 'translate-x-0 md:w-60'
             : '-translate-x-full md:w-0 md:translate-x-0 md:overflow-hidden',
         )}
       >
         {/* Logo */}
-        <div className="flex h-[72px] items-center justify-between bg-[linear-gradient(90deg,rgba(0,75,130,0.16),rgba(237,244,251,0.88)_58%,rgba(255,255,255,1))] px-3">
+        <div className="flex h-[72px] items-center justify-between border-b border-[#004b82]/8 bg-[linear-gradient(90deg,rgba(0,75,130,0.30)_0%,rgba(190,214,235,0.96)_48%,rgba(247,250,253,0.98)_100%)] px-3">
           <button
             type="button"
             onClick={() => navigate({ to: '/dashboard' })}
-            className="w-full rounded-[14px] px-2 py-1 text-left transition-colors hover:bg-[#edf4fb]"
+            className="w-full rounded-[14px] px-2 py-1 text-left transition-all duration-200 hover:bg-[rgba(255,255,255,0.58)]"
             aria-label="Sistema Financiero"
           >
             <BrandMark
@@ -136,8 +136,8 @@ export function Sidebar() {
         <div className="flex-1 overflow-y-auto px-3 py-4">
           <div className="space-y-5">
             {NAV_GROUPS.filter((group) => group.items.some(canSeeItem)).map((group) => (
-              <div key={group.title} className="border-t border-[#004b82]/10 pt-4 first:border-t-0 first:pt-0">
-                <p className="mb-2 px-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#6b7280]">
+              <div key={group.title} className="border-t border-[#004b82]/12 pt-4 first:border-t-0 first:pt-0">
+                <p className="mb-2 px-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#64748b]">
                   {group.title}
                 </p>
                 <NavigationMenu items={group.items} />
