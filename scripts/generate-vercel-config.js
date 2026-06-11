@@ -29,14 +29,17 @@ if (!apiBackend) {
 // Genera la configuración de Vercel. El proxy real vive en api/proxy.js para
 // evitar exponer la URL del backend en el archivo versionado.
 const vercelConfig = {
-  rewrites: [
+  routes: [
     {
-      source: '/api/:path*',
-      destination: '/api/proxy?path=:path*',
+      src: '/api/(.*)',
+      dest: '/api/proxy?path=$1',
     },
     {
-      source: '/(.*)',
-      destination: '/index.html',
+      handle: 'filesystem',
+    },
+    {
+      src: '/(.*)',
+      dest: '/index.html',
     },
   ],
 }
