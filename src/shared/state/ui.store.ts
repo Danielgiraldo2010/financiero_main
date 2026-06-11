@@ -12,7 +12,7 @@ interface UIState {
 
 export const useUIStore = create<UIState>()((set) => ({
   vigenciaActiva: new Date().getFullYear(),
-  sidebarOpen: true,
+  sidebarOpen: typeof window !== 'undefined' ? window.innerWidth >= 768 : true,
   setVigencia: (v) => set({ vigenciaActiva: v }),
   toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
   setSidebarOpen: (open) => set({ sidebarOpen: open }),

@@ -89,7 +89,7 @@ export function Header() {
   }
 
   return (
-    <header className="flex min-h-[72px] flex-wrap items-center gap-x-3 gap-y-2 bg-[linear-gradient(90deg,rgba(255,248,230,0.58),rgba(255,255,255,1)_36%,rgba(237,244,251,0.78))] px-3 py-2 text-[#1f2937] shadow-[0_4px_12px_rgba(15,23,42,0.08)] sm:px-4 lg:flex-nowrap lg:px-5">
+    <header className="flex min-h-[72px] flex-wrap items-center gap-x-2 gap-y-2 bg-[linear-gradient(90deg,rgba(255,248,230,0.58),rgba(255,255,255,1)_36%,rgba(237,244,251,0.78))] px-3 py-2 text-[#1f2937] shadow-[0_4px_12px_rgba(15,23,42,0.08)] sm:gap-x-3 sm:px-4 lg:flex-nowrap lg:px-5">
       <Button
         variant="ghost"
         size="icon"
@@ -101,7 +101,7 @@ export function Header() {
       </Button>
 
       {/* Nombre de la UE activa */}
-      <div className="flex min-w-0 flex-1 items-center">
+      <div className="flex min-w-0 flex-1 items-center overflow-hidden">
         <div className="flex min-h-11 min-w-0 flex-col justify-center">
           <p className="truncate text-sm font-bold leading-5 text-[#004b82] sm:text-base">{tituloUE}</p>
           <div className="mt-1 hidden min-h-4 items-center text-xs text-[#6b7280] sm:flex">
@@ -110,9 +110,9 @@ export function Header() {
         </div>
       </div>
 
-      <div className="flex w-full min-w-0 flex-wrap items-end gap-2 sm:w-auto lg:flex-nowrap">
+      <div className="flex w-full min-w-0 flex-wrap items-end gap-2 sm:w-auto sm:flex-nowrap">
         {/* Selector de vigencia — cargado desde BD */}
-        <div className="flex min-w-[118px] flex-1 flex-col gap-1.5 sm:flex-none">
+        <div className="flex w-[100px] shrink-0 flex-col gap-1 sm:w-auto">
           <span className={CONTROL_LABEL_CLASS}>
             Vigencia actual
           </span>
@@ -135,7 +135,7 @@ export function Header() {
 
         {/* Selector de unidad ejecutora */}
         {(esSuperadmin || unidadesDisponibles.length > 1) && (
-          <div className="flex min-w-[178px] flex-[1.6] flex-col gap-1.5 sm:flex-none">
+          <div className="flex min-w-0 flex-1 flex-col gap-1 sm:flex-none">
             <span className={CONTROL_LABEL_CLASS}>
               Unidad ejecutora
             </span>
@@ -167,13 +167,13 @@ export function Header() {
 
         {/* Menú de usuario */}
         <DropdownMenu>
-          <div className="flex min-w-[156px] flex-1 flex-col gap-1.5 sm:flex-none">
+          <div className="flex shrink-0 flex-col gap-1 sm:flex-none">
             <span className={cn(CONTROL_LABEL_CLASS, 'invisible')} aria-hidden="true">
               Usuario
             </span>
             <DropdownMenuTrigger className="inline-flex h-11 w-full items-center gap-2 rounded-[14px] border border-[rgba(15,23,42,0.08)] bg-white px-3 text-sm font-medium text-[#1f2937] shadow-[0_4px_12px_rgba(15,23,42,0.08)] outline-none transition-all duration-200 ease-out hover:border-[#d5bb87]/70 hover:bg-[#fff8e6] focus-visible:ring-2 focus-visible:ring-[#d5bb87]/35 sm:w-auto">
               <User className="h-4 w-4 shrink-0 text-[#004b82]" />
-              <span className="min-w-0 max-w-[150px] truncate">{displayName}</span>
+              <span className="min-w-0 max-w-[120px] truncate sm:max-w-[150px]">{displayName}</span>
               <ChevronDown className="h-3.5 w-3.5 shrink-0 text-[#6b7280]" />
             </DropdownMenuTrigger>
           </div>

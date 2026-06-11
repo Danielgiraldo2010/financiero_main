@@ -97,6 +97,7 @@ export function Sidebar() {
 
   return (
     <>
+      {/* Overlay solo en móvil cuando el sidebar está abierto */}
       {sidebarOpen && (
         <button
           type="button"
@@ -107,10 +108,14 @@ export function Sidebar() {
       )}
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-40 flex w-[280px] max-w-[84vw] flex-col border-r border-[#004b82]/10 bg-[radial-gradient(circle_at_top,rgba(0,75,130,0.10),transparent_44%),linear-gradient(180deg,rgba(224,236,248,0.96)_0%,rgba(247,250,253,0.98)_22%,rgba(237,244,251,0.96)_100%)] text-[#1f2937] shadow-[12px_0_42px_rgba(0,75,130,0.08)] transition-all duration-300 md:relative md:z-auto md:max-w-none',
+          'flex flex-col border-r border-[#004b82]/10 bg-[radial-gradient(circle_at_top,rgba(0,75,130,0.10),transparent_44%),linear-gradient(180deg,rgba(224,236,248,0.96)_0%,rgba(247,250,253,0.98)_22%,rgba(237,244,251,0.96)_100%)] text-[#1f2937] shadow-[12px_0_42px_rgba(0,75,130,0.08)] transition-all duration-300',
+          // Móvil: overlay fixed, siempre 280px de ancho, se desliza
+          'fixed inset-y-0 left-0 z-40 w-[280px] max-w-[84vw]',
+          // Desktop: relativo en el flujo, sin max-w
+          'md:relative md:z-auto md:max-w-none',
           sidebarOpen
             ? 'translate-x-0 md:w-60'
-            : '-translate-x-full md:w-0 md:translate-x-0 md:overflow-hidden',
+            : '-translate-x-full md:w-0 md:translate-x-0 md:overflow-hidden md:border-r-0',
         )}
       >
         {/* Logo */}

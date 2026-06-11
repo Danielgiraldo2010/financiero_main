@@ -20,7 +20,7 @@ export function PageHeader({ title, description, actions, action }: PageHeaderPr
         )}
       </div>
       {slot && (
-        <div className="flex w-full shrink-0 items-center gap-2 self-start sm:w-auto">{slot}</div>
+        <div className="flex shrink-0 flex-wrap items-center gap-2 sm:w-auto">{slot}</div>
       )}
     </div>
   )

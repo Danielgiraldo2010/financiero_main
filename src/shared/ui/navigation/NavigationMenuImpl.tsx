@@ -2,17 +2,13 @@ import { Link, useRouterState } from '@tanstack/react-router'
 import { cn } from '@/shared/lib/cn'
 import type { LucideIcon } from 'lucide-react'
 import { usePermissions } from '@/shared/hooks/usePermissions'
+import { useUIStore } from '@/shared/state/ui.store'
 
 export interface NavItem {
   label: string
   icon: LucideIcon
   to: string
   roles?: string[]
-  /**
-   * Si true, el item se marca activo solo cuando el pathname coincide
-   * exactamente con `to`. Por defecto usa startsWith para marcar activas
-   * las subrutas del mismo módulo.
-   */
   exact?: boolean
 }
 
@@ -23,23 +19,23 @@ interface NavigationMenuProps {
 export function NavigationMenu({ items }: NavigationMenuProps) {
   const { hasRole } = usePermissions()
   const { location } = useRouterState()
+  const setSidebarOpen = useUIStore((s) => s.setSidebarOpen)
 
   const visibleItems = items.filter(
     (item) => !item.roles || hasRole(item.roles),
   )
 
+  const handleNavClick = () => {
+    if (window.innerWidth < 768) setSidebarOpen(false)
+  }
+
   return (
     <nav>
       <ul className="flex flex-col gap-1">
         {visibleItems.map((item) => {
-          // exact=true → igualdad estricta
-          // exact=false (default) → startsWith, pero solo si ningún otro
-          // item más específico también empieza por el mismo prefijo
           const isActive = item.exact
             ? location.pathname === item.to
             : location.pathname.startsWith(item.to) &&
-              // Evita que /catalogos/unidades-ejecutoras active también
-              // items cuyo `to` es un prefijo de otro item ya activo
               !visibleItems.some(
                 (other) =>
                   other !== item &&
@@ -53,6 +49,7 @@ export function NavigationMenu({ items }: NavigationMenuProps) {
             <li key={item.to}>
               <Link
                 to={item.to}
+                onClick={handleNavClick}
                 className={cn(
                   'group flex items-center gap-3 rounded-[14px] border-l-4 border-transparent px-3 py-2.5 text-sm font-medium transition-all duration-200 ease-out',
                   isActive
