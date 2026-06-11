@@ -1,11 +1,9 @@
 import { useState } from 'react'
 import { PageHeader } from '@/shared/ui/layout/PageHeader'
+import { Button } from '@/components/ui/button'
 import { formatCOP } from '@/shared/lib/currency'
 import { useCierres } from '../hook'
-import {
-  ESTADO_CIERRE_LABEL, ESTADO_CIERRE_COLOR,
-  ESTADO_CIERRE,
-} from '../../../model/constants'
+import { ESTADO_CIERRE_LABEL, ESTADO_CIERRE_COLOR, ESTADO_CIERRE } from '../../../model/constants'
 import type { CierreVigencia } from '../../../model/types'
 import { IniciarCierreDialog } from '../../iniciar/ui/IniciarCierreDialog'
 import { AprobarCierreDialog } from '../../acciones/ui/AprobarCierreDialog'
@@ -21,10 +19,8 @@ export function CierreVigenciaPage() {
     <div className="space-y-4">
       <PageHeader
         title="Cierre de Vigencia"
-        description="Gestion del proceso de cierre presupuestal anual"
-        actions={<button onClick={() => setShowIniciar(true)} className="btn-primary">
-          + Iniciar cierre
-        </button>}
+        description="Gestión del proceso de cierre presupuestal anual"
+        actions={<Button size="sm" onClick={() => setShowIniciar(true)}>+ Iniciar cierre</Button>}
       />
 
       {isLoading && <p className="text-sm text-muted-foreground">Cargando cierres...</p>}
@@ -52,29 +48,17 @@ export function CierreVigenciaPage() {
                 </td>
                 <td className="px-4 py-3 space-x-2">
                   {c.estado === ESTADO_CIERRE.EN_REVISION && (
-                    <button
-                      onClick={() => setAprobarTarget(c)}
-                      className="text-xs text-blue-600 hover:underline"
-                    >
-                      Aprobar
-                    </button>
+                    <Button size="xs" variant="secondary" onClick={() => setAprobarTarget(c)}>Aprobar</Button>
                   )}
                   {c.estado === ESTADO_CIERRE.APROBADO && (
-                    <button
-                      onClick={() => setCerrarTarget(c)}
-                      className="text-xs text-red-600 hover:underline font-medium"
-                    >
-                      Cerrar definitivo
-                    </button>
+                    <Button size="xs" variant="destructive" onClick={() => setCerrarTarget(c)}>Cerrar definitivo</Button>
                   )}
                 </td>
               </tr>
             ))}
             {!isLoading && cierres.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-[#66768a]">
-                  No hay cierres de vigencia registrados.
-                </td>
+                <td colSpan={6} className="px-4 py-8 text-center text-[#66768a]">No hay cierres de vigencia registrados.</td>
               </tr>
             )}
           </tbody>
@@ -82,23 +66,8 @@ export function CierreVigenciaPage() {
       </div>
 
       <IniciarCierreDialog open={showIniciar} onClose={() => setShowIniciar(false)} />
-
-      {aprobarTarget && (
-        <AprobarCierreDialog
-          cierreId={aprobarTarget.id}
-          open={true}
-          onClose={() => setAprobarTarget(null)}
-        />
-      )}
-
-      {cerrarTarget && (
-        <CerrarDefinitivoDialog
-          cierreId={cerrarTarget.id}
-          vigencia={cerrarTarget.vigencia}
-          open={true}
-          onClose={() => setCerrarTarget(null)}
-        />
-      )}
+      {aprobarTarget && <AprobarCierreDialog cierreId={aprobarTarget.id} open onClose={() => setAprobarTarget(null)} />}
+      {cerrarTarget && <CerrarDefinitivoDialog cierreId={cerrarTarget.id} vigencia={cerrarTarget.vigencia} open onClose={() => setCerrarTarget(null)} />}
     </div>
   )
 }

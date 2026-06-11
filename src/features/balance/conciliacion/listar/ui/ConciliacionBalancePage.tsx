@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { PageHeader } from '@/shared/ui/layout/PageHeader'
+import { Button } from '@/components/ui/button'
 import { formatCOP } from '@/shared/lib/currency'
 import { useConciliacionesBalance } from '../hook'
 import { ESTADO_CONCILIACION_COLOR } from '../../../model/constants'
@@ -14,9 +15,7 @@ export function ConciliacionBalancePage() {
   return (
     <div className="space-y-4">
       <PageHeader title="Conciliacion de Balance" description="Control de diferencias entre sistema y tesoreria"
-        actions={<button onClick={() => setShowIniciar(true)} className="btn-primary">
-          + Nueva conciliacion
-        </button>}
+        actions={<Button size="sm" onClick={() => setShowIniciar(true)}>+ Nueva conciliación</Button>}
       />
 
       <div className="sf-tabs-shell">

@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { PageHeader } from '@/shared/ui/layout/PageHeader'
+import { Button } from '@/components/ui/button'
 import { formatCOP } from '@/shared/lib/currency'
+import { useVigencias } from '@/features/catalogos/vigencias/listar/hook'
 import { useRecursosBalance } from '../hook'
 import { useValidarRecurso } from '../../acciones/hook'
 import { ESTADO_RECURSO_LABEL, ESTADO_RECURSO_COLOR } from '../../../model/constants'
@@ -14,25 +16,30 @@ export function RecursosBalancePage() {
   const [vigencia, setVigencia] = useState(currentYear)
   const [showRegistrar, setShowRegistrar] = useState(false)
   const [incorporarTarget, setIncorporarTarget] = useState<RecursoBalance | null>(null)
-
   const { data: recursos = [], isLoading } = useRecursosBalance(vigencia)
+  const { data: vigencias = [] } = useVigencias()
+  const opcionesVigencia = vigencias.length > 0 ? vigencias : [{ anio: currentYear }]
 
   return (
     <div className="space-y-4">
-      <PageHeader title="Recursos de Balance" description="Gestion de excedentes financieros del cierre anterior"
-        actions={<div className="flex items-center gap-2">
-          <label className="text-sm font-medium text-[#42556c]">Vigencia</label>
-          <input
-            type="number"
-            value={vigencia}
-            onChange={e => setVigencia(Number(e.target.value))}
-            className="input w-24"
-            min={2000}
-          />
-          <button onClick={() => setShowRegistrar(true)} className="btn-primary">
-            + Registrar recurso
-          </button>
-        </div>}
+      <PageHeader
+        title="Recursos de Balance"
+        description="Gestión de excedentes financieros del cierre anterior"
+        actions={
+          <div className="flex flex-wrap items-center gap-2">
+            <label className="text-sm font-medium text-[#42556c]">Vigencia</label>
+            <select
+              value={vigencia}
+              onChange={e => setVigencia(Number(e.target.value))}
+              className="h-9 rounded-[10px] border border-[rgba(15,23,42,0.08)] bg-white px-3 text-sm text-[#1f2937] shadow-[0_4px_12px_rgba(15,23,42,0.08)] outline-none transition-all hover:border-[#004b82] hover:bg-[#edf4fb] focus:border-[#d5bb87]"
+            >
+              {opcionesVigencia.map(v => (
+                <option key={v.anio} value={v.anio}>{v.anio}</option>
+              ))}
+            </select>
+            <Button size="sm" onClick={() => setShowRegistrar(true)}>+ Registrar recurso</Button>
+          </div>
+        }
       />
 
       {isLoading && <p className="text-sm text-muted-foreground">Cargando recursos...</p>}
@@ -61,19 +68,9 @@ export function RecursosBalancePage() {
         </table>
       </div>
 
-      {showRegistrar && (
-        <RegistrarRecursoDialog
-          open
-          onClose={() => setShowRegistrar(false)}
-        />
-      )}
-
+      {showRegistrar && <RegistrarRecursoDialog open onClose={() => setShowRegistrar(false)} />}
       {incorporarTarget && (
-        <IncorporarRecursoDialog
-          recurso={incorporarTarget}
-          open
-          onClose={() => setIncorporarTarget(null)}
-        />
+        <IncorporarRecursoDialog recurso={incorporarTarget} open onClose={() => setIncorporarTarget(null)} />
       )}
     </div>
   )
@@ -81,7 +78,6 @@ export function RecursosBalancePage() {
 
 function RecursoRow({ recurso: r, onIncorporar }: { recurso: RecursoBalance; onIncorporar: () => void }) {
   const { mutate: validar, isPending: validando } = useValidarRecurso(r.id)
-
   return (
     <tr className="hover:bg-[#f8fbfe]">
       <td className="px-4 py-3">{r.tipo.replace(/_/g, ' ')}</td>
@@ -98,18 +94,12 @@ function RecursoRow({ recurso: r, onIncorporar }: { recurso: RecursoBalance; onI
       </td>
       <td className="px-4 py-3 space-x-2">
         {r.estado === 'IDENTIFICADO' && (
-          <button
-            onClick={() => validar(undefined)}
-            disabled={validando}
-            className="text-xs text-blue-600 hover:underline disabled:opacity-40"
-          >
+          <Button size="xs" variant="secondary" onClick={() => validar(undefined)} disabled={validando}>
             {validando ? 'Validando...' : 'Validar'}
-          </button>
+          </Button>
         )}
         {r.estado === 'VALIDADO' && (
-          <button onClick={onIncorporar} className="text-xs text-green-600 hover:underline">
-            Incorporar
-          </button>
+          <Button size="xs" variant="outline" onClick={onIncorporar}>Incorporar</Button>
         )}
       </td>
     </tr>

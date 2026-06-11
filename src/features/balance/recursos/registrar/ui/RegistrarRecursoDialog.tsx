@@ -5,15 +5,15 @@ import { Dialog } from '@/shared/ui/modal/Dialog'
 import { FormField } from '@/shared/ui/forms/FormField'
 import { SelectField } from '@/shared/ui/forms/SelectField'
 import { CurrencyInput } from '@/shared/ui/forms/CurrencyInput'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 import { useTenant } from '@/shared/hooks/useTenant'
 import { useRegistrarRecurso } from '../hook'
 import { registrarRecursoSchema } from '../../../model/schema'
 import { TIPOS_RECURSO_BALANCE } from '../../../model/constants'
 
 type FormData = z.infer<typeof registrarRecursoSchema>
-
 interface Props { open: boolean; onClose: () => void }
-
 const currentYear = new Date().getFullYear()
 
 export function RegistrarRecursoDialog({ open, onClose }: Props) {
@@ -43,14 +43,16 @@ export function RegistrarRecursoDialog({ open, onClose }: Props) {
 
   return (
     <Dialog open={open} onClose={onClose} title="Registrar Recurso de Balance">
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <FormField label="Fuente de Recurso ID" error={errors.fuenteRecursoId?.message} required>
-          <input type="number" {...register('fuenteRecursoId')} className="input" />
-        </FormField>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-1">
 
-        <FormField label="Cierre de Vigencia ID" error={errors.cierreVigenciaId?.message} required>
-          <input type="number" {...register('cierreVigenciaId')} className="input" />
-        </FormField>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <FormField label="Fuente de Recurso ID" error={errors.fuenteRecursoId?.message} required>
+            <Input type="number" {...register('fuenteRecursoId')} />
+          </FormField>
+          <FormField label="Cierre de Vigencia ID" error={errors.cierreVigenciaId?.message} required>
+            <Input type="number" {...register('cierreVigenciaId')} />
+          </FormField>
+        </div>
 
         <FormField label="Tipo" error={errors.tipo?.message} required>
           <Controller
@@ -59,49 +61,45 @@ export function RegistrarRecursoDialog({ open, onClose }: Props) {
             render={({ field }) => (
               <SelectField
                 {...field}
-                options={TIPOS_RECURSO_BALANCE.map((t: string) => ({
-                  value: t,
-                  label: t.replace(/_/g, ' '),
-                }))}
+                options={TIPOS_RECURSO_BALANCE.map((t: string) => ({ value: t, label: t.replace(/_/g, ' ') }))}
               />
             )}
           />
         </FormField>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <FormField label="Vigencia origen" error={errors.vigenciaOrigen?.message} required>
-            <input type="number" {...register('vigenciaOrigen')} className="input" />
+            <Input type="number" {...register('vigenciaOrigen')} min={2000} max={currentYear} />
           </FormField>
           <FormField label="Vigencia destino" error={errors.vigenciaDestino?.message} required>
-            <input type="number" {...register('vigenciaDestino')} className="input" />
+            <Input type="number" {...register('vigenciaDestino')} min={2000} max={currentYear + 1} />
           </FormField>
         </div>
 
         <FormField label="Valor identificado" error={errors.valorIdentificado?.message} required>
-          <Controller
-            name="valorIdentificado"
-            control={control}
-            render={({ field }) => <CurrencyInput {...field} />}
+          <Controller name="valorIdentificado" control={control} render={({ field }) => <CurrencyInput {...field} />} />
+        </FormField>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <FormField label="Rubro origen ID" error={errors.rubroOrigenId?.message}>
+            <Input type="number" {...register('rubroOrigenId')} />
+          </FormField>
+          <FormField label="Descripción rubro origen" error={errors.rubroOrigenDescripcion?.message}>
+            <Input {...register('rubroOrigenDescripcion')} />
+          </FormField>
+        </div>
+
+        <FormField label="Destinación específica" error={errors.destinacionEspecifica?.message}>
+          <textarea
+            {...register('destinacionEspecifica')}
+            rows={2}
+            className="w-full rounded-[12px] border border-[#d1d5db] bg-white px-3.5 py-2.5 text-sm text-[#1f2937] shadow-sm outline-none transition-all placeholder:text-[#6b7280] hover:border-[#004b82] focus:border-[#0a4f82] focus:ring-4 focus:ring-[#0a4f82]/12 resize-none"
           />
         </FormField>
 
-        <FormField label="Rubro origen ID" error={errors.rubroOrigenId?.message}>
-          <input type="number" {...register('rubroOrigenId')} className="input" />
-        </FormField>
-
-        <FormField label="Descripcion rubro origen" error={errors.rubroOrigenDescripcion?.message}>
-          <input {...register('rubroOrigenDescripcion')} className="input" />
-        </FormField>
-
-        <FormField label="Destinacion especifica" error={errors.destinacionEspecifica?.message}>
-          <textarea {...register('destinacionEspecifica')} className="input" rows={2} />
-        </FormField>
-
-        <div className="flex justify-end gap-2 pt-2">
-          <button type="button" onClick={onClose} className="btn-secondary">Cancelar</button>
-          <button type="submit" disabled={isPending} className="btn-primary">
-            {isPending ? 'Registrando...' : 'Registrar recurso'}
-          </button>
+        <div className="flex justify-end gap-2 border-t border-[rgba(15,23,42,0.06)] pt-4">
+          <Button type="button" variant="secondary" onClick={onClose}>Cancelar</Button>
+          <Button type="submit" disabled={isPending}>{isPending ? 'Registrando...' : 'Registrar recurso'}</Button>
         </div>
       </form>
     </Dialog>

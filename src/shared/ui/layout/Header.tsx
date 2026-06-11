@@ -29,7 +29,7 @@ const VER_TODOS_VALUE = '__todos__'
 const CONTROL_LABEL_CLASS =
   'pl-1 text-[10px] font-semibold uppercase leading-none tracking-[0.18em] text-[#6b7280]'
 const CONTROL_TRIGGER_CLASS =
-  'h-11 rounded-[14px] border-[rgba(15,23,42,0.08)] bg-white text-[#1f2937] shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-200 ease-out hover:border-[#004b82] hover:bg-[#edf4fb] focus-visible:border-[#d5bb87] focus-visible:ring-[#d5bb87]/30 data-placeholder:text-[#6b7280]'
+  'rounded-[10px] border-[rgba(15,23,42,0.08)] bg-white text-[#1f2937] shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-200 ease-out hover:border-[#004b82] hover:bg-[#edf4fb] focus-visible:border-[#d5bb87] focus-visible:ring-[#d5bb87]/30 data-placeholder:text-[#6b7280]'
 
 export function Header() {
   const toggleSidebar = useUIStore((s) => s.toggleSidebar)
@@ -110,17 +110,15 @@ export function Header() {
         </div>
       </div>
 
-      <div className="flex w-full min-w-0 flex-wrap items-end gap-2 sm:w-auto sm:flex-nowrap">
+      <div className="flex w-full min-w-0 flex-wrap items-center gap-2 sm:w-auto sm:flex-nowrap">
         {/* Selector de vigencia — cargado desde BD */}
-        <div className="flex w-[100px] shrink-0 flex-col gap-1 sm:w-auto">
-          <span className={CONTROL_LABEL_CLASS}>
-            Vigencia actual
-          </span>
+        <div className="flex shrink-0 flex-col gap-1">
+          <span className={CONTROL_LABEL_CLASS}>Vigencia actual</span>
           <Select
             value={String(vigenciaActiva)}
             onValueChange={(v) => setVigencia(Number(v))}
           >
-            <SelectTrigger className={cn(CONTROL_TRIGGER_CLASS, 'w-full sm:w-28')}>
+            <SelectTrigger size="sm" className={cn(CONTROL_TRIGGER_CLASS, 'w-fit px-2.5 text-sm')}>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -135,31 +133,37 @@ export function Header() {
 
         {/* Selector de unidad ejecutora */}
         {(esSuperadmin || unidadesDisponibles.length > 1) && (
-          <div className="flex min-w-0 flex-1 flex-col gap-1 sm:flex-none">
-            <span className={CONTROL_LABEL_CLASS}>
-              Unidad ejecutora
-            </span>
+          <div className="flex shrink-0 flex-col gap-1">
+            <span className={CONTROL_LABEL_CLASS}>Unidad ejecutora</span>
             <Select value={selectorUEValue} onValueChange={handleCambiarUE}>
-              <SelectTrigger className={cn(CONTROL_TRIGGER_CLASS, 'w-full sm:w-56 xl:w-60')}>
-                <span className="truncate text-sm text-[#1f2937]">
-                  {verTodos
-                    ? '🌐 Todas las unidades'
-                    : (tenantActivo?.nombre ?? 'Seleccionar...')}
+              <SelectTrigger size="sm" className={cn(CONTROL_TRIGGER_CLASS, 'w-fit max-w-[200px] px-2.5 text-sm xl:max-w-[240px]')}>
+                <span className="truncate">
+                  {verTodos ? '🌐 Todas las unidades' : (tenantActivo?.nombre ?? 'Seleccionar...')}
                 </span>
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="max-h-72 w-[min(88vw,340px)]">
                 {esSuperadmin && (
                   <SelectItem value={VER_TODOS_VALUE}>
                     🌐 Todas las unidades
                   </SelectItem>
                 )}
-                {opcionesUE.map((ue) => (
-                  <SelectItem key={ue.id} value={String(ue.id)}>
-                    {'codigo' in ue && (ue as { codigo?: string }).codigo
-                      ? `${(ue as { codigo?: string }).codigo} — ${ue.nombre}`
-                      : ue.nombre}
-                  </SelectItem>
-                ))}
+                {opcionesUE.map((ue) => {
+                  const codigo = 'codigo' in ue ? (ue as { codigo?: string }).codigo : undefined
+                  return (
+                    <SelectItem key={ue.id} value={String(ue.id)} className="py-2">
+                      <div className="flex flex-col gap-0.5">
+                        {codigo && (
+                          <span className="text-[10px] font-semibold uppercase tracking-wide text-[#004b82]/70">
+                            {codigo}
+                          </span>
+                        )}
+                        <span className="whitespace-normal text-sm leading-snug text-[#1f2937]">
+                          {ue.nombre}
+                        </span>
+                      </div>
+                    </SelectItem>
+                  )
+                })}
               </SelectContent>
             </Select>
           </div>
@@ -167,13 +171,11 @@ export function Header() {
 
         {/* Menú de usuario */}
         <DropdownMenu>
-          <div className="flex shrink-0 flex-col gap-1 sm:flex-none">
-            <span className={cn(CONTROL_LABEL_CLASS, 'invisible')} aria-hidden="true">
-              Usuario
-            </span>
-            <DropdownMenuTrigger className="inline-flex h-11 w-full items-center gap-2 rounded-[14px] border border-[rgba(15,23,42,0.08)] bg-white px-3 text-sm font-medium text-[#1f2937] shadow-[0_4px_12px_rgba(15,23,42,0.08)] outline-none transition-all duration-200 ease-out hover:border-[#d5bb87]/70 hover:bg-[#fff8e6] focus-visible:ring-2 focus-visible:ring-[#d5bb87]/35 sm:w-auto">
+          <div className="flex shrink-0 flex-col gap-1">
+            <span className={cn(CONTROL_LABEL_CLASS, 'invisible')} aria-hidden="true">Usuario</span>
+            <DropdownMenuTrigger className="inline-flex h-9 items-center gap-2 rounded-[10px] border border-[rgba(15,23,42,0.08)] bg-white px-3 text-sm font-medium text-[#1f2937] shadow-[0_4px_12px_rgba(15,23,42,0.08)] outline-none transition-all duration-200 ease-out hover:border-[#d5bb87]/70 hover:bg-[#fff8e6] focus-visible:ring-2 focus-visible:ring-[#d5bb87]/35">
               <User className="h-4 w-4 shrink-0 text-[#004b82]" />
-              <span className="min-w-0 max-w-[120px] truncate sm:max-w-[150px]">{displayName}</span>
+              <span className="max-w-[140px] truncate sm:max-w-[180px]">{displayName}</span>
               <ChevronDown className="h-3.5 w-3.5 shrink-0 text-[#6b7280]" />
             </DropdownMenuTrigger>
           </div>

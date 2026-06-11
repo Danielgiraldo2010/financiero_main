@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Dialog } from "@/shared/ui/modal/Dialog"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 import { useRegistrarNorma } from "../hook"
 import { crearNormaSchema, type CrearNormaForm } from "../../model/schema"
 import { TIPOS_NORMA, AMBITOS_NORMA } from "../../model/constants"
@@ -10,15 +12,15 @@ interface Props {
   onClose: () => void
 }
 
+const labelClass = "block text-xs font-semibold uppercase tracking-wide text-[#6b7280] mb-1"
+const selectClass =
+  "h-11 w-full rounded-[12px] border border-[#d1d5db] bg-white px-3.5 text-sm text-[#1f2937] shadow-sm outline-none transition-all hover:border-[#004b82] focus:border-[#0a4f82] focus:ring-4 focus:ring-[#0a4f82]/12"
+const errorClass = "mt-1 text-xs text-destructive"
+
 export function RegistrarNormaDialog({ open, onClose }: Props) {
   const { mutate, isPending } = useRegistrarNorma()
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<CrearNormaForm>({
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<CrearNormaForm>({
     resolver: zodResolver(crearNormaSchema),
   })
 
@@ -34,109 +36,93 @@ export function RegistrarNormaDialog({ open, onClose }: Props) {
         urlDocumento: data.urlDocumento ?? null,
         procesos: [],
       },
-      {
-        onSuccess: () => {
-          reset()
-          onClose()
-        },
-      }
+      { onSuccess: () => { reset(); onClose() } }
     )
   }
 
   return (
     <Dialog open={open} onClose={onClose} title="Registrar norma" maxWidth="lg">
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div className="grid grid-cols-2 gap-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-1">
+
+        {/* Fila 1: Código + Entidad emisora */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
-            <label className="block text-sm font-medium mb-1">Codigo</label>
-            <input
-              className="input w-full"
-              {...register("codigo")}
-              placeholder="Ej: Acuerdo-44-2017"
-            />
-            {errors.codigo && <p className="text-xs text-destructive mt-0.5">{errors.codigo.message}</p>}
+            <label className={labelClass}>Código <span className="text-destructive">*</span></label>
+            <Input {...register("codigo")} placeholder="Ej: Acuerdo-44-2017" aria-invalid={!!errors.codigo} />
+            {errors.codigo && <p className={errorClass}>{errors.codigo.message}</p>}
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Entidad emisora</label>
-            <input
-              className="input w-full"
-              {...register("entidadEmisora")}
-              placeholder="Ej: Congreso de la Republica"
-            />
+            <label className={labelClass}>Entidad emisora</label>
+            <Input {...register("entidadEmisora")} placeholder="Ej: Congreso de la República" />
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        {/* Fila 2: Tipo + Ámbito */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
-            <label className="block text-sm font-medium mb-1">Tipo</label>
-            <select className="input w-full" {...register("tipo")}>
+            <label className={labelClass}>Tipo <span className="text-destructive">*</span></label>
+            <select className={selectClass} {...register("tipo")}>
               <option value="">Seleccione...</option>
-              {TIPOS_NORMA.map((t: string) => (
-                <option key={t} value={t}>{t}</option>
-              ))}
+              {TIPOS_NORMA.map((t: string) => <option key={t} value={t}>{t}</option>)}
             </select>
-            {errors.tipo && <p className="text-xs text-destructive mt-0.5">{errors.tipo.message}</p>}
+            {errors.tipo && <p className={errorClass}>{errors.tipo.message}</p>}
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Ambito</label>
-            <select className="input w-full" {...register("ambito")}>
+            <label className={labelClass}>Ámbito <span className="text-destructive">*</span></label>
+            <select className={selectClass} {...register("ambito")}>
               <option value="">Seleccione...</option>
-              {AMBITOS_NORMA.map((a: string) => (
-                <option key={a} value={a}>{a}</option>
-              ))}
+              {AMBITOS_NORMA.map((a: string) => <option key={a} value={a}>{a}</option>)}
             </select>
-            {errors.ambito && <p className="text-xs text-destructive mt-0.5">{errors.ambito.message}</p>}
+            {errors.ambito && <p className={errorClass}>{errors.ambito.message}</p>}
           </div>
         </div>
 
+        {/* Título */}
         <div>
-          <label className="block text-sm font-medium mb-1">Titulo</label>
-          <input
-            className="input w-full"
-            {...register("titulo")}
-            placeholder="Titulo completo de la norma"
+          <label className={labelClass}>Título <span className="text-destructive">*</span></label>
+          <Input {...register("titulo")} placeholder="Título completo de la norma" aria-invalid={!!errors.titulo} />
+          {errors.titulo && <p className={errorClass}>{errors.titulo.message}</p>}
+        </div>
+
+        {/* Descripción */}
+        <div>
+          <label className={labelClass}>Descripción</label>
+          <textarea
+            {...register("descripcion")}
+            rows={2}
+            className="w-full rounded-[12px] border border-[#d1d5db] bg-white px-3.5 py-2.5 text-sm text-[#1f2937] shadow-sm outline-none transition-all placeholder:text-[#6b7280] hover:border-[#004b82] focus:border-[#0a4f82] focus:ring-4 focus:ring-[#0a4f82]/12 resize-none"
           />
-          {errors.titulo && <p className="text-xs text-destructive mt-0.5">{errors.titulo.message}</p>}
         </div>
 
+        {/* Fechas */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <div>
+            <label className={labelClass}>Fecha expedición</label>
+            <Input type="date" {...register("fechaExpedicion")} />
+          </div>
+          <div>
+            <label className={labelClass}>Vigencia desde</label>
+            <Input type="date" {...register("fechaVigenciaDesde")} />
+          </div>
+          <div>
+            <label className={labelClass}>Vigencia hasta</label>
+            <Input type="date" {...register("fechaVigenciaHasta")} />
+          </div>
+        </div>
+
+        {/* URL */}
         <div>
-          <label className="block text-sm font-medium mb-1">Descripcion</label>
-          <textarea className="input w-full" rows={2} {...register("descripcion")} />
+          <label className={labelClass}>URL del documento</label>
+          <Input type="url" {...register("urlDocumento")} placeholder="https://..." aria-invalid={!!errors.urlDocumento} />
+          {errors.urlDocumento && <p className={errorClass}>{errors.urlDocumento.message}</p>}
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">Fecha expedicion</label>
-            <input type="date" className="input w-full" {...register("fechaExpedicion")} />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Vigencia desde</label>
-            <input type="date" className="input w-full" {...register("fechaVigenciaDesde")} />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Vigencia hasta</label>
-            <input type="date" className="input w-full" {...register("fechaVigenciaHasta")} />
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-1">URL del documento</label>
-          <input
-            type="url"
-            className="input w-full"
-            {...register("urlDocumento")}
-            placeholder="https://..."
-          />
-          {errors.urlDocumento && (
-            <p className="text-xs text-destructive mt-0.5">{errors.urlDocumento.message}</p>
-          )}
-        </div>
-
-        <div className="flex justify-end gap-2 pt-2">
-          <button type="button" className="btn-secondary" onClick={onClose}>Cancelar</button>
-          <button type="submit" className="btn-primary" disabled={isPending}>
+        {/* Acciones */}
+        <div className="flex justify-end gap-2 border-t border-[rgba(15,23,42,0.06)] pt-4">
+          <Button type="button" variant="secondary" onClick={onClose}>Cancelar</Button>
+          <Button type="submit" disabled={isPending}>
             {isPending ? "Guardando..." : "Registrar norma"}
-          </button>
+          </Button>
         </div>
       </form>
     </Dialog>

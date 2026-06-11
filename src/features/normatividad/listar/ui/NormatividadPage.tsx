@@ -5,6 +5,7 @@ import { NormatividadFilters } from "./NormatividadFilters"
 import { RegistrarNormaDialog } from "../../registrar/ui/RegistrarNormaDialog"
 import { DerogarNormaDialog } from "../../derogar/ui/DerogarNormaDialog"
 import { ActualizarNormaDialog } from "../../actualizar/ui/ActualizarNormaDialog"
+import { Button } from "@/components/ui/button"
 import { BADGE_ESTADO_NORMA } from "../../model/constants"
 import type { NormaResponse, ListarNormasParams } from "../../model/types"
 
@@ -38,21 +39,18 @@ export function NormatividadPage() {
         title="Normatividad"
         description="Repositorio de normas institucionales vigentes"
         actions={
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <NormatividadFilters
               tipo={tipo}
               ambito={ambito}
               vigente={vigente}
-              onTipo={(v: string) => { setTipo(v); setPagina(1) }}
-              onAmbito={(v: string) => { setAmbito(v); setPagina(1) }}
-              onVigente={(v: string) => { setVigente(v); setPagina(1) }}
+              onTipo={(v) => { setTipo(v); setPagina(1) }}
+              onAmbito={(v) => { setAmbito(v); setPagina(1) }}
+              onVigente={(v) => { setVigente(v); setPagina(1) }}
             />
-            <button
-              className="btn-primary text-sm whitespace-nowrap"
-              onClick={() => setRegistrarOpen(true)}
-            >
+            <Button size="sm" onClick={() => setRegistrarOpen(true)}>
               + Nueva norma
-            </button>
+            </Button>
           </div>
         }
       />
@@ -65,44 +63,41 @@ export function NormatividadPage() {
         {normas.map((norma: NormaResponse) => {
           const badgeClass = BADGE_ESTADO_NORMA[norma.estado] ?? "bg-gray-100 text-gray-600"
           return (
-            <div key={norma.id} className="border rounded-lg p-4">
+            <div key={norma.id} className="corporate-card p-4">
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-medium text-sm">{norma.codigo}</span>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="font-semibold text-sm text-[#004b82]">{norma.codigo}</span>
                     <span className="text-xs text-muted-foreground">{norma.tipo}</span>
-                    <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${badgeClass}`}>
+                    <span className={`inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium ${badgeClass}`}>
                       {norma.estado}
                     </span>
                     <span className="text-xs text-muted-foreground">{norma.ambito}</span>
                   </div>
-                  <p className="text-sm mt-0.5">{norma.titulo}</p>
+                  <p className="text-sm mt-1">{norma.titulo}</p>
                   {norma.entidadEmisora && (
                     <p className="text-xs text-muted-foreground mt-0.5">{norma.entidadEmisora}</p>
                   )}
                   {norma.fechaExpedicion && (
                     <p className="text-xs text-muted-foreground">
-                      Expedicion: {new Date(norma.fechaExpedicion).toLocaleDateString("es-CO")}
+                      Expedición: {new Date(norma.fechaExpedicion).toLocaleDateString("es-CO")}
                     </p>
                   )}
                 </div>
-                <div className="flex items-center gap-2 shrink-0">
+                <div className="flex shrink-0 items-center gap-2">
                   {norma.urlDocumento && (
-                    <a href={norma.urlDocumento} target="_blank" rel="noreferrer"
-                      className="text-xs text-blue-600 hover:underline">
-                      Ver doc.
-                    </a>
+                    <Button size="xs" variant="outline" asChild>
+                      <a href={norma.urlDocumento} target="_blank" rel="noreferrer">Ver doc.</a>
+                    </Button>
                   )}
                   {norma.estado !== "DEROGADA" && (
                     <>
-                      <button className="text-xs text-blue-600 hover:underline"
-                        onClick={() => setEditar(norma)}>
+                      <Button size="xs" variant="secondary" onClick={() => setEditar(norma)}>
                         Editar
-                      </button>
-                      <button className="text-xs text-red-600 hover:underline"
-                        onClick={() => setDerogar(norma)}>
+                      </Button>
+                      <Button size="xs" variant="destructive" onClick={() => setDerogar(norma)}>
                         Derogar
-                      </button>
+                      </Button>
                     </>
                   )}
                 </div>
@@ -114,33 +109,19 @@ export function NormatividadPage() {
 
       {totalPaginas > 1 && (
         <div className="flex items-center justify-end gap-2 pt-2">
-          <button
-            className="btn-secondary text-xs"
-            onClick={() => setPagina((p) => Math.max(1, p - 1))}
-            disabled={pagina === 1}
-          >
+          <Button size="sm" variant="secondary" onClick={() => setPagina((p) => Math.max(1, p - 1))} disabled={pagina === 1}>
             Anterior
-          </button>
-          <span className="text-xs text-muted-foreground">
-            Pagina {pagina} de {totalPaginas}
-          </span>
-          <button
-            className="btn-secondary text-xs"
-            onClick={() => setPagina((p) => Math.min(totalPaginas, p + 1))}
-            disabled={pagina === totalPaginas}
-          >
+          </Button>
+          <span className="text-xs text-muted-foreground">Página {pagina} de {totalPaginas}</span>
+          <Button size="sm" variant="secondary" onClick={() => setPagina((p) => Math.min(totalPaginas, p + 1))} disabled={pagina === totalPaginas}>
             Siguiente
-          </button>
+          </Button>
         </div>
       )}
 
       <RegistrarNormaDialog open={registrarOpen} onClose={() => setRegistrarOpen(false)} />
-      {derogar && (
-        <DerogarNormaDialog norma={derogar} open onClose={() => setDerogar(null)} />
-      )}
-      {editar && (
-        <ActualizarNormaDialog norma={editar} open onClose={() => setEditar(null)} />
-      )}
+      {derogar && <DerogarNormaDialog norma={derogar} open onClose={() => setDerogar(null)} />}
+      {editar && <ActualizarNormaDialog norma={editar} open onClose={() => setEditar(null)} />}
     </div>
   )
 }
