@@ -20,12 +20,12 @@ function formatCOP(n: number): string {
   }).format(n)
 }
 
-function PctBar({ pct, accent = "blue" }: { pct: number; accent?: "blue" | "gold" }) {
+function PctBar({ pct }: { pct: number }) {
   const width = Math.max(4, Math.min(pct, 100))
   return (
     <div className="mt-4 h-2.5 w-full overflow-hidden rounded-full bg-[#dbe8f4] shadow-[inset_0_1px_2px_rgba(0,75,130,0.10)]">
       <div
-        className={accent === "gold" ? "h-full rounded-full bg-[#d5bb87] shadow-[0_0_18px_rgba(213,187,135,0.42)]" : "h-full rounded-full bg-[#004b82] shadow-[0_0_18px_rgba(0,75,130,0.34)]"}
+        className="h-full rounded-full bg-[#004b82] shadow-[0_0_18px_rgba(0,75,130,0.34)]"
         style={{ width: `${width}%` }}
       />
     </div>
@@ -38,36 +38,28 @@ function KPICard({
   sub,
   pct,
   icon: Icon,
-  accent = "blue",
 }: {
   label: string
   value: string
   sub?: string
   pct?: number
   icon: LucideIcon
-  accent?: "blue" | "gold"
 }) {
   return (
-    <div
-      className={[
-        "group relative overflow-hidden rounded-[16px] border border-[rgba(15,23,42,0.08)] bg-white p-5 shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-200 ease-out hover:border-[#004b82]/25 hover:shadow-[0_8px_18px_rgba(15,23,42,0.10)]",
-        accent === "gold" ? "before:bg-[#d5bb87]" : "before:bg-[#004b82]",
-        "before:absolute before:inset-x-0 before:top-0 before:h-1.5",
-      ].join(" ")}
-    >
+    <div className="group relative overflow-hidden rounded-[16px] border border-[rgba(15,23,42,0.08)] bg-white p-5 shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-200 ease-out hover:border-[#004b82]/25 hover:shadow-[0_8px_18px_rgba(15,23,42,0.10)]">
       <div className="relative flex items-start justify-between gap-4">
         <div className="min-w-0">
           <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#607086]">{label}</p>
           <p className="mt-3 text-4xl font-bold tracking-[-0.05em] text-[#0f2f4f] tabular-nums">{value}</p>
         </div>
-        <div className={accent === "gold" ? "rounded-[16px] border border-[#d5bb87]/45 bg-[#fff8e6] p-3 text-[#9a6a1f] shadow-[0_10px_24px_rgba(154,106,31,0.12)]" : "rounded-[16px] border border-[#004b82]/18 bg-[#edf4fb] p-3 text-[#004b82] shadow-[0_10px_24px_rgba(0,75,130,0.12)]"}>
+        <div className="rounded-[16px] border border-[#004b82]/18 bg-[#edf4fb] p-3 text-[#004b82] shadow-[0_10px_24px_rgba(0,75,130,0.12)]">
           <Icon className="h-5 w-5" aria-hidden="true" />
         </div>
       </div>
       {sub && <p className="relative mt-3 line-clamp-2 text-sm font-medium leading-5 text-[#5b6b7f]">{sub}</p>}
       {pct !== undefined && (
         <div className="relative">
-          <PctBar pct={pct} accent={accent} />
+          <PctBar pct={pct} />
           <div className="mt-2 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.12em] text-[#607086]">
             <span>Avance</span>
             <span>{Math.min(Math.max(pct, 0), 100).toFixed(1)}%</span>
@@ -94,7 +86,6 @@ export function ResumenCards({ resumen }: Props) {
         sub={`${formatCOP(resumen.totalEjecutadoGastos)} / ${formatCOP(resumen.totalPresupuestoGastos)}`}
         pct={resumen.porcentajeEjecucionGastos}
         icon={BarChart3}
-        accent="gold"
       />
       <KPICard
         label="SAR Pendientes"
@@ -109,7 +100,6 @@ export function ResumenCards({ resumen }: Props) {
         sub={`${resumen.proyectosActivos} proyectos activos`}
         pct={Math.min(resumen.cdpPendientes * 10, 100)}
         icon={FileCheck2}
-        accent="gold"
       />
     </div>
   )

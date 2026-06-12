@@ -17,15 +17,11 @@ export function ProyectoSemaforoCard({ proyecto, onAnular }: Props) {
   const hex   = SEMAFORO_HEX[color]
 
   return (
-    <div className="relative rounded-lg border bg-card p-4 shadow-sm hover:shadow-md transition-shadow">
-      {/* Semáforo lateral */}
-      <div
-        className="absolute left-0 top-0 h-full w-1 rounded-l-lg"
-        style={{ backgroundColor: hex }}
-        aria-hidden="true"
-      />
-
-      <div className="pl-3">
+    <div
+      className="relative rounded-lg bg-card p-4 shadow-sm hover:shadow-md transition-shadow"
+      style={{ border: `1.5px solid ${hex}` }}
+    >
+      <div className="pl-1">
         {/* Encabezado */}
         <div className="flex items-start justify-between gap-2">
           <div className="flex-1 min-w-0">

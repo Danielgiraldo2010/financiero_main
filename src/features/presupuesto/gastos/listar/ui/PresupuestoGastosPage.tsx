@@ -45,8 +45,7 @@ export function PresupuestoGastosPage() {
       <PageHeader title="Gastos Presupuestales"
         description={`Vigencia ${vigencia} — solo lectura`}
         actions={
-          <Button variant="outline" onClick={() => setConfirmProyectar(true)}
-            disabled={proyectar.isPending}>
+          <Button size="sm" onClick={() => setConfirmProyectar(true)} disabled={proyectar.isPending}>
             Proyectar desde vigencia anterior
           </Button>
         }

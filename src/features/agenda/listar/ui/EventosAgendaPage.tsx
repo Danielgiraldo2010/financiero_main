@@ -1,14 +1,12 @@
 import { useState } from "react"
 import { useEventosAgenda } from "../hook"
 import { PageHeader } from "@/shared/ui/layout/PageHeader"
+import { Button } from "@/components/ui/button"
 import { CrearEventoDialog } from "../../crear/ui/CrearEventoDialog"
 import { CompletarEventoDialog } from "../../completar/ui/CompletarEventoDialog"
 import { CancelarEventoDialog } from "../../cancelar/ui/CancelarEventoDialog"
 import { ActualizarEventoDialog } from "../../actualizar/ui/ActualizarEventoDialog"
-import {
-  SEMAFORO_ESTADO,
-  LABEL_ESTADO,
-} from "../../model/constants"
+import { SEMAFORO_ESTADO, LABEL_ESTADO } from "../../model/constants"
 import type { AgendaEventoResponse } from "../../model/types"
 
 export function EventosAgendaPage() {
@@ -29,16 +27,9 @@ export function EventosAgendaPage() {
   return (
     <div className="space-y-4">
       <PageHeader
-        title="Gestion de Eventos"
+        title="Gestión de Eventos"
         description="Administre los eventos presupuestales de la unidad"
-        actions={
-          <button
-            className="btn-primary text-sm"
-            onClick={() => setCrearOpen(true)}
-          >
-            + Nuevo evento
-          </button>
-        }
+        actions={<Button size="sm" onClick={() => setCrearOpen(true)}>+ Nuevo evento</Button>}
       />
 
       {eventos.length === 0 && (
@@ -51,56 +42,39 @@ export function EventosAgendaPage() {
           const completado = ev.estado === "COMPLETADO"
           const cancelado = ev.estado === "CANCELADO"
           return (
-            <div key={ev.id} className="border rounded-lg p-4 flex items-start gap-4">
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="font-medium text-sm">{ev.titulo}</span>
-                  <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${estadoClass}`}>
+            <div key={ev.id} className="corporate-card flex items-start gap-4 p-4">
+              <div className="min-w-0 flex-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-sm font-semibold text-[#1f2937]">{ev.titulo}</span>
+                  <span className={`inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium ${estadoClass}`}>
                     {LABEL_ESTADO[ev.estado] ?? ev.estado}
                   </span>
                   {ev.prioridad === "ALTA" && (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-50 text-red-700">
+                    <span className="inline-flex items-center rounded-md bg-red-50 px-2 py-0.5 text-xs font-medium text-red-700">
                       Alta prioridad
                     </span>
                   )}
                 </div>
                 {ev.descripcion && (
-                  <p className="text-xs text-muted-foreground mt-0.5">{ev.descripcion}</p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">{ev.descripcion}</p>
                 )}
-                <div className="flex items-center gap-4 mt-1 text-xs text-muted-foreground">
+                <div className="mt-1 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
                   <span>Inicio: {new Date(ev.fechaInicio).toLocaleDateString("es-CO")}</span>
                   {ev.fechaLimite && (
-                    <span className="text-red-600 font-medium">
-                      Limite: {new Date(ev.fechaLimite).toLocaleDateString("es-CO")}
+                    <span className="font-medium text-red-600">
+                      Límite: {new Date(ev.fechaLimite).toLocaleDateString("es-CO")}
                     </span>
                   )}
                   <span>{ev.unidadEjecutoraNombre ?? "—"}</span>
                 </div>
               </div>
-              <div className="flex items-center gap-2 shrink-0">
-                {!completado && !cancelado && (
-                  <>
-                    <button
-                      className="text-xs text-blue-600 hover:underline"
-                      onClick={() => setEditar(ev)}
-                    >
-                      Editar
-                    </button>
-                    <button
-                      className="text-xs text-green-600 hover:underline"
-                      onClick={() => setCompletar(ev)}
-                    >
-                      Completar
-                    </button>
-                    <button
-                      className="text-xs text-red-600 hover:underline"
-                      onClick={() => setCancelar(ev)}
-                    >
-                      Cancelar
-                    </button>
-                  </>
-                )}
-              </div>
+              {!completado && !cancelado && (
+                <div className="flex shrink-0 items-center gap-2">
+                  <Button size="xs" variant="secondary" onClick={() => setEditar(ev)}>Editar</Button>
+                  <Button size="xs" variant="outline" onClick={() => setCompletar(ev)}>Completar</Button>
+                  <Button size="xs" variant="destructive" onClick={() => setCancelar(ev)}>Cancelar</Button>
+                </div>
+              )}
             </div>
           )
         })}
@@ -108,48 +82,20 @@ export function EventosAgendaPage() {
 
       {totalPaginas > 1 && (
         <div className="flex items-center justify-end gap-2 pt-2">
-          <button
-            className="btn-secondary text-xs"
-            onClick={() => setPagina((p) => Math.max(1, p - 1))}
-            disabled={pagina === 1}
-          >
+          <Button size="sm" variant="secondary" onClick={() => setPagina((p) => Math.max(1, p - 1))} disabled={pagina === 1}>
             Anterior
-          </button>
-          <span className="text-xs text-muted-foreground">
-            Pagina {pagina} de {totalPaginas}
-          </span>
-          <button
-            className="btn-secondary text-xs"
-            onClick={() => setPagina((p) => Math.min(totalPaginas, p + 1))}
-            disabled={pagina === totalPaginas}
-          >
+          </Button>
+          <span className="text-xs text-muted-foreground">Página {pagina} de {totalPaginas}</span>
+          <Button size="sm" variant="secondary" onClick={() => setPagina((p) => Math.min(totalPaginas, p + 1))} disabled={pagina === totalPaginas}>
             Siguiente
-          </button>
+          </Button>
         </div>
       )}
 
       <CrearEventoDialog open={crearOpen} onClose={() => setCrearOpen(false)} />
-      {completar && (
-        <CompletarEventoDialog
-          evento={completar}
-          open={!!completar}
-          onClose={() => setCompletar(null)}
-        />
-      )}
-      {cancelar && (
-        <CancelarEventoDialog
-          evento={cancelar}
-          open={!!cancelar}
-          onClose={() => setCancelar(null)}
-        />
-      )}
-      {editar && (
-        <ActualizarEventoDialog
-          evento={editar}
-          open={!!editar}
-          onClose={() => setEditar(null)}
-        />
-      )}
+      {completar && <CompletarEventoDialog evento={completar} open onClose={() => setCompletar(null)} />}
+      {cancelar && <CancelarEventoDialog evento={cancelar} open onClose={() => setCancelar(null)} />}
+      {editar && <ActualizarEventoDialog evento={editar} open onClose={() => setEditar(null)} />}
     </div>
   )
 }

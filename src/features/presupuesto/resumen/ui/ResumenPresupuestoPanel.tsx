@@ -30,17 +30,15 @@ interface MetricCardProps {
   highlight?: boolean
   icon: LucideIcon
   progress?: number
-  accent?: 'blue' | 'gold'
 }
 
-function MetricCard({ label, value, sub, highlight, icon: Icon, progress, accent = 'blue' }: MetricCardProps) {
+function MetricCard({ label, value, sub, highlight, icon: Icon, progress }: MetricCardProps) {
   const progressValue = progress === undefined ? undefined : Math.max(4, Math.min(progress, 100))
 
   return (
     <div
       className={cn(
-        'group relative overflow-hidden rounded-[16px] border border-[rgba(15,23,42,0.08)] bg-white p-5 shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-200 ease-out hover:border-[#004b82]/25 hover:shadow-[0_8px_18px_rgba(15,23,42,0.10)] before:absolute before:inset-x-0 before:top-0 before:h-1.5',
-        accent === 'gold' ? 'before:bg-[#d5bb87]' : 'before:bg-[#004b82]',
+        'group relative overflow-hidden rounded-[16px] border border-[rgba(15,23,42,0.08)] bg-white p-5 shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-200 ease-out hover:border-[#004b82]/25 hover:shadow-[0_8px_18px_rgba(15,23,42,0.10)]',
         highlight && 'border-destructive/35 bg-destructive/5'
       )}
     >
@@ -49,17 +47,14 @@ function MetricCard({ label, value, sub, highlight, icon: Icon, progress, accent
           <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#607086]">{label}</p>
           <p className="mt-3 text-3xl font-bold tracking-[-0.045em] text-[#0f2f4f] tabular-nums">{value}</p>
         </div>
-        <div className={accent === 'gold' ? 'rounded-[16px] border border-[#d5bb87]/45 bg-[#fff8e6] p-3 text-[#9a6a1f] shadow-[0_10px_24px_rgba(154,106,31,0.12)]' : 'rounded-[16px] border border-[#004b82]/18 bg-[#edf4fb] p-3 text-[#004b82] shadow-[0_10px_24px_rgba(0,75,130,0.12)]'}>
+        <div className="rounded-[16px] border border-[#004b82]/18 bg-[#edf4fb] p-3 text-[#004b82] shadow-[0_10px_24px_rgba(0,75,130,0.12)]">
           <Icon className="h-5 w-5" aria-hidden="true" />
         </div>
       </div>
       {sub && <p className="relative mt-3 text-sm font-medium leading-5 text-[#5b6b7f]">{sub}</p>}
       {progressValue !== undefined && (
         <div className="relative mt-4 h-2.5 overflow-hidden rounded-full bg-[#dbe8f4] shadow-[inset_0_1px_2px_rgba(0,75,130,0.10)]">
-          <div
-            className={accent === 'gold' ? 'h-full rounded-full bg-[#d5bb87]' : 'h-full rounded-full bg-[#004b82]'}
-            style={{ width: `${progressValue}%` }}
-          />
+          <div className="h-full rounded-full bg-[#004b82]" style={{ width: `${progressValue}%` }} />
         </div>
       )}
     </div>
@@ -94,8 +89,7 @@ export function ResumenPresupuestoPanel() {
           value={formatCOP(data.totalPresupuestoGastos)}
           sub={`Ejecutado: ${formatCOP(data.totalEjecutadoGastos)} (${pctG}%)`}
           progress={Number(data.porcentajeEjecucionGastos)}
-          icon={WalletCards}
-          accent="gold" />
+          icon={WalletCards} />
         <MetricCard label="Saldo Disponible Gastos"
           value={formatCOP(data.saldoDisponibleGastos)}
           highlight={data.saldoDisponibleGastos < 0}
@@ -105,8 +99,7 @@ export function ResumenPresupuestoPanel() {
           value={data.unidadEjecutora}
           sub={`ID: ${data.unidadEjecutoraId}`}
           progress={100}
-          icon={Building2}
-          accent="gold" />
+          icon={Building2} />
       </div>
     </div>
   )
