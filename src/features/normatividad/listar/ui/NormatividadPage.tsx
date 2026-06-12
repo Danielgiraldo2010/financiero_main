@@ -86,8 +86,12 @@ export function NormatividadPage() {
                 </div>
                 <div className="flex shrink-0 items-center gap-2">
                   {norma.urlDocumento && (
-                    <Button size="xs" variant="outline" asChild>
-                      <a href={norma.urlDocumento} target="_blank" rel="noreferrer">Ver doc.</a>
+                    <Button
+                      size="xs"
+                      variant="outline"
+                      render={<a href={norma.urlDocumento} target="_blank" rel="noreferrer" />}
+                    >
+                      Ver doc.
                     </Button>
                   )}
                   {norma.estado !== "DEROGADA" && (
